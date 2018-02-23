@@ -13,7 +13,7 @@
   <tbody>
     <% @jobs.each do |job| %>
       <tr>
-        <td><%= link_to(job.link, job.link, :target => "_blank") %></td>
+        <td><%= link_to(job.title, job.link, :target => "_blank") %> (<%= job.company %>)</td>
         <td><%= link_to 'Show', job %></td>
         <td><%= link_to 'Edit', edit_job_path(job) %></td>
         <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
