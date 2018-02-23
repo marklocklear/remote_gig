@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20180222200824) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "jobs", force: :cascade do |t|
     t.string "link"
     t.datetime "created_at", null: false
