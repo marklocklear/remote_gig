@@ -7,19 +7,19 @@ task :get_jobs => :environment do
 	#weworkremotely
 	agent.get("https://weworkremotely.com/")
 	page = agent.page.inspect
-	links = page.scan(/remote-jobs\/[^"]*/)
-	links.each do |link|
-		link = "https://weworkremotely.com/" + link
-		Job.create link: link, title: link, company: "weworkremotely"
+	urls = page.scan(/remote-jobs\/[^"]*/)
+	urls.each do |url|
+		url = "https://weworkremotely.com/" + url
+		Job.create url: url, title: url, company: "weworkremotely"
 	end
 
 	#stackoverflow
 	agent.get("https://stackoverflow.com/jobs/feed?l=Remote")
 	page = agent.page.inspect
-	links = page.scan(/\/jobs\/\d{6}[^\/]*/)
-	links.each do |link|
-		link = "https://stackoverflow.com/" + link
-		Job.create link: link, title: link, company: "stackoverflow"
+	urls = page.scan(/\/jobs\/\d{6}[^\/]*/)
+	urls.each do |url|
+		url = "https://stackoverflow.com/" + url
+		Job.create url: url, title: url, company: "stackoverflow"
 	end
 
 	#redhat
@@ -32,7 +32,7 @@ task :get_jobs => :environment do
 	jobs_array = []
 	jobs.each do |j|
 		if j["city"] == "Remote" && j["country_short"] == "USA"
-			Job.create title: j["title"], link: j["url"], company: "Redhat"
+			Job.create title: j["title"], url: j["url"], company: "Redhat"
 		end
 	end
 
