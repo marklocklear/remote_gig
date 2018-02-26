@@ -1,16 +1,11 @@
-require 'mechanize'
 require 'open-uri'
-require 'csv'
+require 'nokogiri'
 
-agent = Mechanize.new
+doc = Nokogiri::XML(open("https://stackoverflow.com/jobs/feed?l=Remote"))
 
-agent.get("https://stackoverflow.com/jobs/feed?l=Remote")
-
-page = agent.page.inspect
-# puts page
-links = page.scan(/\/jobs\/\d{6}[^\/]*/)
-count = 0
-links.each do |l|
-	count += 1
-	puts "link #{count} is https://stackoverflow.com#{l}"
+doc.xpath('//item').each do |char_element|
+	puts "********************************"
+	puts char_element.xpath('title').text
+	puts char_element.xpath('link').text
+	puts char_element.xpath('a10:author//a10:name').text
 end

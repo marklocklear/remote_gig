@@ -1,3 +1,6 @@
+require 'open-uri'
+require 'nokogiri'
+
 desc "this is where the good stuff happens - scrapn jobs"
 task :get_jobs => :environment do
 	Job.delete_all
@@ -14,12 +17,11 @@ task :get_jobs => :environment do
 	end
 
 	#stackoverflow
-	agent.get("https://stackoverflow.com/jobs/feed?l=Remote")
-	page = agent.page.inspect
-	urls = page.scan(/\/jobs\/\d{6}[^\/]*/)
-	urls.each do |url|
-		url = "https://stackoverflow.com/" + url
-		Job.create url: url, title: url, company: "stackoverflow"
+	doc = Nokogiri::XML(open("https://stackoverflow.com/jobs/feed?l=Remote"))
+
+	doc.xpath('//item').each do |item|
+		Job.create url: item.xpath('link').text, title: item.xpath('title').text,
+		company: item.xpath('a10:author//a10:name').text, description: item.xpath('description').text
 	end
 
 	#redhat
