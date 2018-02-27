@@ -10,7 +10,10 @@
   <tbody>
     <% @jobs.each do |job| %>
       <tr>
-        <td><%= link_to(job.title, job.url, :target => "_blank") %> (<%= job.company %>)</td>
+        <td>
+          <div class="job"><%= link_to(job.title, job.url, :target => "_blank") %></div>
+          <div class="company"><%= job.company %></div>
+        </td>
       </tr>
     <% end %>
   </tbody>

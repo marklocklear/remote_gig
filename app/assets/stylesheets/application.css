@@ -13,3 +13,24 @@
  *= require_tree .
  *= require_self
  */
+
+td{
+  padding: 53px 14px 23px 40px;
+}
+
+.job{
+	max-width: 630px;
+	color: #07C;
+	font-size: 15px;
+	font-weight: bold;
+	line-height: 17px;
+	margin-right: 17px;
+}
+
+.company{
+	color: #535a60;
+	font-size: 15px;
+	line-height: 17px;
+	margin-right: 5px;
+	padding-top: 10px;
+}
