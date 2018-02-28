@@ -1,16 +1,15 @@
-#http://rubular.com/r/k8YfEbp36A
+require 'open-uri'
+require 'nokogiri'
 
-require 'mechanize'
+doc = Nokogiri::XML(open("https://weworkremotely.com/categories/remote-jobs.rss"))
 
-agent = Mechanize.new
+#https://weworkremotely.com/categories/remote-programming-jobs.rss
+#https://weworkremotely.com/categories/remote-jobs.rss
 
-agent.get("https://weworkremotely.com/")
 
-page = agent.page.inspect
-puts page
-links = page.scan(/remote-jobs\/[^"]*/)
-count = 0
-# links.each do |l|
-# 	count += 1
-# 	puts "link #{count} is https://weworkremotely.com/#{l}"
-# end
+doc.xpath('//item').each do |char_element|
+	puts "********************************"
+	puts char_element.xpath('title').text
+	puts char_element.xpath('link').text
+	puts char_element.xpath('a10:author//a10:name').text
+end

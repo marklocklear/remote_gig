@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'nokogiri'
+require 'mechanize'
 
 desc "this is where the good stuff happens - scrapn jobs"
 task :get_jobs => :environment do
@@ -32,10 +33,24 @@ task :get_jobs => :environment do
 	# jobs["city"].map {|jobs1| jobs1['city'] if jobs1['key']=='Remote'}.compact.first
 	count = 0
 	jobs_array = []
+
 	jobs.each do |j|
 		if j["city"] == "Remote" && j["country_short"] == "USA"
 			Job.create title: j["title"], url: j["url"], company: "Redhat"
 		end
+	end
+
+	#zapier
+	agent = Mechanize.new
+	agent.get("https://zapier.com/jobs/")
+	jobs = agent.page.parser.xpath('//*[@id="app"]/div[2]/div/div/div/ul').to_s.strip
+	doc = Nokogiri::HTML(jobs)   
+
+	doc.xpath('//li').each do |char_element|
+		# puts char_element.inspect
+		url = char_element.to_s.match(/\/jobs\/[^\/]*/).to_s
+		title = char_element.to_s.scan(/(?<=">)([^<]*)/)
+		Job.create title: title, url: "https://zapier.com" + url, company: "Zapier"
 	end
 
 end
