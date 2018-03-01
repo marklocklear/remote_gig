@@ -21,7 +21,8 @@ task :get_jobs => :environment do
 	doc = Nokogiri::XML(open("https://stackoverflow.com/jobs/feed?l=Remote"))
 
 	doc.xpath('//item').each do |item|
-		Job.create url: item.xpath('link').text, title: item.xpath('title').text,
+		#http://rubular.com/r/sYauhFimX1
+		Job.create url: item.xpath('link').text, title: item.xpath('title').text.gsub(/\(([^)]+)\)/,"")
 		company: item.xpath('a10:author//a10:name').text, description: item.xpath('description').text
 	end
 
