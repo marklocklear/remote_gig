@@ -50,7 +50,8 @@ task :get_jobs => :environment do
 	doc.xpath('//li').each do |char_element|
 		# puts char_element.inspect
 		url = char_element.to_s.match(/\/jobs\/[^\/]*/).to_s
-		title = char_element.to_s.scan(/(?<=">)([^<]*)/)
+		# title = char_element.to_s.scan(/(?<=">)([^<]*)/)
+		title = char_element.children.text
 		Job.create title: title, url: "https://zapier.com" + url, company: "Zapier"
 	end
 
