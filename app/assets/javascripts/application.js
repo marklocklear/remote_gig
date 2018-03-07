@@ -12,4 +12,17 @@
 //
 //= require rails-ujs
 //= require turbolinks
+//= require jquery
 //= require_tree .
+
+// $(document).ready(function(){
+//     $("#flip").click(function(){
+//         $("#panel").slideToggle("slow");
+//     });
+// });
+
+$(document).ready(function(){
+    $(".flip").click(function(){
+        $(this).next().find(".panel").slideToggle("slow");
+    });
+});
