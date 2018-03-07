@@ -13,8 +13,12 @@
         <td>
           <div class="job"><%= link_to(job.title, job.url, :target => "_blank") %></div>
           <div class="company"><%= job.company %></div>
-          <h4 class="flip">Tell Me More<h4>
-          <div class="panel">Description that slides down</div>
+          <% if job.description %>
+            <h4 class="flip">Tell Me More<h4>
+            <div class="panel"><%= job.description.html_safe %></div>
+          <% else %>
+            <%= link_to("Tell Me More", job.url, :target => "_blank") %>
+          <% end %>
         </td>
       </tr>
     <% end %>

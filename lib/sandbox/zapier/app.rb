@@ -10,7 +10,7 @@ jobs = agent.page.parser.xpath('//*[@id="app"]/div[2]/div/div/div/ul').to_s.stri
 doc = Nokogiri::HTML(jobs)   
 
 doc.xpath('//li').each do |char_element|
-	puts char_element.children.text
+	puts char_element
 	puts "********************************"
 	# puts char_element.to_s.scan(/\/jobs\/[^\/]*/)
 	# puts char_element.to_s.scan(/(?<=">)([^<]*)/)

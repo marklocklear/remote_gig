@@ -37,7 +37,7 @@ task :get_jobs => :environment do
 
 	jobs.each do |j|
 		if j["city"] == "Remote" && j["country_short"] == "USA"
-			Job.create title: j["title"], url: j["url"], company: "Redhat"
+			Job.create title: j["title"], url: j["url"], description: j["description"], company: "Redhat"
 		end
 	end
 
