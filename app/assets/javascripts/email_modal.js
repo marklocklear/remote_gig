@@ -54,8 +54,8 @@
 	DialogFx.prototype._initEvents = function() {
 		var self = this;
 
-		// close action
-		this.ctrlClose.addEventListener( 'click', this.toggle.bind(this) );
+		// close action; uncomment line below to add close button
+		// this.ctrlClose.addEventListener( 'click', this.toggle.bind(this) );
 
 		// esc key closes dialog
 		document.addEventListener( 'keydown', function( ev ) {

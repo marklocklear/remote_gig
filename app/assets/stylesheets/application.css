@@ -14,8 +14,7 @@
  *= require_self
  */
 
- .panel
-{
+ .panel{
     display:none;
     width: 50%;
 		font-size: 12px;
@@ -42,3 +41,11 @@ td{
 	margin-right: 5px;
 	padding-top: 10px;
 }
+
+.navbar {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
