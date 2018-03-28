@@ -20,7 +20,10 @@
   <% end %>
   </head>
   <div class="navbar">
-    <div class="button-wrap"><button data-dialog="somedialog" class="trigger">Email Me Remote Jobs</button></div>
+    <button data-dialog="somedialog" class="trigger" style="font-size:24px"><%= fa_icon "envelope" %></button>
+    <!-- <button data-dialog="somedialog" class="trigger" style="font-size:24px"><%= fa_icon "twitter" %></button> -->
+    <a style="font-size:24px" href="https://twitter.com/myremotegig"><%= fa_icon("twitter") %></a>
+
   </div>
   <div id="somedialog" class="dialog dialog--close">
     <div class="dialog__overlay"></div>

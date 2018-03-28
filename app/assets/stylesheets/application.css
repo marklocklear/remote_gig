@@ -11,14 +11,15 @@
  * It is generally better to create a new file per style scope.
  *
  *= require_tree .
+ *= require font-awesome
  *= require_self
  */
 
  .panel{
-    display:none;
-    width: 50%;
-		font-size: 12px;
-		color: #666;
+  display:none;
+  width: 50%;
+	font-size: 12px;
+	color: #666;
 }
 
 td{
@@ -48,4 +49,10 @@ td{
   top: 0;
   width: 100%;
 }
+.fa {
+  color: grey;
 
+}
+.fa:hover {
+    color: black;
+}

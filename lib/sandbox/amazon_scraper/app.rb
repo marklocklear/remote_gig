@@ -1,14 +1,12 @@
+require 'open-uri'
+require 'nokogiri'
 
-require 'mechanize'
+doc = Nokogiri::HTML(open("https://www.amazon.jobs/en/locations/virtual-locations?offset=0&result_limit=10&sort=relevant&category=software-development&distanceType=Mi&radius=24km&latitude=&longitude=&loc_group_id=&loc_query=&base_query=&city=&country=&region=&county=&query_options=&"))
+puts doc.inspect
+puts doc.css('.job-tile-lists col-xs-12')[0].inspect
 
-agent = Mechanize.new
+# doc.xpath('//*[@id="main-content"]/div[6]/div/div/div[2]/content/div/div/div[2]/div[2]/div').each do |char_element|
+# 	puts "********************************"
+# 	puts char_element.inspect
+# end
 
-agent.user_agent_alias = 'iPad"=>"Mozilla/5.0 (iPad; CPU OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1'
-
-agent.get("https://www.amazon.jobs/en/locations/virtual-locations?offset=0&result_limit=10&sort=relevant&category=software-development")
-
-page = agent.page.body
-
-puts page
-
-p Mechanize::AGENT_ALIASES
