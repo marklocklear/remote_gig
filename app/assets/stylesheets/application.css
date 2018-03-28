@@ -49,9 +49,13 @@ td{
   top: 0;
   width: 100%;
 }
+.icons {
+	float: right;
+	padding-right: 200px;
+}
 .fa {
   color: grey;
-
+  margin-right: 20px;
 }
 .fa:hover {
     color: black;

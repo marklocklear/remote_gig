@@ -20,10 +20,10 @@
   <% end %>
   </head>
   <div class="navbar">
-    <button data-dialog="somedialog" class="trigger" style="font-size:24px"><%= fa_icon "envelope" %></button>
-    <!-- <button data-dialog="somedialog" class="trigger" style="font-size:24px"><%= fa_icon "twitter" %></button> -->
-    <a style="font-size:24px" href="https://twitter.com/myremotegig"><%= fa_icon("twitter") %></a>
-
+    <div class="icons">
+      <a data-dialog="somedialog" class="trigger" style="font-size:24px"><%= fa_icon "envelope" %></a>
+      <a style="font-size:24px" href="https://twitter.com/myremotegig"><%= fa_icon("twitter") %></a>
+    </div>
   </div>
   <div id="somedialog" class="dialog dialog--close">
     <div class="dialog__overlay"></div>
@@ -43,7 +43,7 @@
           <input type="hidden" name="id" value="e18ac16d72">
           <div class="mergeRow dojoDndItem mergeRow-email" id="mergeRow-0">
             <div class="field-group">
-              <input type="email" autocapitalize="off" autocorrect="off" name="MERGE0" id="MERGE0" size="25" value="" placeholder="enter email address">
+              <input type="email" autocapitalize="off" autocorrect="off" name="MERGE0" id="MERGE0" size="25" value="" placeholder="enter your email address">
             </div>
           </div>
           </br>
