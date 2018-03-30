@@ -1,4 +1,4 @@
-require 'dotenv/tasks'
+# require 'dotenv/tasks' #uncomment to test locally
 
 # puts "api key is #{ENV['TWITTER_API_KEY']}"
 desc "send tweet"
