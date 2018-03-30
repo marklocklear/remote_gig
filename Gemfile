@@ -39,6 +39,7 @@ gem 'jquery-rails'
 #interface to the MailChimp API
 gem "gibbon"
 
+gem "twitter"
 gem "font-awesome-rails"
 
 group :development, :test do
