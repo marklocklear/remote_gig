@@ -42,6 +42,7 @@ task :get_jobs => :environment do
 	end
 
 	#zapier
+	#TODO use RSS feed instead https://zapier.com/jobs/feeds/latest/
 	agent = Mechanize.new
 	agent.get("https://zapier.com/jobs/")
 	jobs = agent.page.parser.xpath('//*[@id="app"]/div[2]/div/div/div/ul').to_s.strip

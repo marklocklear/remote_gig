@@ -12,6 +12,6 @@ task send_tweet: :environment do
 
 		random_job = Job.order("RANDOM()").last
 		tweet_of_the_day = "Todays #remoteJob is from #{random_job.company}.
-												They are looking for a #{random_job.title}. Find out more at #{random_job.url} #remote #gotRemote"
+												They are looking for a #{random_job.title}. Find out more at #{random_job.url} #remoteWork #gotRemote"
 	  client.update(tweet_of_the_day)
 end
