@@ -37,7 +37,7 @@ task :get_jobs => :environment do
 
 	doc.xpath('//item').each do |item|
 		#http://rubular.com/r/sYauhFimX1
-		Job.create url: item.xpath('link').text, title: item.xpath('title').text.gsub!(/[^0-9A-Za-z] /, ''),
+		Job.create url: item.xpath('link').text, title: item.xpath('title').text.split('at').first,
 		company: item.xpath('a10:author//a10:name').text, description: item.xpath('description').text
 	end
 
