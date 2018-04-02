@@ -1,7 +1,7 @@
 require 'open-uri'
 require 'nokogiri'
 
-doc = Nokogiri::XML(open("https://weworkremotely.com/categories/remote-jobs.rss"))
+doc = Nokogiri::XML(open("https://weworkremotely.com/categories/remote-devops-sysadmin-jobs.rss"))
 
 #https://weworkremotely.com/categories/remote-programming-jobs.rss
 #https://weworkremotely.com/categories/remote-jobs.rss

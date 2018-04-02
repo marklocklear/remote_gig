@@ -8,15 +8,30 @@ task :get_jobs => :environment do
 
 	agent = Mechanize.new
 
-	#weworkremotely
-	agent.get("https://weworkremotely.com/")
-	page = agent.page.inspect
-	urls = page.scan(/remote-jobs\/[^"]*/)
-	urls.each do |url|
-		url = "https://weworkremotely.com/" + url
-		Job.create url: url, title: url, company: "weworkremotely"
+	#weworkremotely programming jobs
+	doc = Nokogiri::XML(open("https://weworkremotely.com/categories/remote-programming-jobs.rss"))
+
+	doc.xpath('//item').each do |char_element|
+		title = char_element.xpath('title').text.split(':').last
+		company = char_element.xpath('title').text.split(':').first
+		description = char_element.xpath('description').text
+		link = char_element.xpath('link').text
+
+		Job.create title: title, url: link, description: description, company: company
 	end
 
+	#weworkremotely devops jobs
+	doc = Nokogiri::XML(open("https://weworkremotely.com/categories/remote-devops-sysadmin-jobs.rss"))
+
+	doc.xpath('//item').each do |char_element|
+		title = char_element.xpath('title').text.split(':').last
+		company = char_element.xpath('title').text.split(':').first
+		description = char_element.xpath('description').text
+		link = char_element.xpath('link').text
+
+		Job.create title: title, url: link, description: description, company: company
+	end
+	
 	#stackoverflow
 	doc = Nokogiri::XML(open("https://stackoverflow.com/jobs/feed?l=Remote"))
 
