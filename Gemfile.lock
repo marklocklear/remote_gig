@@ -91,6 +91,8 @@ GEM
       domain_name (~> 0.5)
     http-form_data (2.1.0)
     http_parser.rb (0.6.0)
+    httparty (0.15.6)
+      multi_xml (>= 0.5.2)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     jbuilder (2.7.0)
@@ -128,6 +130,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     multi_json (1.13.1)
+    multi_xml (0.6.0)
     multipart-post (2.0.0)
     naught (1.1.0)
     net-http-digest_auth (1.4.1)
@@ -244,6 +247,7 @@ DEPENDENCIES
   dotenv-rails
   font-awesome-rails
   gibbon
+  httparty
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)

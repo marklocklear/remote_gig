@@ -61,6 +61,27 @@ class JobsController < ApplicationController
     end
   end
 
+  def email_signup
+    email_address = params[:email_address]
+
+    url = URI("https://api.sendgrid.com/v3/contactdb/recipients")
+
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    request = Net::HTTP::Post.new(url)
+    request["authorization"] = "Bearer #{ENV['SENDGRID_API_KEY']}"
+    request["content-type"] = 'application/json'
+    request.body = [{"email": email_address}].to_json
+
+    response = http.request(request)
+    # puts response.read_body #uncomment to view response/debug
+
+    redirect_to jobs_url, notice: "Thank you for signing up"
+    #TODO add checkbox after signup https://codepen.io/istiaktridip/pen/BZqaOd
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_job
