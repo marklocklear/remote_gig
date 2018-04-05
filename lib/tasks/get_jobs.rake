@@ -57,18 +57,11 @@ task :get_jobs => :environment do
 	end
 
 	#zapier
-	#TODO use RSS feed instead https://zapier.com/jobs/feeds/latest/
-	agent = Mechanize.new
-	agent.get("https://zapier.com/jobs/")
-	jobs = agent.page.parser.xpath('//*[@id="app"]/div[2]/div/div/div/ul').to_s.strip
-	doc = Nokogiri::HTML(jobs)   
+	doc = Nokogiri::XML(open("https://zapier.com/jobs/feeds/latest/"))
 
-	doc.xpath('//li').each do |char_element|
-		# puts char_element.inspect
-		url = char_element.to_s.match(/\/jobs\/[^\/]*/).to_s
-		# title = char_element.to_s.scan(/(?<=">)([^<]*)/)
-		title = char_element.children.text
-		Job.create title: title, url: "https://zapier.com" + url, company: "Zapier"
+	doc.xpath('//item').each do |item|
+		Job.create url: item.xpath('link').text, title: item.xpath('title').text,
+		company: 'Zapier', description: item.xpath('description').text
 	end
 
 end

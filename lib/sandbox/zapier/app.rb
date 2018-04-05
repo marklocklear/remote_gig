@@ -1,21 +1,15 @@
-require 'mechanize'
+require 'open-uri'
 require 'nokogiri'
 
-agent = Mechanize.new
+doc = Nokogiri::XML(open("https://zapier.com/jobs/feeds/latest/"))
 
-agent.get("https://zapier.com/jobs/")
-
-jobs = agent.page.parser.xpath('//*[@id="app"]/div[2]/div/div/div/ul').to_s.strip
-
-doc = Nokogiri::HTML(jobs)   
-
-doc.xpath('//li').each do |char_element|
-	puts char_element
+doc.xpath('//item').each do |char_element|
 	puts "********************************"
-	# puts char_element.to_s.scan(/\/jobs\/[^\/]*/)
-	# puts char_element.to_s.scan(/(?<=">)([^<]*)/)
-end
+	# title = char_element.xpath('title').text.gsub!(/[^0-9A-Za-z] /, '').gsub(/(allows remote)/, '')
+	title = char_element.xpath('title').text
+	link = char_element.xpath('link')
+	puts title
 
-#for regex see
-#http://rubular.com/r/TLRv46NVAH
-#http://rubular.com/r/wn3FwEsV1a
+	# puts char_element.xpath('link').text
+	# puts char_element.xpath('a10:author//a10:name').text
+end
