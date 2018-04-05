@@ -63,21 +63,22 @@ class JobsController < ApplicationController
 
   def email_signup
     email_address = params[:email_address]
-    # sendgrid_api_options = [:bearer] = ENV['SENDGRID_API_KEY']
-    # sendgrid_api_options =  [
-    #                           {
-    #                             "email": email_address,
-    #                             "bearer": ENV['SENDGRID_API_KEY']
-    #                           }
-    #                         ]
-    # data = ['{ "email" : #{email_address} }']
-    #https://sendgrid.com/docs/API_Reference/Web_API_v3/Marketing_Campaigns/contactdb.html#Add-Single-Recipient-POST
-    # add_recipient = HTTParty.post("https://api.sendgrid.com/v3/contactdb/recipients", sendgrid_api_options)
-    # send email https://www.codecademy.com/courses/javascript-beginner-en-XNwEp/1/2
-    @result = HTTParty.post("https://api.sendgrid.com/v3/contactdb/recipients",
-              headers: Authorization: Bearer ENV['SENDGRID_API_KEY'])
 
-    redirect_to jobs_url, notice: @result.inspect
+    url = URI("https://api.sendgrid.com/v3/contactdb/recipients")
+
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    request = Net::HTTP::Post.new(url)
+    request["authorization"] = "Bearer #{ENV['SENDGRID_API_KEY']}"
+    request["content-type"] = 'application/json'
+    request.body = [{"email": email_address}].to_json
+
+    response = http.request(request)
+    # puts response.read_body #uncomment to view response/debug
+
+    redirect_to jobs_url, notice: "Thank you for signing up"
     #TODO add checkbox after signup https://codepen.io/istiaktridip/pen/BZqaOd
   end
 
