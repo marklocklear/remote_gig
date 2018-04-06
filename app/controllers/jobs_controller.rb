@@ -76,9 +76,11 @@ class JobsController < ApplicationController
     request.body = [{"email": email_address}].to_json
 
     response = http.request(request)
+    result = JSON.parse(response.body)
     # puts response.read_body #uncomment to view response/debug
+    # redirect_to jobs_url, notice: result["errors"]
 
-    redirect_to jobs_url, notice: "Thank you for signing up"
+    redirect_to jobs_url, notice: "Thanks for Signing Up"
     #TODO add checkbox after signup https://codepen.io/istiaktridip/pen/BZqaOd
   end
 
