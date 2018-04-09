@@ -64,4 +64,16 @@ task :get_jobs => :environment do
 		company: 'Zapier', description: item.xpath('description').text
 	end
 
+	#mozilla
+	doc = Nokogiri::HTML(open("https://careers.mozilla.org/listings/?location=Remote"))
+
+	doc.css('.position').each do |char_element|
+		url = 'https://careers.mozilla.org' + char_element.css('.title a')[0]['href']
+		title = char_element.css('td')[0].text
+		location = char_element.css('td')[1].text
+		
+		if location.include? "Remote"
+			Job.create url: url, title: title, company: 'Mozilla'
+		end
+	end
 end
