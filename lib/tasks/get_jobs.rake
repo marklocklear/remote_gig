@@ -76,4 +76,17 @@ task :get_jobs => :environment do
 			Job.create url: url, title: title, company: 'Mozilla'
 		end
 	end
+
+	#canonical
+	doc = Nokogiri::HTML(open("https://www.canonical.com/careers/all-vacancies"))
+
+	doc.css('.p-list__item').each do |char_element|
+		url = char_element.css('a')[0]['href']
+		location = char_element.css('em')[0].text
+		title = char_element.css('a')[0].text
+			
+		if location.include? "Home Based"
+			Job.create url: url, title: title, company: 'Canonical (Ubuntu)'
+		end
+	end
 end

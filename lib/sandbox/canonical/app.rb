@@ -2,13 +2,21 @@ require 'open-uri'
 require 'nokogiri'
 
 doc = Nokogiri::HTML(open("https://www.canonical.com/careers/all-vacancies"))
-puts doc.inspect
-# doc.xpath('//item').each do |char_element|
-# 	puts "********************************"
-# 	# title = char_element.xpath('title').text.gsub!(/[^0-9A-Za-z] /, '').gsub(/(allows remote)/, '')
-# 	title = char_element.xpath('title').text.split('at').first
-# 	puts title
+	# puts doc.inspect
+# puts doc.css(".p-list__item").text
+doc.css('.p-list__item').each do |char_element|
+	puts "********************************"
+# puts char_element.css('a')[0]
+	# title = char_element.css('td')[0].text
+	# location = char_element.css('td')[1].text
+	url = char_element.css('a')[0]['href']
+	location = char_element.css('em')[0].text
+	title = char_element.css('a')[0].text
 
-# 	# puts char_element.xpath('link').text
-# 	# puts char_element.xpath('a10:author//a10:name').text
-# end
+# puts "title is #{title}"
+	if location.include? "Home Based"
+		puts "********************************"
+		puts title.split('-').first
+		puts url
+	end
+end
