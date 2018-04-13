@@ -61,3 +61,20 @@ td{
 .fa:hover {
     color: black;
 }
+
+.fa.fa-money:hover {
+	color: #b5e7a0;
+}
+
+.fa.fa-suitcase:hover {
+	color: #f18973;
+}
+
+.fa.fa-child:hover {
+	color: #f7cac9;
+}
+
+#badge {
+	margin-right: 5px;
+  margin-top: 5px;
+}

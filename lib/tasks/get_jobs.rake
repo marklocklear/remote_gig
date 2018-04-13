@@ -86,7 +86,7 @@ task :get_jobs => :environment do
 		title = char_element.css('a')[0].text
 			
 		if location.include? "Home Based"
-			Job.create url: url, title: title, company: 'Canonical (Ubuntu)'
+			Job.create url: url, title: title, company: 'Ubuntu'
 		end
 	end
 end
