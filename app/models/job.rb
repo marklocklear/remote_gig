@@ -1,20 +1,22 @@
 class Job < ApplicationRecord
 	#call from console with Job::COMPANY[:zapier][:diversity]
   COMPANY = {
-  	:zapier => { :diversity => 'https://zapier.com/jobs/working-on-diversity-and-inclusivity/',
-  							 :unlimited_vacation => 'https://zapier.com/jobs/',
-  							 :maternity => 'https://zapier.com/blog/parental-leave/',
-  							 :salary => 'https://www.glassdoor.com/Salary/Zapier-Salaries-E1196705.htm'
-  						 },
-  	:mozilla => { :diversity => 'https://wiki.mozilla.org/Diversity_and_Inclusion_Strategy/Community_Participation_Guidelines',
-  								:salary => 'https://www.glassdoor.com/Salary/Mozilla-Salaries-E19129.htm'
-  							},
-  	:ubuntu => { :diversity => 'http://blog.canonical.com/2014/07/14/sometimes-the-best-man-for-the-job-isnt/',
-  							 :salary => 'https://www.glassdoor.com/Salary/Canonical-Salaries-E230560.htm'
-  							},
-  	:redhat => { :diversity => 'https://www.redhat.com/en/blog/diversity-and-our-business',
-  							 :salary => 'https://www.glassdoor.com/Salary/Red-Hat-Salaries-E8868.htm'
-  							}
+  	:zapier => 	 { :diversity => 'https://zapier.com/jobs/working-on-diversity-and-inclusivity/',
+	  							 :unlimited_vacation => 'https://zapier.com/jobs/',
+	  							 :maternity => 'https://zapier.com/blog/parental-leave/',
+	  							 :salary => 'https://www.glassdoor.com/Salary/Zapier-Salaries-E1196705.htm'
+	  						 },
+  	:mozilla =>  { :diversity => 'https://wiki.mozilla.org/Diversity_and_Inclusion_Strategy/Community_Participation_Guidelines',
+  								 :salary => 'https://www.glassdoor.com/Salary/Mozilla-Salaries-E19129.htm'
+  							 },
+	  :ubuntu => 	 { :diversity => 'http://blog.canonical.com/2014/07/14/sometimes-the-best-man-for-the-job-isnt/',
+	  							 :salary => 'https://www.glassdoor.com/Salary/Canonical-Salaries-E230560.htm'
+	  						 },
+  	:redhat =>   { :diversity => 'https://www.redhat.com/en/blog/diversity-and-our-business',
+  							 	 :salary => 'https://www.glassdoor.com/Salary/Red-Hat-Salaries-E8868.htm'
+  								},
+  	:karat => 		{ :unlimited_vacation => 'https://www.karat.io/careers'
+  								}
   }
 
 	def self.get_badges(company)
