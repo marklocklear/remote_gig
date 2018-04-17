@@ -9,8 +9,11 @@ class Job < ApplicationRecord
   	:mozilla => { :diversity => 'https://wiki.mozilla.org/Diversity_and_Inclusion_Strategy/Community_Participation_Guidelines',
   								:salary => 'https://www.glassdoor.com/Salary/Mozilla-Salaries-E19129.htm'
   							},
-  	:ubuntu => { :diversity => 'http://blog.canonical.com/2014/07/14/sometimes-the-best-man-for-the-job-isnt/'
-
+  	:ubuntu => { :diversity => 'http://blog.canonical.com/2014/07/14/sometimes-the-best-man-for-the-job-isnt/',
+  							 :salary => 'https://www.glassdoor.com/Salary/Canonical-Salaries-E230560.htm'
+  							},
+  	:redhat => { :diversity => 'https://www.redhat.com/en/blog/diversity-and-our-business',
+  							 :salary => 'https://www.glassdoor.com/Salary/Red-Hat-Salaries-E8868.htm'
   							}
   }
 
@@ -34,7 +37,7 @@ class Job < ApplicationRecord
 
 		if !unlimited_vacation.nil?
 			link = Job::COMPANY[company.downcase.to_sym][:unlimited_vacation]
-			badges << '<a href= %s target="_blank"><i title="Vacation" id="badge" class="fa fa-suitcase"></i></a>'.html_safe % [link]
+			badges << '<a href= %s target="_blank"><i title="Unlimited Vacation" id="badge" class="fa fa-suitcase"></i></a>'.html_safe % [link]
 		end
 
 		if !maternity.nil?
