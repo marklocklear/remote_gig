@@ -4,7 +4,8 @@ class Job < ApplicationRecord
   	:zapier => 	 { :diversity => 'https://zapier.com/jobs/working-on-diversity-and-inclusivity/',
 	  							 :unlimited_vacation => 'https://zapier.com/jobs/',
 	  							 :maternity => 'https://zapier.com/blog/parental-leave/',
-	  							 :salary => 'https://www.glassdoor.com/Salary/Zapier-Salaries-E1196705.htm'
+	  							 :salary => 'https://www.glassdoor.com/Salary/Zapier-Salaries-E1196705.htm',
+	  							 :remote => 'https://zapier.com/jobs/'
 	  						 },
   	:mozilla =>  { :diversity => 'https://wiki.mozilla.org/Diversity_and_Inclusion_Strategy/Community_Participation_Guidelines',
   								 :salary => 'https://www.glassdoor.com/Salary/Mozilla-Salaries-E19129.htm'
@@ -24,6 +25,7 @@ class Job < ApplicationRecord
 		salary = Job::COMPANY[company.downcase.to_sym][:salary] rescue nil
 		unlimited_vacation = Job::COMPANY[company.downcase.to_sym][:unlimited_vacation] rescue nil
 		maternity = Job::COMPANY[company.downcase.to_sym][:maternity] rescue nil
+		remote = Job::COMPANY[company.downcase.to_sym][:remote] rescue nil
 
 		badges = []
 
@@ -47,8 +49,12 @@ class Job < ApplicationRecord
 			badges << '<a href= %s target="_blank"><i title="M(P)aternity" id="badge" class="fa fa-child"></i></a>'.html_safe % [link]
 		end
 
+		if !remote.nil?
+			link = Job::COMPANY[company.downcase.to_sym][:remote]
+			badges << '<a href= %s target="_blank"><i title="Remote First" id="badge" class="fa fa-rss"></i></a>'.html_safe % [link]
+		end
+
 		badges
-		# return ActionController::Base.helpers.content_tag(:p, 'Hello World!')
 	end
 
 end
