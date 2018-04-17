@@ -24,22 +24,22 @@ class Job < ApplicationRecord
 
 		if !diversity.nil?
 			link = Job::COMPANY[company.downcase.to_sym][:diversity]
-			badges << '<a href= %s target="_blank"><i id="badge" class="fa fa-handshake-o"></i></a>'.html_safe % [link]
+			badges << '<a href= %s target="_blank"><i title="Diversity" id="badge" class="fa fa-handshake-o"></i></a>'.html_safe % [link]
 		end
 
 		if !salary.nil?
 			link = Job::COMPANY[company.downcase.to_sym][:salary]
-			badges << '<a href= %s target="_blank"><i id="badge" class="fa fa-money"></i></a>'.html_safe % [link]
+			badges << '<a href= %s target="_blank"><i title="Salary" id="badge" class="fa fa-money"></i></a>'.html_safe % [link]
 		end
 
 		if !unlimited_vacation.nil?
 			link = Job::COMPANY[company.downcase.to_sym][:unlimited_vacation]
-			badges << '<a href= %s target="_blank"><i id="badge" class="fa fa-suitcase"></i></a>'.html_safe % [link]
+			badges << '<a href= %s target="_blank"><i title="Vacation" id="badge" class="fa fa-suitcase"></i></a>'.html_safe % [link]
 		end
 
 		if !maternity.nil?
 			link = Job::COMPANY[company.downcase.to_sym][:maternity]
-			badges << '<a href= %s target="_blank"><i id="badge" class="fa fa-child"></i></a>'.html_safe % [link]
+			badges << '<a href= %s target="_blank"><i title="M(P)aternity" id="badge" class="fa fa-child"></i></a>'.html_safe % [link]
 		end
 
 		badges
