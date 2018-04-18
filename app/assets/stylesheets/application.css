@@ -53,6 +53,11 @@ td{
 	float: right;
 	padding-right: 200px;
 }
+.legend {
+	float: right;
+	padding-right: 10px;
+	padding-top: 700px;
+}
 .fa {
   color: grey;
   margin-right: 20px;
@@ -63,15 +68,19 @@ td{
 }
 
 .fa.fa-money:hover {
-	color: #b5e7a0;
+	color: #85bb65;
 }
 
 .fa.fa-suitcase:hover {
-	color: #f18973;
+	color: #ff1a1a;
 }
 
 .fa.fa-child:hover {
-	color: #f7cac9;
+	color: #89CFF0;
+}
+
+.fa.fa-rss:hover {
+	color: #f18973;
 }
 
 #badge {
