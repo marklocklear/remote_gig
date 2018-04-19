@@ -46,9 +46,6 @@ task :get_jobs => :environment do
 	uri = URI(url)
 	response = Net::HTTP.get(uri)
 	jobs = JSON.parse(response)
-	# jobs["city"].map {|jobs1| jobs1['city'] if jobs1['key']=='Remote'}.compact.first
-	count = 0
-	jobs_array = []
 
 	jobs.each do |j|
 		if j["city"] == "Remote" && j["country_short"] == "USA"
@@ -89,4 +86,20 @@ task :get_jobs => :environment do
 			Job.create url: url, title: title, company: 'Ubuntu'
 		end
 	end
+
+	#digital ocean
+	doc = Nokogiri::HTML(open("https://boards.greenhouse.getrake.io/digitalocean98/"))
+	response = doc.to_s.match(/(?<=JSON.parse)(.*)null/)
+
+	#this is so ugly I can hardly stand it; the regex above is as close as I could get to parse
+	#the json out of the URL, then below I needed to remove the first two characters from the
+	#beginning, and appeand brackets and curlies onto the end to make it valid/parsable json
+	jobs = JSON.parse(response.to_s.sub(/^../, '') + '}]}]')
+
+	jobs.each do |j|
+		if j["location"]["name"].include? "Remote"
+			Job.create title: j["title"], url: j["absolute_url"], company: "Digital Ocean"
+		end
+	end
+
 end
