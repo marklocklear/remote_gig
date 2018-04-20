@@ -17,41 +17,38 @@ class Job < ApplicationRecord
   							 	 :salary => 'https://www.glassdoor.com/Salary/Red-Hat-Salaries-E8868.htm'
   								},
   	:karat => 		{ :unlimited_vacation => 'https://www.karat.io/careers'
+  								},
+  	:digitalocean => 		{ :salary => 'https://www.glassdoor.com/Salary/DigitalOcean-Salaries-E823482.htm'
   								}
   }
 
 	def self.get_badges(company)
-		diversity = Job::COMPANY[company.downcase.to_sym][:diversity] rescue nil
-		salary = Job::COMPANY[company.downcase.to_sym][:salary] rescue nil
+		diversity = Job::COMPANY[company.downcase.gsub(' ', '').to_sym][:diversity] rescue nil
+		salary = Job::COMPANY[company.downcase.gsub(' ', '').to_sym][:salary] rescue nil
 		unlimited_vacation = Job::COMPANY[company.downcase.to_sym][:unlimited_vacation] rescue nil
-		maternity = Job::COMPANY[company.downcase.to_sym][:maternity] rescue nil
-		remote = Job::COMPANY[company.downcase.to_sym][:remote] rescue nil
+		maternity = Job::COMPANY[company.downcase.gsub(' ', '').to_sym][:maternity] rescue nil
+		remote = Job::COMPANY[company.downcase.gsub(' ', '').to_sym][:remote] rescue nil
 
 		badges = []
 
 		if !diversity.nil?
-			link = Job::COMPANY[company.downcase.to_sym][:diversity]
-			badges << '<a href= %s target="_blank"><i title="Diversity" id="badge" class="fa fa-handshake-o"></i></a>'.html_safe % [link]
+			badges << '<a href= %s target="_blank"><i title="Diversity" id="badge" class="fa fa-handshake-o"></i></a>'.html_safe % [diversity]
 		end
 
 		if !salary.nil?
-			link = Job::COMPANY[company.downcase.to_sym][:salary]
-			badges << '<a href= %s target="_blank"><i title="Salary" id="badge" class="fa fa-money"></i></a>'.html_safe % [link]
+			badges << '<a href= %s target="_blank"><i title="Salary" id="badge" class="fa fa-money"></i></a>'.html_safe % [salary]
 		end
 
 		if !unlimited_vacation.nil?
-			link = Job::COMPANY[company.downcase.to_sym][:unlimited_vacation]
-			badges << '<a href= %s target="_blank"><i title="Unlimited Vacation" id="badge" class="fa fa-suitcase"></i></a>'.html_safe % [link]
+			badges << '<a href= %s target="_blank"><i title="Unlimited Vacation" id="badge" class="fa fa-suitcase"></i></a>'.html_safe % [unlimited_vacation]
 		end
 
 		if !maternity.nil?
-			link = Job::COMPANY[company.downcase.to_sym][:maternity]
-			badges << '<a href= %s target="_blank"><i title="M(P)aternity" id="badge" class="fa fa-child"></i></a>'.html_safe % [link]
+			badges << '<a href= %s target="_blank"><i title="M(P)aternity" id="badge" class="fa fa-child"></i></a>'.html_safe % [maternity]
 		end
 
 		if !remote.nil?
-			link = Job::COMPANY[company.downcase.to_sym][:remote]
-			badges << '<a href= %s target="_blank"><i title="Remote First" id="badge" class="fa fa-rss"></i></a>'.html_safe % [link]
+			badges << '<a href= %s target="_blank"><i title="Remote First" id="badge" class="fa fa-rss"></i></a>'.html_safe % [remote]
 		end
 
 		badges
