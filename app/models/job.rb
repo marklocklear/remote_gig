@@ -57,5 +57,25 @@ class Job < ApplicationRecord
 		badges
 	end
 
+	def self.order_jobs
+		#round robin job picking algorithm based on company, then URL
+		#first create buckets of jobs based on company name, but not the stackoverflow jobs...SO jobs 
+		#will be a separate bucket now randomly grab jobs from each of those buckets in order...as 
+		#jobs run out in a particular bucket, then stop getting jobs from that bucket
+		
+		ordered_jobs = []
+		jobs_count = Job.count
+		jobs = Job.all.to_a
+		jobs.each do |j|
+			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Redhat'}) unless (jobs.find_index {|j| j.company == 'Redhat'}).nil?
+			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Zapier'})	 unless (jobs.find_index {|j| j.company == 'Zapier'}).nil?
+			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Mozilla'}) unless (jobs.find_index {|j| j.company == 'Mozilla'}).nil?
+			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Ubuntu'})	 unless (jobs.find_index {|j| j.company == 'Ubuntu'}).nil?
+			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Digital Ocean'}) unless (jobs.find_index {|j| j.company == 'Digital Ocean'}).nil?
+			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.url.include?("https://weworkremotely.com")}) unless (jobs.find_index {|j| j.url.include?("https://weworkremotely.com")}).nil?
+			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.url.include?("https://stackoverflow.com")}) unless (jobs.find_index {|j| j.url.include?("https://stackoverflow.com")}).nil?
+		end
+		ordered_jobs
+	end
 end
 
