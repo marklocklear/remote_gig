@@ -59,9 +59,7 @@ class Job < ApplicationRecord
 		#first create buckets of jobs based on company name, but not the stackoverflow jobs...SO jobs 
 		#will be a separate bucket now randomly grab jobs from each of those buckets in order...as 
 		#jobs run out in a particular bucket, then stop getting jobs from that bucket
-		
 		ordered_jobs = []
-		jobs_count = Job.count
 		jobs = Job.all.to_a
 		jobs.each do |j|
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Redhat'}) unless (jobs.find_index {|j| j.company == 'Redhat'}).nil?
