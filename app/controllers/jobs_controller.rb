@@ -4,7 +4,7 @@ class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.json
   def index
-    @jobs = Job.order("RANDOM()")
+    @jobs = Job.order_jobs
   end
 
   # GET /jobs/1
