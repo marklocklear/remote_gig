@@ -9,8 +9,10 @@ task send_tweet: :environment do
 	  config.access_token        = ENV['TWITTER_ACCESS_TOKEN']
 	  config.access_token_secret = ENV['TWITTER_TOKEN_SECRET']
 	end
-
-		random_job = Job.order("RANDOM()").last
+	
+		#get random job from first 50 jobs
+		#this ensures a higher probabilty of a premium job being tweeted
+		random_job = Job.order_jobs.first(50).sample
 		tweet_of_the_day = "Todays #remoteJob is from #{random_job.company}.
 												They are looking for a #{random_job.title}. Find out more at #{random_job.url} #remoteWork #gotRemote"
 	  client.update(tweet_of_the_day)
