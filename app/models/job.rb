@@ -60,17 +60,28 @@ class Job < ApplicationRecord
 		#will be a separate bucket now randomly grab jobs from each of those buckets in order...as 
 		#jobs run out in a particular bucket, then stop getting jobs from that bucket
 		ordered_jobs = []
+
+		#Wanted some randomness in the SO jobs, so I pull out the SO jobs into this array, then throw them
+		#into everyother listing on the page
+		stackoverflow_jobs = Job.where("jobs.url LIKE ?", "%stackoverflow.com%").to_a.shuffle
+
 		jobs = Job.all.to_a
 		jobs.each do |j|
+			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Redhat'}) unless (jobs.find_index {|j| j.company == 'Redhat'}).nil?
+			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Zapier'})	 unless (jobs.find_index {|j| j.company == 'Zapier'}).nil?
+			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Mozilla'}) unless (jobs.find_index {|j| j.company == 'Mozilla'}).nil?
+			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Ubuntu'})	 unless (jobs.find_index {|j| j.company == 'Ubuntu'}).nil?
+			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Digital Ocean'}) unless (jobs.find_index {|j| j.company == 'Digital Ocean'}).nil?
+			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.url.include?("https://weworkremotely.com")}) unless (jobs.find_index {|j| j.url.include?("https://weworkremotely.com")}).nil?
-			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.url.include?("https://stackoverflow.com")}) unless (jobs.find_index {|j| j.url.include?("https://stackoverflow.com")}).nil?
 		end
-		ordered_jobs
+
+		return ordered_jobs
 	end
 end
 
