@@ -20,7 +20,8 @@ class Job < ApplicationRecord
   								},
   	:digitalocean => 		{ :salary => 'https://www.glassdoor.com/Salary/DigitalOcean-Salaries-E823482.htm'
   								},
-  	:hiringthing => { :unlimited_vacation => 'https://www.hiringthing.com/2018/04/19/whats-it-like-to-work-at-hiringthing.html'
+  	:hiringthing => { :unlimited_vacation => 'https://www.hiringthing.com/2018/04/19/whats-it-like-to-work-at-hiringthing.html',
+  										:remote => 'https://www.hiringthing.com/2018/04/19/whats-it-like-to-work-at-hiringthing.html'
   									}
   }
 
