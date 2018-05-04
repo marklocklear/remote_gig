@@ -19,7 +19,9 @@ class Job < ApplicationRecord
   	:karat => 		{ :unlimited_vacation => 'https://www.karat.io/careers'
   								},
   	:digitalocean => 		{ :salary => 'https://www.glassdoor.com/Salary/DigitalOcean-Salaries-E823482.htm'
-  								}
+  								},
+  	:hiringthing => { :unlimited_vacation => 'https://www.hiringthing.com/2018/04/19/whats-it-like-to-work-at-hiringthing.html'
+  									}
   }
 
 	def self.get_badges(company)
@@ -68,9 +70,11 @@ class Job < ApplicationRecord
 		jobs = Job.all.to_a
 		jobs.each do |j|
 			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?
+			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Redhat'}) unless (jobs.find_index {|j| j.company == 'Redhat'}).nil?
 			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Zapier'})	 unless (jobs.find_index {|j| j.company == 'Zapier'}).nil?
+			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Hiringthing'})	 unless (jobs.find_index {|j| j.company == 'Hiringthing'}).nil?
 			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Mozilla'}) unless (jobs.find_index {|j| j.company == 'Mozilla'}).nil?
 			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?

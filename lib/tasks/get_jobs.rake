@@ -102,4 +102,15 @@ task :get_jobs => :environment do
 		end
 	end
 
+	#hiring thing
+	doc = Nokogiri::XML(open("http://careers.hiringthing.com/api/rss.xml"))
+
+	doc.xpath('//item').each do |char_element|
+		title = char_element.xpath('title').text
+		description = char_element.xpath('description').text
+		link = char_element.xpath('link').text
+		if title.include? "Remote"
+			Job.create title: title, url: link, description: description, company: "Hiringthing"
+		end
+	end
 end
