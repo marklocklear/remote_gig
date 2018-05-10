@@ -1,11 +1,13 @@
 require 'open-uri'
 require 'nokogiri'
+require 'net/http'
+require 'json'
 
-doc = Nokogiri::XML(open("http://careers.hiringthing.com/api/rss.xml"))
+url = 'https://jobs.github.com/positions.json?description=&location=remote'
+	uri = URI(url)
+	response = Net::HTTP.get(uri)
+	jobs = JSON.parse(response)
 
-doc.xpath('//item').each do |char_element|
-	puts "********************************"
-	puts char_element.xpath('title').text
-	puts char_element.xpath('link').text
-	# puts char_element.inspect
-end
+	jobs.each do |j|
+		Job.create title: j["title"], url: j["url"], description: j["description"], company: j["company"]
+	end

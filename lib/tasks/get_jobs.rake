@@ -113,4 +113,13 @@ task :get_jobs => :environment do
 			Job.create title: title, url: link, description: description, company: "Hiringthing"
 		end
 	end
+
+	#github jobs
+	url = 'https://jobs.github.com/positions.json?description=&location=remote'
+	uri = URI(url)
+	response = Net::HTTP.get(uri)
+	jobs = JSON.parse(response)
+	jobs.each do |j|
+		Job.create title: j["title"], url: j["url"], description: j["description"], company: j["company"]
+	end
 end

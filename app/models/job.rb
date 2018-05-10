@@ -84,6 +84,7 @@ class Job < ApplicationRecord
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Digital Ocean'}) unless (jobs.find_index {|j| j.company == 'Digital Ocean'}).nil?
 			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.url.include?("https://weworkremotely.com")}) unless (jobs.find_index {|j| j.url.include?("https://weworkremotely.com")}).nil?
+			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.url.include?("jobs.github.com/positions")}) unless (jobs.find_index {|j| j.url.include?("jobs.github.com/positions")}).nil?
 		end
 
 		return ordered_jobs
