@@ -22,7 +22,10 @@ class Job < ApplicationRecord
   								},
   	:hiringthing => { :unlimited_vacation => 'https://www.hiringthing.com/2018/04/19/whats-it-like-to-work-at-hiringthing.html',
   										:remote => 'https://www.hiringthing.com/2018/04/19/whats-it-like-to-work-at-hiringthing.html'
-  									}
+  									},
+  	:aha! =>  { :diversity => 'https://www.aha.io/company/careers/current-openings',
+  								 :remote => 'https://www.aha.io/company/careers/current-openings'
+  							 }
   }
 
 	def self.get_badges(company)
