@@ -53,14 +53,6 @@ td{
 	float: right;
 	padding-right: 75px;
 }
-.locklear-brand {
-	float: right;
-	padding-right: 50px;
-}
-.locklear-brand img {
-    width: 30px;
-    padding-top: 5px;
-}
 .legend {
 	float: right;
 	padding-right: 10px;
@@ -89,6 +81,9 @@ td{
 
 .fa.fa-rss:hover {
 	color: #f18973;
+}
+.fa.fa-twitter:hover {
+	color: #1dcaff;
 }
 
 #badge {
