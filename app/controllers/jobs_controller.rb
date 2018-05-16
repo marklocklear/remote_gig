@@ -5,6 +5,11 @@ class JobsController < ApplicationController
   # GET /jobs.json
   def index
     @jobs = Job.order_jobs
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @jobs, :except => :id }
+    end
   end
 
   # GET /jobs/1
