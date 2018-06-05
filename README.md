@@ -1,24 +1,18 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Vanilla Rails app. Follow these steps to run locally:
+* git clone https://github.com/marklocklear/remote_gig/
+* rails db:migrate
+* rails get_jobs (have a snickers, this might take a while)
+* rails server then go to localhost:3000 in your browser
 
-Things you may want to cover:
+Rails app that pulls jobs from various job and company website. See the list in lib/tasks/get_jobs.rake. get_jobs.rake is a rake task that runs nightly.
 
-* Ruby version
+Most jobs are pulled from rss or json feeds, but some (like Mozilla) are using Nokogiri to pull/parse html.
 
-* System dependencies
+The app sends one tweet a day that is posted at https://twitter.com/myremotegig. See lib/tasks/send_tweet.rake for that job.
 
-* Configuration
+Badges are handled in app/models/job.rb
 
-* Database creation
+Order of jobs is handled in app/models/job.rb. I did this to better order/randomize the jobs that are listed on the front page. The majority of the jobs are from Stackoverflow and without this code that is mostly all you would see.
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
