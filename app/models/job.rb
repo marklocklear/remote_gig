@@ -28,6 +28,10 @@ class Job < ApplicationRecord
   							 }
   }
 
+  def self.create_job(title, link, description, company)
+  	Job.create title: title, url: link, description: description, company: company
+  end
+
 	def self.get_badges(company)
 		diversity = Job::COMPANY[company.downcase.gsub(' ', '').to_sym][:diversity] rescue nil
 		salary = Job::COMPANY[company.downcase.gsub(' ', '').to_sym][:salary] rescue nil

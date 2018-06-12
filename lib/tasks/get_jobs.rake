@@ -17,7 +17,7 @@ task :get_jobs => :environment do
 		description = char_element.xpath('description').text
 		link = char_element.xpath('link').text
 
-		Job.create title: title, url: link, description: description, company: company
+		Job.create_job(title, link, description, company)
 	end
 
 	#weworkremotely devops jobs
@@ -29,7 +29,7 @@ task :get_jobs => :environment do
 		description = char_element.xpath('description').text
 		link = char_element.xpath('link').text
 
-		Job.create title: title, url: link, description: description, company: company
+		Job.create_job(title, link, description, company)
 	end
 	
 	#stackoverflow
@@ -37,8 +37,10 @@ task :get_jobs => :environment do
 
 	doc.xpath('//item').each do |item|
 		#http://rubular.com/r/sYauhFimX1
-		Job.create url: item.xpath('link').text, title: item.xpath('title').text.split('at').first,
-		company: item.xpath('a10:author//a10:name').text, description: item.xpath('description').text
+		Job.create_job(item.xpath('title').text.split('at').first,
+									 item.xpath('link').text,
+									 item.xpath('description').text,
+									 item.xpath('a10:author//a10:name').text)
 	end
 
 	#redhat
@@ -49,7 +51,7 @@ task :get_jobs => :environment do
 
 	jobs.each do |j|
 		if j["city"] == "Remote" && j["country_short"] == "USA"
-			Job.create title: j["title"], url: j["url"], description: j["description"], company: "Redhat"
+			Job.create_job(j["title"], j["url"], j["description"], "Redhat")
 		end
 	end
 
@@ -57,8 +59,8 @@ task :get_jobs => :environment do
 	doc = Nokogiri::XML(open("https://zapier.com/jobs/feeds/latest/"))
 
 	doc.xpath('//item').each do |item|
-		Job.create url: item.xpath('link').text, title: item.xpath('title').text,
-		company: 'Zapier', description: item.xpath('description').text
+		Job.create_job(item.xpath('title').text, item.xpath('link').text,
+									 item.xpath('description').text, 'Zapier')
 	end
 
 	#mozilla
@@ -68,9 +70,10 @@ task :get_jobs => :environment do
 		url = 'https://careers.mozilla.org' + char_element.css('.title a')[0]['href']
 		title = char_element.css('td')[0].text
 		location = char_element.css('td')[1].text
+		description = 'none'
 		
 		if location.include? "Remote"
-			Job.create url: url, title: title, company: 'Mozilla'
+			Job.create_job(title, url, description, 'Mozilla')
 		end
 	end
 
@@ -81,9 +84,10 @@ task :get_jobs => :environment do
 		url = char_element.css('a')[0]['href']
 		location = char_element.css('em')[0].text
 		title = char_element.css('a')[0].text
+		description = 'none'
 			
 		if location.include? "Home Based"
-			Job.create url: url, title: title, company: 'Ubuntu'
+			Job.create_job(title, url, description, 'Ubuntu')
 		end
 	end
 
@@ -98,7 +102,7 @@ task :get_jobs => :environment do
 
 	jobs.each do |j|
 		if j["location"]["name"].include? "Remote"
-			Job.create title: j["title"], url: j["absolute_url"], company: "Digital Ocean"
+			Job.create_job(j["title"], j["absolute_url"], 'none', "Digital Ocean")
 		end
 	end
 
@@ -110,7 +114,7 @@ task :get_jobs => :environment do
 		description = char_element.xpath('description').text
 		link = char_element.xpath('link').text
 		if title.include? "Remote"
-			Job.create title: title, url: link, description: description, company: "Hiringthing"
+			Job.create_job(title, link, description, 'Hiringthing')
 		end
 	end
 
@@ -120,6 +124,6 @@ task :get_jobs => :environment do
 	response = Net::HTTP.get(uri)
 	jobs = JSON.parse(response)
 	jobs.each do |j|
-		Job.create title: j["title"], url: j["url"], description: j["description"], company: j["company"]
+		Job.create_job(j["title"], j["url"], j["description"], "Digital Ocean")
 	end
 end
