@@ -1,0 +1,9 @@
+.tag {
+	background-color: lightgrey;
+  width: fit-content; 
+  /* To adjust the height as well */ 
+  height: fit-content;
+	border: 1px solid blue; /* try #c94e50 instead of blue*/
+  box-sizing: border-box;
+  display: inline-grid;
+}
