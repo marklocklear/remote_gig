@@ -83,6 +83,7 @@ class Job < ApplicationRecord
 			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Zapier'})	 unless (jobs.find_index {|j| j.company == 'Zapier'}).nil?
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Hiringthing'})	 unless (jobs.find_index {|j| j.company == 'Hiringthing'}).nil?
+			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Flatiron School'})	 unless (jobs.find_index {|j| j.company == 'Flatiron School'}).nil?
 			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Mozilla'}) unless (jobs.find_index {|j| j.company == 'Mozilla'}).nil?
 			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?

@@ -70,7 +70,7 @@ task :get_jobs => :environment do
 		url = 'https://careers.mozilla.org' + char_element.css('.title a')[0]['href']
 		title = char_element.css('td')[0].text
 		location = char_element.css('td')[1].text
-		description = 'none'
+		description = url
 		
 		if location.include? "Remote"
 			Job.create_job(title, url, description, 'Mozilla')
@@ -84,7 +84,7 @@ task :get_jobs => :environment do
 		url = char_element.css('a')[0]['href']
 		location = char_element.css('em')[0].text
 		title = char_element.css('a')[0].text
-		description = 'none'
+		description = url
 			
 		if location.include? "Home Based"
 			Job.create_job(title, url, description, 'Ubuntu')
@@ -102,7 +102,7 @@ task :get_jobs => :environment do
 
 	jobs.each do |j|
 		if j["location"]["name"].include? "Remote"
-			Job.create_job(j["title"], j["absolute_url"], 'none', "Digital Ocean")
+			Job.create_job(j["title"], j["absolute_url"], j['absolute_url'], "Digital Ocean")
 		end
 	end
 
@@ -125,5 +125,17 @@ task :get_jobs => :environment do
 	jobs = JSON.parse(response)
 	jobs.each do |j|
 		Job.create_job(j["title"], j["url"], j["description"], "Digital Ocean")
+	end
+
+	#flatironschool
+	doc = Nokogiri::HTML(open("https://boards.greenhouse.io/embed/job_board?for=flatironschool"))
+
+	doc.css('.opening').each do |char_element|
+		if char_element.to_s.include? 'Remote'
+			link = char_element.at_css("a")[:href]
+			title =char_element.at_css("a").text
+			description = link
+			Job.create_job(title, link, description, 'Flatiron School')
+		end
 	end
 end
