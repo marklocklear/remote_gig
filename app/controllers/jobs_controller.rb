@@ -6,6 +6,11 @@ class JobsController < ApplicationController
   def index
     @jobs = Job.order_jobs
 
+    if params[:search_term]
+      @search_term = params[:search_term]
+      @jobs = Job.where("LOWER(title) LIKE ? OR LOWER(description) LIKE ?", "%#{@search_term}%", "%#{@search_term}%")
+    end
+
     respond_to do |format|
       format.html
       format.json { render :json => @jobs, :except => :id }

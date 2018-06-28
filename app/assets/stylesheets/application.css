@@ -90,3 +90,12 @@ td{
 	margin-right: 5px;
   margin-top: 5px;
 }
+
+.reset_search_button {
+	padding: 1em 2em;
+	outline: none;
+	font-weight: 600;
+	border: none;
+	color: #fff;
+	background: #c94e50;
+}
