@@ -1,4 +1,5 @@
 class Job < ApplicationRecord
+	acts_as_taggable
 	#call from console with Job::COMPANY[:zapier][:diversity]
   COMPANY = {
   	:zapier => 	 { :diversity => 'https://zapier.com/jobs/working-on-diversity-and-inclusivity/',
@@ -28,8 +29,16 @@ class Job < ApplicationRecord
   							 }
   }
 
+
   def self.create_job(title, link, description, company)
-  	Job.create title: title, url: link, description: description, company: company
+	  tags = ['ruby', 'elixir', 'phoenix', 'php', 'react', 'ruby on rails', 'ember']
+  	job = Job.create title: title, url: link, description: description, company: company
+  	tags.each do |tag|
+  		if (job.description.downcase || job.title.downcase).include? tag
+  			job.tag_list.add(tag)
+  			job.save
+  		end
+  	end
   end
 
 	def self.get_badges(company)
