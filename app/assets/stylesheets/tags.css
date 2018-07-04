@@ -1,9 +1,11 @@
 .tag {
-	background-color: lightgrey;
+	background-color: #E1ECF4;
+	border-color: #E1ECF4;
   width: fit-content; 
-  /* To adjust the height as well */ 
-  height: fit-content;
-	border: 1px solid blue; /* try #c94e50 instead of blue*/
-  box-sizing: border-box;
+  margin: 5px 2px 2px 0;
+  padding: 4px 2px 2px 4px;
+  font-size: 12px;
+  border-width: 1px;
+  border-style: solid;
   display: inline-grid;
 }

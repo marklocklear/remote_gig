@@ -17,8 +17,7 @@
       <tr>
         <td>
           <div class="job"><%= link_to(job.title, job.url, :target => "_blank") %></div>
-          <% @tags = ['ruby','ruby on rails','postgres'] %>
-          <% @tags.each do |tag| %>
+          <% job.tags.each do |tag| %>
             <div class="tag"><%= tag %></div>
           <% end %>
           <div class="company"><%= job.company %>
