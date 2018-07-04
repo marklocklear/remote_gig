@@ -3,7 +3,7 @@ require 'nokogiri'
 require 'json'
 
 doc = Nokogiri::HTML(open("https://boards.greenhouse.getrake.io/digitalocean98/"))
-# puts doc.to_s
+puts doc.to_s
 # puts doc.to_s.match(/\[{\\"absolute_url\\"(.*)(?='\);\\n)/)
 response = doc.to_s.match(/(?<=JSON.parse)(.*)null/)
 

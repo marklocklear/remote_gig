@@ -1,4 +1,5 @@
 class Job < ApplicationRecord
+	acts_as_taggable
 	#call from console with Job::COMPANY[:zapier][:diversity]
   COMPANY = {
   	:zapier => 	 { :diversity => 'https://zapier.com/jobs/working-on-diversity-and-inclusivity/',
@@ -27,6 +28,18 @@ class Job < ApplicationRecord
   								 :remote => 'https://www.aha.io/company/careers/current-openings'
   							 }
   }
+
+
+  def self.create_job(title, link, description, company)
+	  tags = ['ruby', 'elixir', 'phoenix', 'php', 'react', 'ruby on rails', 'ember']
+  	job = Job.create title: title, url: link, description: description, company: company
+  	tags.each do |tag|
+  		if (job.description.downcase || job.title.downcase).include? tag
+  			job.tag_list.add(tag)
+  			job.save
+  		end
+  	end
+  end
 
 	def self.get_badges(company)
 		diversity = Job::COMPANY[company.downcase.gsub(' ', '').to_sym][:diversity] rescue nil
@@ -79,6 +92,7 @@ class Job < ApplicationRecord
 			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Zapier'})	 unless (jobs.find_index {|j| j.company == 'Zapier'}).nil?
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Hiringthing'})	 unless (jobs.find_index {|j| j.company == 'Hiringthing'}).nil?
+			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Flatiron School'})	 unless (jobs.find_index {|j| j.company == 'Flatiron School'}).nil?
 			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Mozilla'}) unless (jobs.find_index {|j| j.company == 'Mozilla'}).nil?
 			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?
