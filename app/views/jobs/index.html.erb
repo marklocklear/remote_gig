@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <% if @search_term %>
-    <div class="company">There are <%= @jobs.count %> that inlcude <%= @search_term %> in the title or description
+    <div class="company">There are <b><%= @jobs.count %></b> that inlcude <b><%= @search_term %></b> in the title or description
     </div>
     <br>
     <%= button_to "Reset Search", jobs_path, method: :get, class: "reset_search_button" %>
