@@ -33,7 +33,8 @@ class Job < ApplicationRecord
   def self.create_job(title, link, description, company)
 	  tags = ['ruby', 'elixir', 'phoenix', 'php', 'react', 'ruby on rails', 'ember', '.net', 'c#', 
 	  				'linux', 'python', 'android', 'masters degree', 'phd', 'unlimited vacation', 'go',
-	  				'java', 'project management', 'blockchain', 'scala', 'crypto']
+	  				'java', 'project management', 'blockchain', 'scala', 'crypto', 'security', 'ansible',
+	  				'django', 'azure']
   	job = Job.create title: title, url: link, description: description, company: company
   	tags.each do |tag|
   		if (job.description.downcase || job.title.downcase).include? tag
