@@ -11,6 +11,11 @@ class JobsController < ApplicationController
       @jobs = Job.where("LOWER(title) LIKE ? OR LOWER(description) LIKE ?", "%#{@search_term}%", "%#{@search_term}%")
     end
 
+    if params[:tag]
+      @search_term = params[:tag]
+      @jobs = Job.tagged_with(@search_term)
+    end
+
     respond_to do |format|
       format.html
       format.json { render :json => @jobs, :except => :id }

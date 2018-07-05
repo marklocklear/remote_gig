@@ -18,7 +18,7 @@
         <td>
           <div class="job"><%= link_to(job.title, job.url, :target => "_blank") %></div>
           <% job.tags.each do |tag| %>
-            <div class="tag"><%= tag %></div>
+            <div class="tag"><%= link_to(tag, jobs_path(tag: tag.name), method: :get) %></div>
           <% end %>
           <div class="company"><%= job.company %>
             <% badges = Job.get_badges(job.company) %>
