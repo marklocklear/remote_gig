@@ -1,7 +1,12 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'nokogiri'
+
+#stackoverflow
+	doc = Nokogiri::XML(open("https://stackoverflow.com/jobs/feed?l=Remote"))
+
+	doc.xpath('//item').each do |item|
+		#http://rubular.com/r/sYauhFimX1
+		Job.create_job(item.xpath('title').text.split('at').first,
+									 item.xpath('link').text,
+									 item.xpath('description').text,
+									 item.xpath('a10:author//a10:name').text)
+	end

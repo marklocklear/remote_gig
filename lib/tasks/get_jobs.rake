@@ -2,8 +2,13 @@ require 'open-uri'
 require 'nokogiri'
 require 'mechanize'
 
-desc "this is where the good stuff happens - scrapn jobs"
+desc "this is where the good stuff happens - scrap-n jobs"
 task :get_jobs => :environment do
+
+	#delete all tags
+	ActsAsTaggableOn::Tag.destroy_all
+	
+	#delete all jobs
 	Job.delete_all
 
 	agent = Mechanize.new
@@ -124,7 +129,7 @@ task :get_jobs => :environment do
 	response = Net::HTTP.get(uri)
 	jobs = JSON.parse(response)
 	jobs.each do |j|
-		Job.create_job(j["title"], j["url"], j["description"], "Digital Ocean")
+		Job.create_job(j["title"], j["url"], j["description"], j["company"])
 	end
 
 	#flatironschool
