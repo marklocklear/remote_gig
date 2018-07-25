@@ -30,15 +30,15 @@ class Job < ApplicationRecord
   }
 
 TAGS = ['ruby', 'elixir', 'phoenix', 'php', 'react', 'ruby on rails', 'ember', '.net', 'c#', 
-	  		'linux', 'python', 'android', 'masters degree', 'phd', 'unlimited vacation', 'go',
-	  		'java', 'project management', 'blockchain', 'scala', 'crypto', 'security', 'ansible',
+	  		'linux', 'python', 'android', 'masters degree', 'phd', 'unlimited vacation', 'go ',
+	  		'java ', 'project management', 'blockchain', 'scala', 'crypto', 'security', 'ansible',
 	  		'django', 'azure', 'kotlin', 'rust']
 
   def self.create_job(title, link, description, company)
 	  
   	job = Job.create title: title, url: link, description: description, company: company
   	Job::TAGS.each do |tag|
-  		if (job.description.downcase || job.title.downcase).include?(' ' + tag + ' ')
+  		if (job.description.downcase || job.title.downcase).include?
   			job.tag_list.add(tag)
   			job.save
   		end
