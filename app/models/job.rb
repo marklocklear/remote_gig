@@ -38,7 +38,7 @@ TAGS = ['ruby', 'elixir', 'phoenix', 'php', 'react', 'ruby on rails', 'ember', '
 	  
   	job = Job.create title: title, url: link, description: description, company: company
   	Job::TAGS.each do |tag|
-  		if (job.description.downcase || job.title.downcase).include?
+  		if (job.description.downcase || job.title.downcase).include? tag
   			job.tag_list.add(tag)
   			job.save
   		end
