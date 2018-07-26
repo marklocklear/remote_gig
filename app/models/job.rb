@@ -30,7 +30,7 @@ class Job < ApplicationRecord
   }
 
 TAGS = ['ruby', 'elixir', 'phoenix', 'php', 'react', 'ruby on rails', 'ember', '.net', 'c#', 
-	  		'linux', 'python', 'android', 'masters degree', 'phd', 'unlimited vacation', 'go ',
+	  		'linux', 'python', 'android', 'masters degree', 'phd', 'unlimited vacation', 'golang',
 	  		'java ', 'project management', 'blockchain', 'scala', 'crypto', 'security', 'ansible',
 	  		'django', 'azure', 'kotlin', 'rust']
 
