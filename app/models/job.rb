@@ -32,7 +32,7 @@ class Job < ApplicationRecord
 TAGS = ['ruby', 'elixir', 'phoenix', 'php', 'react', 'ruby on rails', 'ember', '.net', 'c#', 
 	  		'linux', 'python', 'android', 'masters degree', 'phd', 'unlimited vacation', 'golang',
 	  		'java ', 'project management', 'blockchain', 'scala', 'crypto', 'security', 'ansible',
-	  		'django', 'azure', 'kotlin', 'rust']
+	  		'django', 'azure', 'kotlin', 'rust ']
 
   def self.create_job(title, link, description, company)
 	  

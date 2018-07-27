@@ -9,12 +9,15 @@ doc.css('.position').each do |char_element|
 	url = 'https://careers.mozilla.org' + char_element.css('.title a')[0]['href']
 	title = char_element.css('td')[0].text
 	location = char_element.css('td')[1].text
+	job_page = Nokogiri::HTML(open(url))
+	description = job_page.css('.job-post-description')
 
 	# puts char_element
 	if location.include? "Remote"
 		puts "********************************"
 		puts title
 		puts url
+		puts description
 	end
 	# puts char_element.xpath('link').text
 	# puts char_element.xpath('a10:author//a10:name').text
