@@ -12,11 +12,14 @@ doc.css('.p-list__item').each do |char_element|
 	url = char_element.css('a')[0]['href']
 	location = char_element.css('em')[0].text
 	title = char_element.css('a')[0].text
+	job_page = Nokogiri::HTML(open(url))
+	description = job_page.css('#content')
 
 # puts "title is #{title}"
 	if location.include? "Home Based"
 		puts "********************************"
 		puts title.split('-').first
 		puts url
+		puts description
 	end
 end

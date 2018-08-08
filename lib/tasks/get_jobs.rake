@@ -64,8 +64,11 @@ task :get_jobs => :environment do
 	doc = Nokogiri::XML(open("https://zapier.com/jobs/feeds/latest/"))
 
 	doc.xpath('//item').each do |item|
-		Job.create_job(item.xpath('title').text, item.xpath('link').text,
-									 item.xpath('description').text, 'Zapier')
+		url = item.xpath('link').text
+		title = item.xpath('title').text
+		job_page = Nokogiri::HTML(open(url))
+		description = job_page.css('.job-listing__section')
+		Job.create_job(title, url, description, 'Zapier')
 	end
 
 	#mozilla
@@ -90,7 +93,8 @@ task :get_jobs => :environment do
 		url = char_element.css('a')[0]['href']
 		location = char_element.css('em')[0].text
 		title = char_element.css('a')[0].text
-		description = url
+		job_page = Nokogiri::HTML(open(url))
+		description = job_page.css('#content')
 			
 		if location.include? "Home Based"
 			Job.create_job(title, url, description, 'Ubuntu')
