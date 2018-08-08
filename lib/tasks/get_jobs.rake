@@ -121,7 +121,7 @@ task :get_jobs => :environment do
 
 	doc.xpath('//item').each do |char_element|
 		title = char_element.xpath('title').text
-		description = char_element.xpath('description').text
+		description = char_element.xpath('media:description').text
 		link = char_element.xpath('link').text
 		if title.include? "Remote"
 			Job.create_job(title, link, description, 'Hiringthing')
