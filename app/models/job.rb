@@ -32,7 +32,7 @@ class Job < ApplicationRecord
 TAGS = ['ruby', 'elixir', 'phoenix', 'php', 'react', 'ruby on rails', ' ember', '.net', 'c#', 
 	  		'linux', 'python', 'android', 'masters degree', 'phd', 'unlimited vacation', 'golang',
 	  		'java ', 'project management', 'blockchain', 'scala ', 'crypto', 'security', 'ansible',
-	  		'django', 'azure', 'kotlin', ' rust', 'postgres']
+	  		'django', 'azure', 'kotlin', ' rust', 'postgres', 'c++']
 
   def self.create_job(title, link, description, company)
 		description = description.to_s.gsub(',', ' ').gsub('/', ' ')
