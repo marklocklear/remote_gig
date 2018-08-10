@@ -26,6 +26,10 @@ class Job < ApplicationRecord
   									},
   	:aha! =>  { :diversity => 'https://www.aha.io/company/careers/current-openings',
   								 :remote => 'https://www.aha.io/company/careers/current-openings'
+  							 },
+  	:clevertech =>  { :salary => 'https://www.glassdoor.com/Overview/Working-at-Clevertech-EI_IE781853.11,21.htm',
+  								 :remote => 'https://hbr.org/2016/04/how-i-hired-an-entirely-remote-workforce'
+
   							 }
   }
 
@@ -93,6 +97,7 @@ TAGS = ['ruby', 'elixir', 'phoenix', 'php', 'react', 'ruby on rails', ' ember', 
 			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?
 			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Redhat'}) unless (jobs.find_index {|j| j.company == 'Redhat'}).nil?
+			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Clevertech'}) unless (jobs.find_index {|j| j.company == 'Clevertech'}).nil?
 			ordered_jobs.push stackoverflow_jobs.delete_at(stackoverflow_jobs.find_index stackoverflow_jobs[0]) unless (stackoverflow_jobs.find_index stackoverflow_jobs[0]).nil?
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Zapier'})	 unless (jobs.find_index {|j| j.company == 'Zapier'}).nil?
 			ordered_jobs.push jobs.delete_at(jobs.find_index {|j| j.company == 'Hiringthing'})	 unless (jobs.find_index {|j| j.company == 'Hiringthing'}).nil?
