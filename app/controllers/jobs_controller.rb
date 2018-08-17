@@ -86,13 +86,15 @@ class JobsController < ApplicationController
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
     request = Net::HTTP::Post.new(url)
-    request["authorization"] = "Bearer #{ENV['SENDGRID_API_KEY']}"
+    api_key = ENV['SENDGRID_API_KEY']
+    request["authorization"] = "Bearer #{api_key}"
     request["content-type"] = 'application/json'
     request.body = [{"email": email_address}].to_json
 
     response = http.request(request)
     result = JSON.parse(response.body)
-    # puts response.read_body #uncomment to view response/debug
+    # Rails.logger.info "api_key is: #{api_key}"
+    # Rails.logger.info "Email response is: #{response.read_body}" #uncomment to view response/debug
     # redirect_to jobs_url, notice: result["errors"]
 
     redirect_to jobs_url, notice: "Thanks for Signing Up"
