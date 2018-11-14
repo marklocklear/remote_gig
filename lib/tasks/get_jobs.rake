@@ -46,7 +46,7 @@ task :get_jobs => :environment do
 		#http://rubular.com/r/sYauhFimX1
 		Job.create_job(item.xpath('title').text.split('at').first,
 									 item.xpath('link').text,
-									 description.xpath("text()").to_s,
+									 description,
 									 item.xpath('a10:author//a10:name').text)
 	end
 
