@@ -68,7 +68,7 @@ task :get_jobs => :environment do
 		url = item.xpath('link').text
 		title = item.xpath('title').text
 		job_page = Nokogiri::HTML(open(url))
-		description = job_page.css('.job-listing__section')
+		description = job_page.xpath('//*[@id="app"]/div/div/div/div/ul[2]')
 		Job.create_job(title, url, description, 'Zapier')
 	end
 
