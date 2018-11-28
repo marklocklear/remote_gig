@@ -41,18 +41,19 @@ task :get_jobs => :environment do
 	doc = Nokogiri::XML(open("https://stackoverflow.com/jobs/feed?l=Remote"))
 
 	doc.xpath('//item').each do |item|
+		description = Nokogiri::HTML::DocumentFragment.parse(item.xpath('description').text)
+		# puts description.xpath("text()").to_s
 		#http://rubular.com/r/sYauhFimX1
 		Job.create_job(item.xpath('title').text.split('at').first,
 									 item.xpath('link').text,
-									 item.xpath('description').text,
+									 description,
 									 item.xpath('a10:author//a10:name').text)
 	end
 
 	#redhat
 	url = 'https://redhat.jobs/jobs/feed/json'
-	uri = URI(url)
-	response = Net::HTTP.get(uri)
-	jobs = JSON.parse(response)
+	response = HTTParty.get(url)
+	jobs = response.parsed_response
 
 	jobs.each do |j|
 		if j["city"] == "Remote" && j["country_short"] == "USA"
@@ -67,7 +68,7 @@ task :get_jobs => :environment do
 		url = item.xpath('link').text
 		title = item.xpath('title').text
 		job_page = Nokogiri::HTML(open(url))
-		description = job_page.css('.job-listing__section')
+		description = job_page.xpath('//*[@id="app"]/div/div/div/div/ul[2]')
 		Job.create_job(title, url, description, 'Zapier')
 	end
 
@@ -154,7 +155,7 @@ task :get_jobs => :environment do
 	listings = doc.css('.listings')
 
 	listings.css('a').each do |char_element|
-		url = char_element['href']
+		url = "https://www.clevertech.biz" + char_element['href']
 		title = char_element.text[0...-1]
 		job_page = Nokogiri::HTML(open(url))
 		description = job_page.css('#job-details')
