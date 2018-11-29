@@ -20,15 +20,32 @@
       </script>
   <% end %>
   </head>
-  <div class="navbar">
-    <div class="icons">
-      <a data-dialog="maildialog" class="mailtrigger" style="font-size:24px"><%= fa_icon "envelope" %></a>
-      <a style="font-size:24px" href="https://twitter.com/myremotegig" target="_blank"><%= fa_icon("twitter") %></a>
-      <a style="font-size:24px" href="https://github.com/marklocklear/remote_gig" target="_blank"><%= fa_icon("github") %></a>
-      <a style="font-size:24px" href="/jobs.json" target="_blank"><%= fa_icon("rss") %></a>
-      <a search-dialog="searchdialog" class="searchtrigger" style="font-size:24px"><%= fa_icon "search" %></a>
-    </div>
+  <nav class="nav">
+  <div class="burger">
+    <div class="burger__patty"></div>
   </div>
+
+  <ul class="nav__list">
+    <li class="nav__item">
+      <a class="nav__link c-blue" data-dialog="maildialog" class="mailtrigger" style="font-size:24px"><i class="fa fa-envelope"></i></a>
+    </li>
+    <li class="nav__item">
+      <a class="nav__link c-yellow scrolly" style="font-size:24px" href="https://twitter.com/myremotegig" target="_blank"><i class="fa fa-twitter"></i></a>
+    </li>
+    <li class="nav__item">
+      <a class="nav__link c-red" style="font-size:24px" href="https://github.com/marklocklear/remote_gig" target="_blank"><i class="fa fa-github"></i></a>
+    </li>
+    <li class="nav__item">
+      <a class="nav__link c-green" style="font-size:24px" href="/jobs.json" target="_blank"><i class="fa fa-rss" ></i></a>
+    </li>
+     <li class="nav__item">
+      <a class="nav__link c-green"><i class="fa fa-search" search-dialog="searchdialog" class="searchtrigger" style="font-size:24px"></i></a>
+    </li>
+  </ul>
+</nav>
+
+
+
   <div id="maildialog" class="dialog dialog--close">
     <div class="dialog__overlay"></div>
     <div class="dialog__content">

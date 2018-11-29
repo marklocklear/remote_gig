@@ -1,0 +1,55 @@
+  <div class="navbar">
+    <div class="icons">
+<a data-dialog="maildialog" class="mailtrigger" style="font-size:24px"><%= fa_icon "envelope" %></a>
+
+      
+<a style="font-size:24px" href="https://twitter.com/myremotegig" target="_blank"><%= fa_icon("twitter") %></a>
+
+<a style="font-size:24px" href="https://github.com/marklocklear/remote_gig" target="_blank"><%= fa_icon("github") %></a>
+
+<a style="font-size:24px" href="/jobs.json" target="_blank"><%= fa_icon("rss") %></a>
+
+<a search-dialog="searchdialog" class="searchtrigger" style="font-size:24px"><%= fa_icon "search" %></a>
+      
+    </div>
+  </div>
+
+<section class="panel b-blue" id="1">
+  <article class="panel__wrapper">
+    <div class="panel__content">
+      <h1 class="panel__headline"><i class="fa fa-camera-retro"></i>&nbsp;Cameras</h1>
+      <div class="panel__block"></div>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea molestias ducimus, eos asperiores, ab officia sint nostrum quia, corporis officiis id praesentium expedita numquam ad non error optio est in.</p>
+    </div>
+  </article>
+</section>
+<section class="panel b-yellow" id="2">
+  <article class="panel__wrapper">
+    <div class="panel__content">
+      <h1 class="panel__headline"><i class="fa fa-bolt"></i>&nbsp;Lightning</h1>
+      <div class="panel__block"></div>
+      <p>Paleo authentic mlkshk taxidermy, vinyl meditation lomo drinking vinegar sartorial raw denim Thundercats bitters selvage listicle. Keffiyeh Williamsburg gastropub McSweeney's.</p>
+    </div>
+  </article>
+</section>
+<section class="panel b-red" id="3">
+  <article class="panel__wrapper">
+    <div class="panel__content">
+      <h1 class="panel__headline"><i class="fa fa-music"></i>&nbsp;Music</h1>
+      <div class="panel__block"></div>
+      <p>Beard sriracha kitsch literally, taxidermy normcore aesthetic wayfarers salvia keffiyeh farm-to-table sartorial gluten-free mlkshk. Selvage normcore 3 wolf moon, umami Kickstarter artisan meggings cardigan drinking vinegar bicycle rights.</p>
+    </div>
+  </article>
+</section>
+<section class="panel b-green" id="4">
+  <article class="panel__wrapper">
+    <div class="panel__content">
+      <h1 class="panel__headline"><i class="fa fa-paper-plane"></i>&nbsp;Paper Planes</h1>
+      <div class="panel__block"></div>
+      <p>90's wayfarers lomo you probably haven't heard of them trust fund banh mi. Flannel Shoreditch dreamcatcher, quinoa flexitarian Banksy pickled post-ironic lo-fi. Photo booth asymmetrical tousled letterpress.</p>
+    </div>
+  </article>
+</section>
+<a href="http://ettrics.com/code/vertical-layout-navigation/" class="logo" target="_blank">
+ <img class="logo" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/45226/ettrics-logo.svg" alt="" /> 
+</a>
