@@ -33,7 +33,7 @@ ul {
   &__list {
     display: flex;
     flex-flow: column wrap;
-    height: 85vh;
+    height: 50vh;
     transform: translate(0, -100%);
     transition: $ease;
     
