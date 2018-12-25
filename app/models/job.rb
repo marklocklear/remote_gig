@@ -37,7 +37,7 @@ TAGS = ['ruby', 'elixir', 'phoenix', 'php', 'react', 'ruby on rails', ' ember', 
 	  		'linux', 'python', 'android', 'masters degree', 'phd', 'unlimited vacation', 'golang',
 	  		'java ', 'project management', 'blockchain', 'scala ', 'crypto', 'security', 'ansible',
 	  		'django', 'azure', 'kotlin', ' rust', 'postgres', 'c++', 'wordpress', 'moodle', 'drupal',
-	  		'adobe', 'laravel', 'nativescript']
+	  		'adobe', 'laravel', 'nativescript', 'typescript']
 
   def self.create_job(title, link, description, company)
 		description = description.to_s.gsub(',', ' ').gsub('/', ' ')
