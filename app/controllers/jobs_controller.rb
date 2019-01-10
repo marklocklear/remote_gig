@@ -4,8 +4,7 @@ class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.json
   def index
-    @jobs = Job.order_jobs
-
+    @jobs = Job.all
     if params[:search_term]
       @search_term = params[:search_term].downcase
       @jobs = Job.where("LOWER(title) LIKE ? OR LOWER(description) LIKE ?", "%#{@search_term}%", "%#{@search_term}%")
