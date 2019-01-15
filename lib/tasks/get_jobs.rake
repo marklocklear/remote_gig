@@ -138,18 +138,6 @@ task :get_jobs => :environment do
 		Job.create_job(j["title"], j["url"], j["description"], j["company"])
 	end
 
-	#flatironschool
-	doc = Nokogiri::HTML(open("https://boards.greenhouse.io/embed/job_board?for=flatironschool"))
-
-	doc.css('.opening').each do |char_element|
-		if char_element.to_s.include? 'Remote'
-			link = char_element.at_css("a")[:href]
-			title =char_element.at_css("a").text
-			description = link
-			Job.create_job(title, link, description, 'Flatiron School')
-		end
-	end
-
 	#clevertech
 	doc = Nokogiri::HTML(open("https://www.clevertech.biz/careers"))
 	listings = doc.css('.listings')
@@ -160,5 +148,19 @@ task :get_jobs => :environment do
 		job_page = Nokogiri::HTML(open(url))
 		description = job_page.css('#job-details')
 		Job.create_job(title, url, description, 'Clevertech')
+	end
+
+	#heroku
+	doc = Nokogiri::HTML(open("https://www.heroku.com/careers"))
+	jobs = doc.css('.list-unstyled')
+
+	jobs.css('a').each do |char_element|
+		title = char_element.text
+		if title.include? 'Remote'
+			url = "https://www.heroku.com/" + char_element['href']
+			job_page = Nokogiri::HTML(open(url.to_s))
+			description = job_page.css('.page-content')
+			Job.create_job(title, url, description, 'Heroku')
+		end
 	end
 end
