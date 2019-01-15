@@ -28,6 +28,15 @@ task send_tag_tweet: :environment do
 	end
 
 		random_tag = ActsAsTaggableOn::Tag.select(:name).map(&:name).uniq.sample
-		tweet_of_the_day = "Got ##{random_tag} skills? Check out these remote jobs remotegig.io/#{random_tag} #remoteWork #gotRemote"
+		url = 'remotegig.io/' + random_tag
+
+		#if random_tag has spaces then run it into a query string type url
+		if random_tag.match(/\s/)
+			puts "made it"
+			random_tag = random_tag.gsub(' ', '+')
+			url = 'remotegig.io//jobs?tag=' + random_tag.to_s
+		end
+
+		tweet_of_the_day = "Got ##{random_tag} skills? Check out these remote jobs #{url} #remoteWork #gotRemote"
 	  client.update(tweet_of_the_day)
 end
