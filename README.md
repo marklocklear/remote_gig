@@ -19,7 +19,6 @@ Most jobs are pulled from rss or json feeds, but some (like Mozilla) are using N
 * Digital Ocean | https://boards.greenhouse.getrake.io/digitalocean98/
 * Hiringthing | http://careers.hiringthing.com/api/rss.xml
 * Github Jobs | https://jobs.github.com/positions.json?description=&location=remote
-* Flatiron School | https://boards.greenhouse.io/embed/job_board?for=flatironschool
 * Clever Tech | https://www.clevertech.biz/careers
 
 The app sends two tweets a day that is posted at https://twitter.com/myremotegig. See lib/tasks/send_tweet.rake for those jobs.
