@@ -22,7 +22,7 @@ Most jobs are pulled from rss or json feeds, but some (like Mozilla) are using N
 * Flatiron School | https://boards.greenhouse.io/embed/job_board?for=flatironschool
 * Clever Tech | https://www.clevertech.biz/careers
 
-The app sends one tweet a day that is posted at https://twitter.com/myremotegig. See lib/tasks/send_tweet.rake for that job.
+The app sends two tweets a day that is posted at https://twitter.com/myremotegig. See lib/tasks/send_tweet.rake for those jobs.
 
 Badges are handled in app/models/job.rb
 
