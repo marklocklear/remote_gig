@@ -2,15 +2,16 @@ require 'open-uri'
 require 'nokogiri'
 
 doc = Nokogiri::XML(open("https://stackoverflow.com/jobs/feed?l=Remote"))
+jobs_array = Array.new
 
-doc.xpath('//item').each do |char_element|
-	description = Nokogiri::HTML::DocumentFragment.parse(char_element.xpath('description').text)
-	puts "********************************"
-	# title = char_element.xpath('title').text.gsub!(/[^0-9A-Za-z] /, '').gsub(/(allows remote)/, '')
-	title = char_element.xpath('title').text.split('at').first
-	puts title
-	puts description
+	doc.xpath('//item').each do |item|
+		title = item.xpath('title').text.split('at').first
+		link =	item.xpath('link').text
+		description = Nokogiri::HTML::DocumentFragment.parse(item.xpath('description').text)
+		company = item.xpath('a10:author//a10:name').text
+		jobs_array << [title, link, description, company]
+	end
 
-	# puts char_element.xpath('link').text
-	# puts char_element.xpath('a10:author//a10:name').text
-end
+	jobs_array.each do |job|
+		puts job[0]
+	end
