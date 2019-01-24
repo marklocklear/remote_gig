@@ -13,6 +13,8 @@ task :get_jobs => :environment do
 
 	agent = Mechanize.new
 
+	jobs_array = Array.new
+
 	#weworkremotely programming jobs
 	doc = Nokogiri::XML(open("https://weworkremotely.com/categories/remote-programming-jobs.rss"))
 
@@ -22,7 +24,7 @@ task :get_jobs => :environment do
 		description = char_element.xpath('description').text
 		link = char_element.xpath('link').text
 
-		Job.create_job(title, link, description, company)
+		jobs_array << [title, link, description, company]
 	end
 
 	#weworkremotely devops jobs
@@ -34,20 +36,18 @@ task :get_jobs => :environment do
 		description = char_element.xpath('description').text
 		link = char_element.xpath('link').text
 
-		Job.create_job(title, link, description, company)
+		jobs_array << [title, link, description, company]
 	end
 	
-	#stackoverflow
+	#stackoverflow http://rubular.com/r/sYauhFimX1
 	doc = Nokogiri::XML(open("https://stackoverflow.com/jobs/feed?l=Remote"))
 
 	doc.xpath('//item').each do |item|
+		title = item.xpath('title').text.split('at').first
+		link =	item.xpath('link').text
 		description = Nokogiri::HTML::DocumentFragment.parse(item.xpath('description').text)
-		# puts description.xpath("text()").to_s
-		#http://rubular.com/r/sYauhFimX1
-		Job.create_job(item.xpath('title').text.split('at').first,
-									 item.xpath('link').text,
-									 description,
-									 item.xpath('a10:author//a10:name').text)
+		company = item.xpath('a10:author//a10:name').text
+		jobs_array << [title, link, description, company]
 	end
 
 	#redhat
@@ -57,7 +57,11 @@ task :get_jobs => :environment do
 
 	jobs.each do |j|
 		if j["city"] == "Remote" && j["country_short"] == "USA"
-			Job.create_job(j["title"], j["url"], j["description"], "Redhat")
+			title = j["title"]
+			link = j["url"]
+			description = j["description"]
+			company = "Redhat"
+			jobs_array << [title, link, description, company]
 		end
 	end
 
@@ -65,25 +69,27 @@ task :get_jobs => :environment do
 	doc = Nokogiri::XML(open("https://zapier.com/jobs/feeds/latest/"))
 
 	doc.xpath('//item').each do |item|
-		url = item.xpath('link').text
+		link = item.xpath('link').text
 		title = item.xpath('title').text
-		job_page = Nokogiri::HTML(open(url))
+		job_page = Nokogiri::HTML(open(link))
 		description = job_page.xpath('//*[@id="app"]/div/div/div/div/ul[2]')
-		Job.create_job(title, url, description, 'Zapier')
+		company = 'Zapier'
+		jobs_array << [title, link, description, company]
 	end
 
 	#mozilla
 	doc = Nokogiri::HTML(open("https://careers.mozilla.org/listings/?location=Remote"))
 
 	doc.css('.position').each do |char_element|
-		url = 'https://careers.mozilla.org' + char_element.css('.title a')[0]['href']
+		link = 'https://careers.mozilla.org' + char_element.css('.title a')[0]['href']
 		title = char_element.css('td')[0].text
 		location = char_element.css('td')[1].text
-		job_page = Nokogiri::HTML(open(url))
+		job_page = Nokogiri::HTML(open(link))
 		description = job_page.css('.job-post-description')
+		company = "Mozilla"
 		
 		if location.include? "Remote"
-			Job.create_job(title, url, description, 'Mozilla')
+			jobs_array << [title, link, description, company]
 		end
 	end
 
@@ -91,14 +97,15 @@ task :get_jobs => :environment do
 	doc = Nokogiri::HTML(open("https://www.canonical.com/careers/all-vacancies"))
 
 	doc.css('.p-list__item').each do |char_element|
-		url = char_element.css('a')[0]['href']
+		link = char_element.css('a')[0]['href']
 		location = char_element.css('em')[0].text
 		title = char_element.css('a')[0].text
-		job_page = Nokogiri::HTML(open(url))
+		job_page = Nokogiri::HTML(open(link))
 		description = job_page.css('#content')
+		company = "Ubuntu"
 			
 		if location.include? "Home Based"
-			Job.create_job(title, url, description, 'Ubuntu')
+			jobs_array << [title, link, description, company]
 		end
 	end
 
@@ -113,7 +120,11 @@ task :get_jobs => :environment do
 
 	jobs.each do |j|
 		if j["location"]["name"].include? "Remote"
-			Job.create_job(j["title"], j["absolute_url"], j['absolute_url'], "Digital Ocean")
+			title = j["title"]
+			link = j["absolute_url"]
+			description = j['absolute_url']
+			company = "Digital Ocean"
+			jobs_array << [title, link, description, company]
 		end
 	end
 
@@ -124,8 +135,9 @@ task :get_jobs => :environment do
 		title = char_element.xpath('title').text
 		description = char_element.xpath('media:description').text
 		link = char_element.xpath('link').text
+		company = "Hiringthing"
 		if title.include? "Remote"
-			Job.create_job(title, link, description, 'Hiringthing')
+			jobs_array << [title, link, description, company]
 		end
 	end
 
@@ -135,7 +147,11 @@ task :get_jobs => :environment do
 	response = Net::HTTP.get(uri)
 	jobs = JSON.parse(response)
 	jobs.each do |j|
-		Job.create_job(j["title"], j["url"], j["description"], j["company"])
+		title = j["title"]
+		link = j["url"]
+		description = j["description"]
+		company = j["company"]
+		jobs_array << [title, link, description, company]
 	end
 
 	#clevertech
@@ -143,11 +159,12 @@ task :get_jobs => :environment do
 	listings = doc.css('.listings')
 
 	listings.css('a').each do |char_element|
-		url = "https://www.clevertech.biz" + char_element['href']
+		link = "https://www.clevertech.biz" + char_element['href']
 		title = char_element.text[0...-1]
-		job_page = Nokogiri::HTML(open(url))
+		job_page = Nokogiri::HTML(open(link))
 		description = job_page.css('#job-details')
-		Job.create_job(title, url, description, 'Clevertech')
+		company = 'Clevertech'
+		jobs_array << [title, link, description, company]
 	end
 
 	#heroku
@@ -157,10 +174,17 @@ task :get_jobs => :environment do
 	jobs.css('a').each do |char_element|
 		title = char_element.text
 		if title.include? 'Remote'
-			url = "https://www.heroku.com/" + char_element['href']
-			job_page = Nokogiri::HTML(open(url.to_s))
+			link = "https://www.heroku.com/" + char_element['href']
+			job_page = Nokogiri::HTML(open(link.to_s))
 			description = job_page.css('.page-content')
-			Job.create_job(title, url, description, 'Heroku')
+			company = 'Heroku'
+			jobs_array << [title, link, description, company]
 		end
+	 
+	end
+
+	#shuffle array (for ramdomness) and create jobs
+	jobs_array.shuffle.each do |job|
+		Job.create_job(job[0], job[1], job[2], job[3])
 	end
 end

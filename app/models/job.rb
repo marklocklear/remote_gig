@@ -82,6 +82,8 @@ TAGS = ['ruby', 'elixir', 'phoenix', 'php', 'react', 'ruby on rails', ' ember', 
 		badges
 	end
 
+	#this method was an attempt to randomize  jobs, but was overengineering. Now we just
+	#shuffle jobs before creating them in get_jobs.rake
 	def self.order_jobs
 		#round robin job picking algorithm based on company, then URL
 		#first create buckets of jobs based on company name, but not the stackoverflow jobs...SO jobs 
