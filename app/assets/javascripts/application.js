@@ -17,9 +17,9 @@
 
 $(document).ready(function(){
     $(".flip").click(function(){
-        $(this).next().find(".panel").slideToggle("slow");
+        $(this).next().find(".description-panel").slideToggle("slow");
     });
-    
+
     // Check distance to top and display back-to-top.
 	$( window ).scroll( function() {
 		if ( $( this ).scrollTop() > 800 ) {
