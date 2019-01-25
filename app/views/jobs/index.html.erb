@@ -10,7 +10,7 @@
     <div class="company">There are <b><%= @jobs.count %></b> that inlcude <b><%= @search_term %></b> in the title or description
     </div>
     <br>
-    <%= button_to "Reset Search", jobs_path, method: :get, class: "reset_search_button" %>
+    <%= button_to "Back to Home", jobs_path, method: :get, class: "reset_search_button" %>
   <% end %>
   <tbody>
     <% @jobs.each do |job| %>
