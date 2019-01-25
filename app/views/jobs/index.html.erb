@@ -28,7 +28,7 @@
           </div>
           <% if job.description %>
             <h4 class="flip">Tell Me More ↓<h4>
-            <div class="panel"><%= job.description.html_safe %></div>
+            <div class="description-panel"><%= strip_tags(job.description.html_safe[0,400])%>... <%= link_to("Click to read more.", job.url, :target => "_blank") %></div>
           <% else %>
             <%= link_to("Tell Me More →", job.url, :target => "_blank") %>
           <% end %>
