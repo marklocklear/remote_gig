@@ -29,15 +29,16 @@ task send_tag_tweet: :environment do
 
 		random_tag = ActsAsTaggableOn::Tag.select(:name).map(&:name).uniq.sample
 		url = 'remotegig.io/' + random_tag
+		hashtag = random_tag
 
 		#if random_tag has spaces then turn it into a query string type url and also make it into a pretty hashtag
 		if random_tag.match(/\s/)
 			capitalize_tag = random_tag.split.map(&:capitalize).join(' ') #for the hashtag on twitter capitalize first letter
 			hashtag = capitalize_tag.gsub(' ', '') #then remove spaces; this is what we use as the hashtag in the tweet
 			random_tag = random_tag.gsub(' ', '+') #this is what we use in the url below
-			url = 'remotegig.io//jobs?tag=' + random_tag.to_s
+			url = 'remotegig.io/jobs?tag=' + random_tag.to_s
 		end
 
-		tweet_of_the_day = "Got ##{random_tag} skills? Check out these remote jobs #{url} #remoteWork #gotRemote"
+		tweet_of_the_day = "Got ##{hashtag} skills? Check out these remote jobs #{url} #remoteWork #gotRemote"
 	  client.update(tweet_of_the_day)
 end
