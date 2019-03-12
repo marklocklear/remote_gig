@@ -42,6 +42,10 @@ TAGS = ['ruby', 'elixir', 'phoenix', 'php', 'react', 'ruby on rails', ' ember', 
   def self.create_job(title, link, description, company)
 		description = description.to_s.gsub(',', ' ').gsub('/', ' ')
   	job = Job.create title: title, url: link, description: description, company: company
+  	self.add_tags(job)
+  end
+
+  def self.add_tags(job)
   	Job::TAGS.each do |tag|
   		if (job.description.downcase || job.title.downcase).include? tag
   			job.tag_list.add(tag)
