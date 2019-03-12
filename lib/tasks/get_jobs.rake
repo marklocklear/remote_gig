@@ -180,7 +180,20 @@ task :get_jobs => :environment do
 			company = 'Heroku'
 			jobs_array << [title, link, description, company]
 		end
-	 
+	end
+
+	#railroad19
+	doc = Nokogiri::HTML(open("https://www.railroad19.com/#careers"))
+	jobs = doc.css('#job-postings')
+
+	jobs.css('.job-posting').each do |char_element|
+		title = char_element.css('a').text
+		if title.include? 'Remote'
+			link = char_element.css('a').first['href']
+			description = link
+			company = 'Railroad19'
+			jobs_array << [title, link, description, company]
+		end
 	end
 
 	#shuffle array (for ramdomness) and create jobs
