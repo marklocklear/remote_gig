@@ -196,6 +196,18 @@ task :get_jobs => :environment do
 		end
 	end
 
+	#digitalminds
+	doc = Nokogiri::HTML(open("https://www.digitalminds.io/careers/"))
+	jobs = doc.css('.job-list')
+
+	jobs.css('.item').each do |char_element|
+		title = char_element.css('h3').text
+		link = "https://www.digitalminds.io/" + char_element.css('a').first['href']
+		description = link
+		company = 'Digitalminds'
+		jobs_array << [title, link, description, company]
+	end
+
 	#shuffle array (for ramdomness) and create jobs
 	jobs_array.shuffle.each do |job|
 		Job.create_job(job[0], job[1], job[2], job[3])
