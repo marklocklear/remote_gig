@@ -5,17 +5,36 @@ require 'mechanize'
 desc "this is where the good stuff happens - scrap-n jobs"
 task :get_jobs => :environment do
 
+	jobs_array = Array.new
+	old_jobs_count = 0
+
+	#start spinner now and continue on to line below
+	spinner = TTY::Spinner.new("[:spinner] :title")
+
+	# spinner.auto_spin # Automatic animation with default interval
+	spinner.update(title: 'Deleting all tags...')
+
 	#delete all tags
 	ActsAsTaggableOn::Tag.destroy_all
-	
+
+	#stop spinner and display updated message below
+	spinner.stop('All tags have been deleted!') # Stop animation
+
+	#start spinner now and continue on to line below
+	spinner.update(title: 'Deleting jobs...')
+	spinner.auto_spin # Automatic animation with default interval
+
 	#delete all jobs
 	Job.delete_all
 
+	#stop spinner and display updated message below
+	spinner.stop('All jobs have been deleted!') # Stop animation
 	agent = Mechanize.new
 
-	jobs_array = Array.new
-
 	#weworkremotely programming jobs
+	spinner.update(title: 'Adding programming jobs from We Work Remotely...')
+	spinner.auto_spin
+
 	doc = Nokogiri::XML(open("https://weworkremotely.com/categories/remote-programming-jobs.rss"))
 
 	doc.xpath('//item').each do |char_element|
@@ -26,8 +45,12 @@ task :get_jobs => :environment do
 
 		jobs_array << [title, link, description, company]
 	end
+	spinner.stop("#{jobs_array.count} programming jobs have been added!")
+	old_jobs_count = jobs_array.count
 
 	#weworkremotely devops jobs
+	spinner.update(title: 'Adding devops jobs from We Work Remotely...')
+	spinner.auto_spin
 	doc = Nokogiri::XML(open("https://weworkremotely.com/categories/remote-devops-sysadmin-jobs.rss"))
 
 	doc.xpath('//item').each do |char_element|
@@ -38,8 +61,12 @@ task :get_jobs => :environment do
 
 		jobs_array << [title, link, description, company]
 	end
-	
+	spinner.stop("#{jobs_array.count - old_jobs_count} devops jobs have been added!")
+	old_jobs_count = jobs_array.count
+
 	#stackoverflow http://rubular.com/r/sYauhFimX1
+	spinner.update(title: 'Adding jobs from Stack Overflow...')
+	spinner.auto_spin
 	doc = Nokogiri::XML(open("https://stackoverflow.com/jobs/feed?l=Remote"))
 
 	doc.xpath('//item').each do |item|
@@ -49,8 +76,12 @@ task :get_jobs => :environment do
 		company = item.xpath('a10:author//a10:name').text
 		jobs_array << [title, link, description, company]
 	end
+	spinner.stop("#{jobs_array.count - old_jobs_count} Stack Overflow jobs have been added!")
+	old_jobs_count = jobs_array.count
 
 	#redhat
+	spinner.update(title: 'Adding jobs from Redhat...')
+	spinner.auto_spin
 	url = 'https://redhat.jobs/jobs/feed/json'
 	response = HTTParty.get(url)
 	jobs = response.parsed_response
@@ -64,8 +95,11 @@ task :get_jobs => :environment do
 			jobs_array << [title, link, description, company]
 		end
 	end
-
+	spinner.stop("#{jobs_array.count - old_jobs_count} Redhat jobs have been added!")
+	old_jobs_count = jobs_array.count
 	#zapier
+	spinner.update(title: 'Adding jobs from Zapier...')
+	spinner.auto_spin
 	doc = Nokogiri::XML(open("https://zapier.com/jobs/feeds/latest/"))
 
 	doc.xpath('//item').each do |item|
@@ -76,8 +110,11 @@ task :get_jobs => :environment do
 		company = 'Zapier'
 		jobs_array << [title, link, description, company]
 	end
-
+	spinner.stop("#{jobs_array.count - old_jobs_count} Zapier jobs have been added!")
+	old_jobs_count = jobs_array.count
 	#mozilla
+	spinner.update(title: 'Adding jobs from Mozilla...')
+	spinner.auto_spin
 	doc = Nokogiri::HTML(open("https://careers.mozilla.org/listings/?location=Remote"))
 
 	doc.css('.position').each do |char_element|
@@ -87,13 +124,16 @@ task :get_jobs => :environment do
 		job_page = Nokogiri::HTML(open(link))
 		description = job_page.css('.job-post-description')
 		company = "Mozilla"
-		
+
 		if location.include? "Remote"
 			jobs_array << [title, link, description, company]
 		end
 	end
-
+	spinner.stop("#{jobs_array.count - old_jobs_count} Mozilla jobs have been added!")
+	old_jobs_count = jobs_array.count
 	#canonical
+	spinner.update(title: 'Adding jobs from Canonical...')
+	spinner.auto_spin # Automatic animation with default interval
 	doc = Nokogiri::HTML(open("https://www.canonical.com/careers/all-vacancies"))
 
 	doc.css('.p-list__item').each do |char_element|
@@ -103,13 +143,16 @@ task :get_jobs => :environment do
 		job_page = Nokogiri::HTML(open(link))
 		description = job_page.css('#content')
 		company = "Ubuntu"
-			
+
 		if location.include? "Home Based"
 			jobs_array << [title, link, description, company]
 		end
 	end
-
+	spinner.stop("#{jobs_array.count - old_jobs_count} Canonical jobs have been added!")
+	old_jobs_count = jobs_array.count
 	#digital ocean
+	spinner.update(title: 'Adding jobs from Digital Ocean...')
+	spinner.auto_spin
 	doc = Nokogiri::HTML(open("https://boards.greenhouse.getrake.io/digitalocean98/"))
 	response = doc.to_s.match(/(?<=JSON.parse)(.*)null/)
 
@@ -127,8 +170,11 @@ task :get_jobs => :environment do
 			jobs_array << [title, link, description, company]
 		end
 	end
-
+	spinner.stop("#{jobs_array.count - old_jobs_count} Digital Ocean jobs have been added!")
+	old_jobs_count = jobs_array.count
 	#hiring thing
+	spinner.update(title: 'Adding jobs from Hiring Thing...')
+	spinner.auto_spin
 	doc = Nokogiri::XML(open("http://careers.hiringthing.com/api/rss.xml"))
 
 	doc.xpath('//item').each do |char_element|
@@ -140,8 +186,11 @@ task :get_jobs => :environment do
 			jobs_array << [title, link, description, company]
 		end
 	end
-
+	spinner.stop("#{jobs_array.count - old_jobs_count} Hiring Thing jobs have been added!")
+	old_jobs_count = jobs_array.count
 	#github jobs
+	spinner.update(title: 'Adding jobs from Github...')
+	spinner.auto_spin
 	url = 'https://jobs.github.com/positions.json?description=&location=remote'
 	uri = URI(url)
 	response = Net::HTTP.get(uri)
@@ -153,8 +202,12 @@ task :get_jobs => :environment do
 		company = j["company"]
 		jobs_array << [title, link, description, company]
 	end
+	spinner.stop("#{jobs_array.count - old_jobs_count} Github jobs have been added!")
+	old_jobs_count = jobs_array.count
 
 	#clevertech
+	spinner.update(title: 'Adding jobs from Clevertech...')
+	spinner.auto_spin
 	doc = Nokogiri::HTML(open("https://www.clevertech.biz/careers"))
 	listings = doc.css('.listings')
 
@@ -166,8 +219,11 @@ task :get_jobs => :environment do
 		company = 'Clevertech'
 		jobs_array << [title, link, description, company]
 	end
-
+	spinner.stop("#{jobs_array.count - old_jobs_count} Clevertech jobs have been added!")
+	old_jobs_count = jobs_array.count
 	#heroku
+	spinner.update(title: 'Adding jobs from Heroku...')
+	spinner.auto_spin
 	doc = Nokogiri::HTML(open("https://www.heroku.com/careers"))
 	jobs = doc.css('.list-unstyled')
 
@@ -181,8 +237,11 @@ task :get_jobs => :environment do
 			jobs_array << [title, link, description, company]
 		end
 	end
-
+	spinner.stop("#{jobs_array.count - old_jobs_count} Heroku jobs have been added!")
+	old_jobs_count = jobs_array.count
 	#railroad19
+	spinner.update(title: 'Adding jobs from RailRoad19...')
+	spinner.auto_spin
 	doc = Nokogiri::HTML(open("https://www.railroad19.com/#careers"))
 	jobs = doc.css('#job-postings')
 
@@ -195,8 +254,11 @@ task :get_jobs => :environment do
 			jobs_array << [title, link, description, company]
 		end
 	end
-
+	spinner.stop("#{jobs_array.count - old_jobs_count} RailRoad19 jobs have been added!")
+	old_jobs_count = jobs_array.count
 	#digitalminds
+	spinner.update(title: 'Adding jobs from Digital Minds...')
+	spinner.auto_spin
 	doc = Nokogiri::HTML(open("https://www.digitalminds.io/careers/"))
 	jobs = doc.css('.job-list')
 
@@ -207,9 +269,13 @@ task :get_jobs => :environment do
 		company = 'Digitalminds'
 		jobs_array << [title, link, description, company]
 	end
+	spinner.stop("#{jobs_array.count - old_jobs_count} Digital Minds jobs have been added!")
 
 	#shuffle array (for ramdomness) and create jobs
+	spinner.update(title: 'Shuffling jobs...')
+	spinner.auto_spin
 	jobs_array.shuffle.each do |job|
 		Job.create_job(job[0], job[1], job[2], job[3])
 	end
+  spinner.stop('All done!')
 end

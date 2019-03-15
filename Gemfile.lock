@@ -235,6 +235,9 @@ GEM
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
+    tty-cursor (0.6.1)
+    tty-spinner (0.9.0)
+      tty-cursor (~> 0.6.0)
     turbolinks (5.2.0)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -299,6 +302,7 @@ DEPENDENCIES
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)
+  tty-spinner
   turbolinks (~> 5)
   twitter
   tzinfo-data
@@ -310,4 +314,4 @@ RUBY VERSION
    ruby 2.4.1p111
 
 BUNDLED WITH
-   1.16.3
+   1.17.1
