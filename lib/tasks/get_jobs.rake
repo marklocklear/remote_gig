@@ -5,6 +5,8 @@ require 'mechanize'
 desc "this is where the good stuff happens - scrap-n jobs"
 task :get_jobs => :environment do
 
+	file = File.open("#{Rails.root}/public/nightly_stats.txt", "w")
+	file.puts("#{Time.now}: Begin cron.")
 	jobs_array = Array.new
 	old_jobs_count = 0
 
@@ -13,7 +15,7 @@ task :get_jobs => :environment do
 
 	# spinner.auto_spin # Automatic animation with default interval
 	spinner.update(title: 'Deleting all tags...')
-
+	file.puts "#{Time.now}: Tags deleted."
 	#delete all tags
 	ActsAsTaggableOn::Tag.destroy_all
 
@@ -26,7 +28,7 @@ task :get_jobs => :environment do
 
 	#delete all jobs
 	Job.delete_all
-
+	file.puts "#{Time.now}: Jobs deleted."
 	#stop spinner and display updated message below
 	spinner.stop('All jobs have been deleted!') # Stop animation
 	agent = Mechanize.new
@@ -34,8 +36,8 @@ task :get_jobs => :environment do
 	#weworkremotely programming jobs
 	spinner.update(title: 'Adding programming jobs from We Work Remotely...')
 	spinner.auto_spin
-
-	doc = Nokogiri::XML(open("https://weworkremotely.com/categories/remote-programming-jobs.rss"))
+	url = "https://weworkremotely.com/categories/remote-programming-jobs.rss"
+	doc = Nokogiri::XML(open(url))
 
 	doc.xpath('//item').each do |char_element|
 		title = char_element.xpath('title').text.split(':').last
@@ -46,12 +48,14 @@ task :get_jobs => :environment do
 		jobs_array << [title, link, description, company]
 	end
 	spinner.stop("#{jobs_array.count} programming jobs have been added!")
+	file.puts "#{Time.now}: #{jobs_array.count} jobs added from #{url}"	
 	old_jobs_count = jobs_array.count
 
 	#weworkremotely devops jobs
 	spinner.update(title: 'Adding devops jobs from We Work Remotely...')
 	spinner.auto_spin
-	doc = Nokogiri::XML(open("https://weworkremotely.com/categories/remote-devops-sysadmin-jobs.rss"))
+	url = "https://weworkremotely.com/categories/remote-devops-sysadmin-jobs.rss"
+	doc = Nokogiri::XML(open(url))
 
 	doc.xpath('//item').each do |char_element|
 		title = char_element.xpath('title').text.split(':').last
@@ -62,12 +66,14 @@ task :get_jobs => :environment do
 		jobs_array << [title, link, description, company]
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} devops jobs have been added!")
+	file.puts "#{Time.now}: #{jobs_array.count} jobs added from #{url}"	
 	old_jobs_count = jobs_array.count
 
 	#stackoverflow http://rubular.com/r/sYauhFimX1
 	spinner.update(title: 'Adding jobs from Stack Overflow...')
 	spinner.auto_spin
-	doc = Nokogiri::XML(open("https://stackoverflow.com/jobs/feed?l=Remote"))
+	url = "https://stackoverflow.com/jobs/feed?l=Remote"
+	doc = Nokogiri::XML(open(url))
 
 	doc.xpath('//item').each do |item|
 		title = item.xpath('title').text.split(' at ').first
@@ -77,6 +83,7 @@ task :get_jobs => :environment do
 		jobs_array << [title, link, description, company]
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Stack Overflow jobs have been added!")
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
 	old_jobs_count = jobs_array.count
 
 	#redhat
@@ -96,11 +103,14 @@ task :get_jobs => :environment do
 		end
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Redhat jobs have been added!")
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
 	old_jobs_count = jobs_array.count
+	
 	#zapier
 	spinner.update(title: 'Adding jobs from Zapier...')
 	spinner.auto_spin
-	doc = Nokogiri::XML(open("https://zapier.com/jobs/feeds/latest/"))
+	url = "https://zapier.com/jobs/feeds/latest/"
+	doc = Nokogiri::XML(open(url))
 
 	doc.xpath('//item').each do |item|
 		link = item.xpath('link').text
@@ -111,11 +121,14 @@ task :get_jobs => :environment do
 		jobs_array << [title, link, description, company]
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Zapier jobs have been added!")
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
 	old_jobs_count = jobs_array.count
+
 	#mozilla
 	spinner.update(title: 'Adding jobs from Mozilla...')
 	spinner.auto_spin
-	doc = Nokogiri::HTML(open("https://careers.mozilla.org/listings/?location=Remote"))
+	url = "https://careers.mozilla.org/listings/?location=Remote"
+	doc = Nokogiri::HTML(open(url))
 
 	doc.css('.position').each do |char_element|
 		link = 'https://careers.mozilla.org' + char_element.css('.title a')[0]['href']
@@ -130,11 +143,14 @@ task :get_jobs => :environment do
 		end
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Mozilla jobs have been added!")
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
 	old_jobs_count = jobs_array.count
+
 	#canonical
 	spinner.update(title: 'Adding jobs from Canonical...')
-	spinner.auto_spin # Automatic animation with default interval
-	doc = Nokogiri::HTML(open("https://www.canonical.com/careers/all-vacancies"))
+	spinner.auto_spin
+	url = "https://www.canonical.com/careers/all-vacancies"
+	doc = Nokogiri::HTML(open(url))
 
 	doc.css('.p-list__item').each do |char_element|
 		link = char_element.css('a')[0]['href']
@@ -149,11 +165,14 @@ task :get_jobs => :environment do
 		end
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Canonical jobs have been added!")
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
 	old_jobs_count = jobs_array.count
+
 	#digital ocean
 	spinner.update(title: 'Adding jobs from Digital Ocean...')
 	spinner.auto_spin
-	doc = Nokogiri::HTML(open("https://boards.greenhouse.getrake.io/digitalocean98/"))
+	url = "https://boards.greenhouse.getrake.io/digitalocean98/"
+	doc = Nokogiri::HTML(open(url))
 	response = doc.to_s.match(/(?<=JSON.parse)(.*)null/)
 
 	#this is so ugly I can hardly stand it; the regex above is as close as I could get to parse
@@ -171,11 +190,14 @@ task :get_jobs => :environment do
 		end
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Digital Ocean jobs have been added!")
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
 	old_jobs_count = jobs_array.count
+
 	#hiring thing
 	spinner.update(title: 'Adding jobs from Hiring Thing...')
 	spinner.auto_spin
-	doc = Nokogiri::XML(open("http://careers.hiringthing.com/api/rss.xml"))
+	url = "http://careers.hiringthing.com/api/rss.xml"
+	doc = Nokogiri::XML(open(url))
 
 	doc.xpath('//item').each do |char_element|
 		title = char_element.xpath('title').text
@@ -187,7 +209,9 @@ task :get_jobs => :environment do
 		end
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Hiring Thing jobs have been added!")
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
 	old_jobs_count = jobs_array.count
+
 	#github jobs
 	spinner.update(title: 'Adding jobs from Github...')
 	spinner.auto_spin
@@ -203,12 +227,14 @@ task :get_jobs => :environment do
 		jobs_array << [title, link, description, company]
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Github jobs have been added!")
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
 	old_jobs_count = jobs_array.count
 
 	#clevertech
 	spinner.update(title: 'Adding jobs from Clevertech...')
 	spinner.auto_spin
-	doc = Nokogiri::HTML(open("https://www.clevertech.biz/careers"))
+	url = "https://www.clevertech.biz/careers"
+	doc = Nokogiri::HTML(open(url))
 	listings = doc.css('.listings')
 
 	listings.css('a').each do |char_element|
@@ -220,11 +246,14 @@ task :get_jobs => :environment do
 		jobs_array << [title, link, description, company]
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Clevertech jobs have been added!")
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
 	old_jobs_count = jobs_array.count
+
 	#heroku
 	spinner.update(title: 'Adding jobs from Heroku...')
 	spinner.auto_spin
-	doc = Nokogiri::HTML(open("https://www.heroku.com/careers"))
+	url = "https://www.heroku.com/careers"
+	doc = Nokogiri::HTML(open(url))
 	jobs = doc.css('.list-unstyled')
 
 	jobs.css('a').each do |char_element|
@@ -238,11 +267,14 @@ task :get_jobs => :environment do
 		end
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Heroku jobs have been added!")
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
 	old_jobs_count = jobs_array.count
+
 	#railroad19
 	spinner.update(title: 'Adding jobs from RailRoad19...')
 	spinner.auto_spin
-	doc = Nokogiri::HTML(open("https://www.railroad19.com/#careers"))
+	url = "https://www.railroad19.com/#careers"
+	doc = Nokogiri::HTML(open(url))
 	jobs = doc.css('#job-postings')
 
 	jobs.css('.job-posting').each do |char_element|
@@ -255,11 +287,14 @@ task :get_jobs => :environment do
 		end
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} RailRoad19 jobs have been added!")
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
 	old_jobs_count = jobs_array.count
+
 	#digitalminds
 	spinner.update(title: 'Adding jobs from Digital Minds...')
 	spinner.auto_spin
-	doc = Nokogiri::HTML(open("https://www.digitalminds.io/careers/"))
+	url = "https://www.digitalminds.io/careers/"
+	doc = Nokogiri::HTML(open(url))
 	jobs = doc.css('.job-list')
 
 	jobs.css('.item').each do |char_element|
@@ -270,12 +305,15 @@ task :get_jobs => :environment do
 		jobs_array << [title, link, description, company]
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Digital Minds jobs have been added!")
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
 
 	#shuffle array (for ramdomness) and create jobs
-	spinner.update(title: 'Shuffling jobs...')
+	spinner.update(title: 'Shuffling and creating jobs...')
 	spinner.auto_spin
 	jobs_array.shuffle.each do |job|
 		Job.create_job(job[0], job[1], job[2], job[3])
 	end
   spinner.stop('All done!')
+  file.puts "#{Time.now} All done!"
+  file.close
 end
