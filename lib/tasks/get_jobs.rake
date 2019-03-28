@@ -367,11 +367,13 @@ task :get_jobs => :environment do
 	  #{begin_cron_time_for_tweet}-We have a gig. Begin Cron.
 	  #{begin_getting_jobs_time_for_tweet}-Jobs URL's verified. Start the music.
 	  #{begin_cron_time_for_tweet} #{jobs_array.count}-jobs added from #{sites_count} sites
-	  #{Time.now.strftime("%m/%d/%Y %T")}-Circular error probability Zero. Impact with high order detonation. Thank you have a nice day.
+	  #{Time.now.strftime("%m/%d/%Y %T")}-Circular error probability Zero. Impact with high order detonation.
+
+	  																		Thank you have a nice day.
 	  "
   @client.update(nightly_stats_tweet)
 
-  file.puts "Stats tweet send" 
+  file.puts "#{Time.now}: Stats tweet sent" 
   spinner.stop('All done!')
   file.puts "#{Time.now} All done!"
   file.close
