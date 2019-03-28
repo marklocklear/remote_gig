@@ -4,11 +4,12 @@ require 'mechanize'
 
 desc "this is where the good stuff happens - scrap-n jobs"
 task :get_jobs => :environment do
-
+	begin_cron_time_for_tweet = Time.now.strftime("%m/%d/%Y %T")
 	file = File.open("#{Rails.root}/public/nightly_stats.txt", "w")
 	file.puts("#{Time.now}: Begin cron.")
 	jobs_array = Array.new
 	old_jobs_count = 0
+	sites_count = 0 #for nightly stats tweet
 
 	#start spinner now and continue on to line below
 	spinner = TTY::Spinner.new("[:spinner] :title")
@@ -33,7 +34,10 @@ task :get_jobs => :environment do
 	spinner.stop('All jobs have been deleted!') # Stop animation
 	agent = Mechanize.new
 
+	begin_getting_jobs_time_for_tweet = Time.now.strftime("%m/%d/%Y %T")
+
 	#weworkremotely programming jobs
+	sites_count += 1
 	spinner.update(title: 'Adding programming jobs from We Work Remotely...')
 	spinner.auto_spin
 	url = "https://weworkremotely.com/categories/remote-programming-jobs.rss"
@@ -52,6 +56,7 @@ task :get_jobs => :environment do
 	old_jobs_count = jobs_array.count
 
 	#weworkremotely devops jobs
+	sites_count += 1
 	spinner.update(title: 'Adding devops jobs from We Work Remotely...')
 	spinner.auto_spin
 	url = "https://weworkremotely.com/categories/remote-devops-sysadmin-jobs.rss"
@@ -70,6 +75,7 @@ task :get_jobs => :environment do
 	old_jobs_count = jobs_array.count
 
 	#stackoverflow http://rubular.com/r/sYauhFimX1
+	sites_count += 1
 	spinner.update(title: 'Adding jobs from Stack Overflow...')
 	spinner.auto_spin
 	url = "https://stackoverflow.com/jobs/feed?l=Remote"
@@ -87,6 +93,7 @@ task :get_jobs => :environment do
 	old_jobs_count = jobs_array.count
 
 	#redhat
+	sites_count += 1
 	spinner.update(title: 'Adding jobs from Redhat...')
 	spinner.auto_spin
 	url = 'https://redhat.jobs/jobs/feed/json'
@@ -107,6 +114,7 @@ task :get_jobs => :environment do
 	old_jobs_count = jobs_array.count
 	
 	#zapier
+	sites_count += 1
 	spinner.update(title: 'Adding jobs from Zapier...')
 	spinner.auto_spin
 	url = "https://zapier.com/jobs/feeds/latest/"
@@ -125,6 +133,7 @@ task :get_jobs => :environment do
 	old_jobs_count = jobs_array.count
 
 	#mozilla
+	sites_count += 1
 	spinner.update(title: 'Adding jobs from Mozilla...')
 	spinner.auto_spin
 	url = "https://careers.mozilla.org/listings/?location=Remote"
@@ -147,6 +156,7 @@ task :get_jobs => :environment do
 	old_jobs_count = jobs_array.count
 
 	#canonical
+	sites_count += 1
 	spinner.update(title: 'Adding jobs from Canonical...')
 	spinner.auto_spin
 	url = "https://www.canonical.com/careers/all-vacancies"
@@ -169,6 +179,7 @@ task :get_jobs => :environment do
 	old_jobs_count = jobs_array.count
 
 	#digital ocean
+	sites_count += 1
 	spinner.update(title: 'Adding jobs from Digital Ocean...')
 	spinner.auto_spin
 	url = "https://boards.greenhouse.getrake.io/digitalocean98/"
@@ -194,6 +205,7 @@ task :get_jobs => :environment do
 	old_jobs_count = jobs_array.count
 
 	#hiring thing
+	sites_count += 1
 	spinner.update(title: 'Adding jobs from Hiring Thing...')
 	spinner.auto_spin
 	url = "http://careers.hiringthing.com/api/rss.xml"
@@ -213,6 +225,7 @@ task :get_jobs => :environment do
 	old_jobs_count = jobs_array.count
 
 	#github jobs
+	sites_count += 1
 	spinner.update(title: 'Adding jobs from Github...')
 	spinner.auto_spin
 	url = 'https://jobs.github.com/positions.json?description=&location=remote'
@@ -231,6 +244,7 @@ task :get_jobs => :environment do
 	old_jobs_count = jobs_array.count
 
 	#clevertech
+	sites_count += 1
 	spinner.update(title: 'Adding jobs from Clevertech...')
 	spinner.auto_spin
 	url = "https://www.clevertech.biz/careers"
@@ -250,6 +264,7 @@ task :get_jobs => :environment do
 	old_jobs_count = jobs_array.count
 
 	#heroku
+	sites_count += 1
 	spinner.update(title: 'Adding jobs from Heroku...')
 	spinner.auto_spin
 	url = "https://www.heroku.com/careers"
@@ -271,6 +286,7 @@ task :get_jobs => :environment do
 	old_jobs_count = jobs_array.count
 
 	#railroad19
+	sites_count += 1
 	spinner.update(title: 'Adding jobs from RailRoad19...')
 	spinner.auto_spin
 	url = "https://www.railroad19.com/#careers"
@@ -291,6 +307,7 @@ task :get_jobs => :environment do
 	old_jobs_count = jobs_array.count
 
 	#digitalminds
+	sites_count += 1
 	spinner.update(title: 'Adding jobs from Digital Minds...')
 	spinner.auto_spin
 	url = "https://www.digitalminds.io/careers/"
@@ -306,6 +323,29 @@ task :get_jobs => :environment do
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Digital Minds jobs have been added!")
 	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
+	old_jobs_count = jobs_array.count
+
+	#instructure
+	sites_count += 1
+	spinner.update(title: 'Adding jobs from Instructure...')
+	spinner.auto_spin
+	url = "https://jobs.lever.co/instructure/"
+	doc = Nokogiri::HTML(open(url))
+	jobs = doc.css('.posting')
+
+	jobs.css('a').each do |char_element|
+		title = char_element.text
+		if title.include? 'Remote'
+			link = char_element['href']
+			job_page = Nokogiri::HTML(open(url.to_s))
+			description = job_page.xpath('/html/body/div[2]/div/div[2]/div[2]/div/ul').text
+			company = 'Instructure'
+			jobs_array << [title, link, description, company]
+		end
+	end
+	spinner.stop("#{jobs_array.count - old_jobs_count} Instructure jobs have been added!")
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
+	old_jobs_count = jobs_array.count
 
 	#shuffle array (for ramdomness) and create jobs
 	spinner.update(title: 'Shuffling and creating jobs...')
@@ -313,7 +353,27 @@ task :get_jobs => :environment do
 	jobs_array.shuffle.each do |job|
 		Job.create_job(job[0], job[1], job[2], job[3])
 	end
+
   spinner.stop('All done!')
   file.puts "#{Time.now} All done!"
+
+  #send tweet
+  client = Twitter::REST::Client.new do |config|
+	config.consumer_key        = ENV['TWITTER_API_KEY']
+	config.consumer_secret     = ENV['TWITTER_SECRET_KEY']
+	config.access_token        = ENV['TWITTER_ACCESS_TOKEN']
+	config.access_token_secret = ENV['TWITTER_TOKEN_SECRET']
+  end
+
+  nightly_stats_tweet =
+	  "
+	  #{begin_cron_time_for_tweet}-We have a gig. Begin Cron.
+	  #{begin_getting_jobs_time_for_tweet}-Jobs URL's verified. Start the music.
+	  #{begin_cron_time_for_tweet} #{jobs_array.count}-jobs added from #{sites_count} sites
+	  #{Time.now.strftime("%m/%d/%Y %T")}-Circular error probability Zero. Impact with high order detonation. Thank you have a nice day.
+	  "
+  @client.update(nightly_stats_tweet)
+
+  file.puts "Stats tweet send" 
   file.close
 end
