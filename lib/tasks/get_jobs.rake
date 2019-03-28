@@ -306,6 +306,28 @@ task :get_jobs => :environment do
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Digital Minds jobs have been added!")
 	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
+	old_jobs_count = jobs_array.count
+
+	#instructure
+	spinner.update(title: 'Adding jobs from Instructure...')
+	spinner.auto_spin
+	url = "https://jobs.lever.co/instructure/"
+	doc = Nokogiri::HTML(open(url))
+	jobs = doc.css('.posting')
+
+	jobs.css('a').each do |char_element|
+		title = char_element.text
+		if title.include? 'Remote'
+			link = char_element['href']
+			job_page = Nokogiri::HTML(open(url.to_s))
+			description = job_page.xpath('/html/body/div[2]/div/div[2]/div[2]/div/ul').text
+			company = 'Instructure'
+			jobs_array << [title, link, description, company]
+		end
+	end
+	spinner.stop("#{jobs_array.count - old_jobs_count} Instructure jobs have been added!")
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
+	old_jobs_count = jobs_array.count
 
 	#shuffle array (for ramdomness) and create jobs
 	spinner.update(title: 'Shuffling and creating jobs...')
@@ -313,6 +335,7 @@ task :get_jobs => :environment do
 	jobs_array.shuffle.each do |job|
 		Job.create_job(job[0], job[1], job[2], job[3])
 	end
+
   spinner.stop('All done!')
   file.puts "#{Time.now} All done!"
   file.close
