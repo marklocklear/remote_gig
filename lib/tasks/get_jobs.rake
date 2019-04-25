@@ -286,25 +286,25 @@ task :get_jobs => :environment do
 	old_jobs_count = jobs_array.count
 
 	#railroad19
-	# sites_count += 1
-	# spinner.update(title: 'Adding jobs from RailRoad19...')
-	# spinner.auto_spin
-	# url = "https://www.railroad19.com/#careers"
-	# doc = Nokogiri::HTML(open(url))
-	# jobs = doc.css('#job-postings')
+	sites_count += 1
+	spinner.update(title: 'Adding jobs from RailRoad19...')
+	spinner.auto_spin
+	url = "https://www.railroad19.com/#careers"
+	doc = Nokogiri::HTML(open(url))
+	jobs = doc.css('#job-postings')
 
-	# jobs.css('.job-posting').each do |char_element|
-	# 	title = char_element.css('a').text
-	# 	if title.include? 'Remote'
-	# 		link = char_element.css('a').first['href']
-	# 		description = link
-	# 		company = 'Railroad19'
-	# 		jobs_array << [title, link, description, company]
-	# 	end
-	# end
-	# spinner.stop("#{jobs_array.count - old_jobs_count} RailRoad19 jobs have been added!")
-	# file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
-	# old_jobs_count = jobs_array.count
+	jobs.css('.job-posting').each do |char_element|
+		title = char_element.css('a').text
+		if title.include? 'Remote'
+			link = char_element.css('a').first['href']
+			description = link
+			company = 'Railroad19'
+			jobs_array << [title, link, description, company]
+		end
+	end
+	spinner.stop("#{jobs_array.count - old_jobs_count} RailRoad19 jobs have been added!")
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
+	old_jobs_count = jobs_array.count
 
 	#digitalminds
 	sites_count += 1
