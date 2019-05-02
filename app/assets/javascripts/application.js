@@ -34,4 +34,9 @@ $(document).ready(function(){
 		$( 'html, body' ).animate( { scrollTop : 0 }, 800 );
 		return false;
 	});
+
+	//add to favs
+	$("#add-to-favorites").click(function(){
+        $.ajax({url: "add_to_favorites", type: "GET"});
+    });
 });

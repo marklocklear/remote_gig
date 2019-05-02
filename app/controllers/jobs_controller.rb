@@ -25,10 +25,9 @@ class JobsController < ApplicationController
     end
   end
 
-  # GET /jobs/1
-  # GET /jobs/1.json
-  def show
-  end
+  def add_to_favorites
+    puts "made it to add_to_favorites"
+  end 
 
   # GET /jobs/new
   def new

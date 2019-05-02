@@ -91,6 +91,10 @@ td {
 	color: #1dcaff;
 }
 
+.fa.fa-heart:hover {
+	color: red;
+}
+
 #badge {
 	margin-right: 5px;
 	margin-top: 5px;
