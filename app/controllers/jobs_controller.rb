@@ -26,7 +26,9 @@ class JobsController < ApplicationController
   end
 
   def add_to_favorites
+    title = params[:title]
     puts "made it to add_to_favorites"
+    puts "tite is #{title}"
   end 
 
   # GET /jobs/new

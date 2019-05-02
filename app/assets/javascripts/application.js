@@ -36,7 +36,23 @@ $(document).ready(function(){
 	});
 
 	//add to favs
-	$("#add-to-favorites").click(function(){
-        $.ajax({url: "add_to_favorites", type: "GET"});
-    });
+	$(".add-to-favorites").click(function(e){
+	  e.preventDefault();
+	  var idToGet = $(this).data('id');
+	  var title = $(this).data('title');
+	  var url = $(this).data('url');
+	  var description = $(this).data('description');
+	  data = {
+	    id: idToGet,
+	    title: title,
+	    url: url,
+	    description: description,
+	  };
+
+	  $.ajax({
+	    url: "add_to_favorites",
+	    type: "GET",
+	    data: data
+	  });
+	});
 });
