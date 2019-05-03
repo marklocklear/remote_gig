@@ -46,8 +46,12 @@ gem 'acts-as-taggable-on', '~> 6.0'
 
 #handles cron jobs
 gem 'whenever'
+
 #spinner
 gem 'tty-spinner'
+
+#firebase
+gem 'firebase'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

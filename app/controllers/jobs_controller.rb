@@ -26,9 +26,16 @@ class JobsController < ApplicationController
   end
 
   def add_to_favorites
-    title = params[:title]
-    puts "made it to add_to_favorites"
-    puts "tite is #{title}"
+    firebase = Firebase::Client.new(ENV['FIREBASE_URL'])
+    response = firebase.push("favorites", { :title => params[:title],
+                                            :description => params[:description],
+                                            :url => params[:url]
+                                          })
+    if response.success?
+      #display flash success 
+    else
+      #display flash error
+    end
   end 
 
   # GET /jobs/new
