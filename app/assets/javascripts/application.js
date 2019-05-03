@@ -50,8 +50,9 @@ $(document).ready(function(){
 	  };
 
 	  $.ajax({
+	  	beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
 	    url: "add_to_favorites",
-	    type: "GET",
+	    type: "POST",
 	    data: data
 	  });
 	});
