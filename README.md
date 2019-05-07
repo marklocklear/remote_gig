@@ -1,6 +1,6 @@
 # README
-<a href="https://remotegig.io" target="_blank" rel="noreferrer noopener" >
-<img src="https://res.cloudinary.com/drwqx4cci/image/upload/v1557255988/gotremote_ptiwsf.png" style="width: 300px;">
+<a href="https://remotegig.io">
+<img src="https://res.cloudinary.com/drwqx4cci/image/upload/v1557255988/gotremote_ptiwsf.png" width= "300px">
 </a>
 
 Rails app using a Postgres db that pulls jobs from various job and company website. See the list in lib/tasks/get_jobs.rake. get_jobs.rake is a rake task that runs nightly.
