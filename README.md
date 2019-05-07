@@ -1,5 +1,5 @@
 # README
-http://remotegig.io/
+[![](https://res.cloudinary.com/drwqx4cci/image/upload/v1557255988/gotremote_ptiwsf.png)](remotegig.io)
 
 Rails app using a Postgres db that pulls jobs from various job and company website. See the list in lib/tasks/get_jobs.rake. get_jobs.rake is a rake task that runs nightly.
 
