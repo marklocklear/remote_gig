@@ -4,10 +4,11 @@ http://remotegig.io/
 Rails app that pulls jobs from various job and company website. See the list in lib/tasks/get_jobs.rake. get_jobs.rake is a rake task that runs nightly.
 
 Vanilla Rails app. Follow these steps to run locally:
-* git clone https://github.com/marklocklear/remote_gig/
+* git clone https://github.com/marklocklear/remote_gig.git
+* rails db:create
 * rails db:migrate
 * rails get_jobs (have a snickers, this might take a while)
-* rails server then go to localhost:3000 in your browser
+* rails server (check out localhost:3000 in your browser)
 
 Most jobs are pulled from rss or json feeds, but some (like Mozilla) are using Nokogiri to pull/parse html. Here is a compresensive list of job pages:
 * Weworkremotely | https://weworkremotely.com/categories/remote-programming-jobs.rss
