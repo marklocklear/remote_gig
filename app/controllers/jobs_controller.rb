@@ -112,6 +112,13 @@ class JobsController < ApplicationController
     #TODO add checkbox after signup https://codepen.io/istiaktridip/pen/BZqaOd
   end
 
+  def vetswhocode_json_feed
+    @jobs = Job.where("title ilike ?", "%junior%")
+    respond_to do |format|
+      format.json { render :json => @jobs, :except => :id }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_job
