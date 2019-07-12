@@ -53,48 +53,8 @@
             </li>
         </ul>
     </nav>
-  <div id="maildialog" class="dialog dialog--close">
-    <div class="dialog__overlay"></div>
-    <div class="dialog__content">
-      <div class="morph-shape">
-        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 560 280" preserveAspectRatio="none">
-          <rect x="3" y="3" fill="none" width="556" height="276"></rect>
-        </svg>
-      </div>
-      <div class="dialog-inner">
-        <!-- uncomment to add close button -->
-        <!-- <div><button class="action" data-dialog-close="a">&times;</button></div> -->
-        <h2><strong>Want More</strong> Remote Jobs?</h2>
-        <h3>Get Remote Jobs Directly To Your Inbox</h3>
-          <%= form_tag({controller: "jobs", action: "email_signup"}, method: "post") do %>
-            <%= text_field_tag(:email_address, nil, placeholder: 'Email Address') %>
-            <p><div class="button-wrap"><button data-dialog="maildialog" class="mailtrigger">Sign Me Up</button></div></p>
-          <% end %>
-      </div>
-      </div>
-    </div>
-  </div>
-  <div id="searchdialog" class="dialog dialog--close">
-    <div class="dialog__overlay"></div>
-    <div class="dialog__content">
-      <div class="morph-shape">
-        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 560 280" preserveAspectRatio="none">
-          <rect x="3" y="3" fill="none" width="556" height="276"></rect>
-        </svg>
-      </div>
-      <div class="dialog-inner">
-        <!-- uncomment to add close button -->
-        <!-- <div><button class="action" data-dialog-close="a">&times;</button></div> -->
-        <h2>Enter Search Term Below</h2>
-        <h3>company, laguage or framework</h3>
-          <%= form_tag({controller: "jobs", action: "index"}, method: "get") do %>
-            <%= text_field_tag(:search_term, nil, placeholder: 'search term') %>
-            <p><div class="button-wrap"><button search-dialog="searchdialog" class="searchtrigger">Search</button></div></p>
-          <% end %>
-      </div>
-      </div>
-    </div>
-  </div> 
+  <%= render "layouts/add_to_mail_list_dialog" %>
+  <%= render "layouts/search_dialog" %>
   <body>
     <%= yield %>
   </body>
