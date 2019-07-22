@@ -363,7 +363,7 @@ task :get_jobs => :environment do
     company = 'TaxJar'
     jobs_array << [title, link, description, company]
   end
-  spinner.stop("#{jobs_array.count - old_jobs_count} Workable jobs have been added!")
+  spinner.stop("#{jobs_array.count - old_jobs_count} TaxJar jobs have been added!")
   file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
   old_jobs_count = jobs_array.count
 
@@ -377,17 +377,19 @@ task :get_jobs => :environment do
 
   jobs.css('li').each do |char_element|
     title = char_element.text
-    url[25..40] = "" #remove characters from URL string to for job link creation
-    link = url + char_element.css('a').first['href']
-    job_page = Nokogiri::HTML(open(link.to_s))
-    description1 = job_page.xpath('/html/body/main/div[2]/div[2]/ul[1]').text
-    description2 = job_page.xpath('/html/body/main/div[2]/div[2]/ul[2]').text
-    description3 = job_page.xpath('/html/body/main/div[2]/div[2]/ul[3]').text
-    description = description1 + "\n" + description2 + "\n" + description3 
-    company = 'HashCorp'
-    jobs_array << [title, link, description, company]
+    if title.include? 'Remote'
+      url[25..40] = "" #remove characters from URL string to for job link creation
+      link = url + char_element.css('a').first['href']
+      job_page = Nokogiri::HTML(open(link.to_s))
+      description1 = job_page.xpath('/html/body/main/div[2]/div[2]/ul[1]').text
+      description2 = job_page.xpath('/html/body/main/div[2]/div[2]/ul[2]').text
+      description3 = job_page.xpath('/html/body/main/div[2]/div[2]/ul[3]').text
+      description = description1 + "\n" + description2 + "\n" + description3 
+      company = 'HashCorp'
+      jobs_array << [title, link, description, company]
+    end
   end
-  spinner.stop("#{jobs_array.count - old_jobs_count} Workable jobs have been added!")
+  spinner.stop("#{jobs_array.count - old_jobs_count} HashCorp jobs have been added!")
   file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
   old_jobs_count = jobs_array.count
 
