@@ -1,26 +1,29 @@
 require 'open-uri'
 require 'nokogiri'
 
-doc = Nokogiri::HTML(open("https://taxjar.workable.com/"))
-	jobs = doc.css('.job')
+doc = Nokogiri::HTML(open("https://www.hashicorp.com/jobs#positions"))
+	jobs = doc.css('.g-basic-list')
 
-	jobs.css('a').each do |char_element|
+	jobs.css('li').each do |char_element|
 		# puts char_element
 		title = char_element.text
-		# if title.include? 'Remote'
+		if title.include? 'Remote'
 		# puts "************"
 		# puts title
-    link = char_element['href']
-    clickLink = "https://taxjar.workable.com" + link
-		# # puts url
+    link = char_element.css('a').first['href']
+    # puts link
+    clickLink = "https://www.hashicorp.com" + link
+    # puts url
 		job_page = Nokogiri::HTML(open(clickLink.to_s))
 		# puts job_page.inspect
-		description = job_page.xpath('/html/body/main/section[3]').text
-    # 	puts title
+		# description = job_page.xpath('/html/body/main/section[3]').text
+    # # 	puts title
       puts '######################'
-			puts title + ": " + clickLink
-      puts description
+			puts title + clickLink
+      # puts description
       puts '######################'
 		# end
-		# puts url
+    # puts url
+    end
   end
+
