@@ -367,12 +367,36 @@ task :get_jobs => :environment do
   file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
   old_jobs_count = jobs_array.count
 
+  # HashCorp Jobs
+  sites_count +=1
+  spinner.update(title: 'Adding jobs from HashCorp')
+  spinner.auto_spin
+  url = "https://www.hashicorp.com/jobs#positions"
+  doc = Nokogiri::HTML(open(url))
+  jobs = doc.css('.g-basic-list')
+
+  jobs.css('li').each do |char_element|
+    title = char_element.text
+    url[25..40] = "" #remove characters from URL string to for job link creation
+    link = url + char_element.css('a').first['href']
+    job_page = Nokogiri::HTML(open(link.to_s))
+    description1 = job_page.xpath('/html/body/main/div[2]/div[2]/ul[1]').text
+    description2 = job_page.xpath('/html/body/main/div[2]/div[2]/ul[2]').text
+    description3 = job_page.xpath('/html/body/main/div[2]/div[2]/ul[3]').text
+    description = description1 + "\n" + description2 + "\n" + description3 
+    company = 'HashCorp'
+    jobs_array << [title, link, description, company]
+  end
+  spinner.stop("#{jobs_array.count - old_jobs_count} Workable jobs have been added!")
+  file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
+  old_jobs_count = jobs_array.count
+
 	#shuffle array (for ramdomness) and create jobs
 	spinner.update(title: 'Shuffling and creating jobs...')
 	spinner.auto_spin
 	jobs_array.shuffle.each do |job|
 		Job.create_job(job[0], job[1], job[2], job[3])
-	end
+  end
 
   #send tweet
   client = Twitter::REST::Client.new do |config|
