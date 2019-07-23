@@ -297,7 +297,7 @@ task :get_jobs => :environment do
 		title = char_element.css('a').text
 		if title.include? 'Remote'
 			link = char_element.css('a').first['href']
-			description = link
+			description = char_element.css('p')
 			company = 'Railroad19'
 			jobs_array << [title, link, description, company]
 		end
