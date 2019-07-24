@@ -1,29 +1,29 @@
 require 'open-uri'
 require 'nokogiri'
 
-doc = Nokogiri::HTML(open("https://www.7cups.com/about/jobs/"))
-	jobs = doc.css('.g-basic-list')
+doc = Nokogiri::HTML(open("https://skylight.digital/join/"))
+	jobs = doc.css('.open-positions-list')
 
 	jobs.css('li').each do |char_element|
 		# puts char_element
 		title = char_element.text
-		if title.include? 'Remote'
+		# if title.include? 'Remote'
 		# puts "************"
 		# puts title
     link = char_element.css('a').first['href']
     # puts link
-    clickLink = "https://www.hashicorp.com" + link
+    # clickLink = "https://www.hashicorp.com" + link
     # puts url
-		job_page = Nokogiri::HTML(open(clickLink.to_s))
+		job_page = Nokogiri::HTML(open(link.to_s))
 		# puts job_page.inspect
-    description = job_page.xpath('/html/body/main/div[2]/div[2]/ul[1]').text 
+    description = job_page.xpath('/html/body/main/section[3]/ul[1]').text 
     # puts description
-    # 	puts title
-      puts '######################'
-			puts title + clickLink
+    	puts title
+      # puts '######################'
+			# puts title + clickLink
       puts description
       puts '######################'
 		# end
     # puts url
-    end
+    # end
   end

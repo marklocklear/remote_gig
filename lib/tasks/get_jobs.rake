@@ -369,7 +369,7 @@ task :get_jobs => :environment do
 
   # HashCorp Jobs
   sites_count +=1
-  spinner.update(title: 'Adding jobs from HashCorp')
+  spinner.update(title: 'Adding jobs from HashCorp...')
   spinner.auto_spin
   url = "https://www.hashicorp.com/jobs#positions"
   doc = Nokogiri::HTML(open(url))
@@ -390,6 +390,28 @@ task :get_jobs => :environment do
     end
   end
   spinner.stop("#{jobs_array.count - old_jobs_count} HashCorp jobs have been added!")
+  file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
+  old_jobs_count = jobs_array.count
+
+  #Skylight Jobs
+  sites_count +=1
+  spinner.update(title: 'Adding jobs from Skylight...')
+  spinner.auto_spin
+  url = "https://skylight.digital/join/"
+  doc = Nokogiri::HTML(open(url))
+  jobs = doc.css('.open-positions-list')
+
+  jobs.css('li').each do |char_element|
+    title = char_element.text
+    if title.include? 'Remote'
+      link = char_element.css('a').first['href']
+      job_page = Nokogiri::HTML(open(link.to_s))
+      description = job_page.xpath('/html/body/main/section[3]/ul[1]').text 
+      company = 'Skylight'
+      jobs_array << [title, link, description, company]
+    end
+  end
+  spinner.stop("#{jobs_array.count - old_jobs_count} Skylight jobs have been added!")
   file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
   old_jobs_count = jobs_array.count
 
