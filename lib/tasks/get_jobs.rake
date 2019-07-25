@@ -52,7 +52,7 @@ task :get_jobs => :environment do
 		jobs_array << [title, link, description, company]
 	end
 	spinner.stop("#{jobs_array.count} programming jobs have been added!")
-	file.puts "#{Time.now}: #{jobs_array.count} jobs added from #{url}"	
+	file.puts "#{Time.now}: #{jobs_array.count} jobs added from #{url}"
 	old_jobs_count = jobs_array.count
 
 	#weworkremotely devops jobs
@@ -71,7 +71,7 @@ task :get_jobs => :environment do
 		jobs_array << [title, link, description, company]
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} devops jobs have been added!")
-	file.puts "#{Time.now}: #{jobs_array.count} jobs added from #{url}"	
+	file.puts "#{Time.now}: #{jobs_array.count} jobs added from #{url}"
 	old_jobs_count = jobs_array.count
 
 	#stackoverflow http://rubular.com/r/sYauhFimX1
@@ -89,7 +89,7 @@ task :get_jobs => :environment do
 		jobs_array << [title, link, description, company]
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Stack Overflow jobs have been added!")
-	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
 	old_jobs_count = jobs_array.count
 
 	#redhat
@@ -110,9 +110,9 @@ task :get_jobs => :environment do
 		end
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Redhat jobs have been added!")
-	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
 	old_jobs_count = jobs_array.count
-	
+
 	#zapier
 	sites_count += 1
 	spinner.update(title: 'Adding jobs from Zapier...')
@@ -129,7 +129,7 @@ task :get_jobs => :environment do
 		jobs_array << [title, link, description, company]
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Zapier jobs have been added!")
-	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
 	old_jobs_count = jobs_array.count
 
 	#mozilla
@@ -152,7 +152,7 @@ task :get_jobs => :environment do
 		end
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Mozilla jobs have been added!")
-	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
 	old_jobs_count = jobs_array.count
 
 	#canonical
@@ -175,7 +175,7 @@ task :get_jobs => :environment do
 		end
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Canonical jobs have been added!")
-	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
 	old_jobs_count = jobs_array.count
 
 	#digital ocean
@@ -201,7 +201,7 @@ task :get_jobs => :environment do
 		end
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Digital Ocean jobs have been added!")
-	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
 	old_jobs_count = jobs_array.count
 
 	#hiring thing
@@ -221,7 +221,7 @@ task :get_jobs => :environment do
 		end
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Hiring Thing jobs have been added!")
-	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
 	old_jobs_count = jobs_array.count
 
 	#github jobs
@@ -240,7 +240,7 @@ task :get_jobs => :environment do
 		jobs_array << [title, link, description, company]
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Github jobs have been added!")
-	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
 	old_jobs_count = jobs_array.count
 
 	#clevertech
@@ -260,7 +260,7 @@ task :get_jobs => :environment do
 		jobs_array << [title, link, description, company]
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Clevertech jobs have been added!")
-	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
 	old_jobs_count = jobs_array.count
 
 	#heroku
@@ -282,7 +282,7 @@ task :get_jobs => :environment do
 		end
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} Heroku jobs have been added!")
-	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
 	old_jobs_count = jobs_array.count
 
 	#railroad19
@@ -303,27 +303,27 @@ task :get_jobs => :environment do
 		end
 	end
 	spinner.stop("#{jobs_array.count - old_jobs_count} RailRoad19 jobs have been added!")
-	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
 	old_jobs_count = jobs_array.count
 
 	#digitalminds
-	# sites_count += 1
-	# spinner.update(title: 'Adding jobs from Digital Minds...')
-	# spinner.auto_spin
-	# url = "https://www.digitalminds.io/careers/"
-	# doc = Nokogiri::HTML(open(url))
-	# jobs = doc.css('.job-list')
+	sites_count += 1
+	spinner.update(title: 'Adding jobs from Digital Minds...')
+	spinner.auto_spin
+	url = "https://www.digitalminds.io/careers/"
+	doc = Nokogiri::HTML(open(url))
+	jobs = doc.css('.job-list')
 
-	# jobs.css('.item').each do |char_element|
-	# 	title = char_element.css('h3').text
-	# 	link = "https://www.digitalminds.io/" + char_element.css('a').first['href']
-	# 	description = link
-	# 	company = 'Digitalminds'
-	# 	jobs_array << [title, link, description, company]
-	# end
-	# spinner.stop("#{jobs_array.count - old_jobs_count} Digital Minds jobs have been added!")
-	# file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"	
-	# old_jobs_count = jobs_array.count
+	jobs.css('.item').each do |char_element|
+		title = char_element.css('h3').text
+		link = "https://www.digitalminds.io/" + char_element.css('a').first['href']
+		description = link
+		company = 'Digitalminds'
+		jobs_array << [title, link, description, company]
+	end
+	spinner.stop("#{jobs_array.count - old_jobs_count} Digital Minds jobs have been added!")
+	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
+	old_jobs_count = jobs_array.count
 
 	#instructure
 	sites_count += 1
@@ -346,7 +346,7 @@ task :get_jobs => :environment do
 	spinner.stop("#{jobs_array.count - old_jobs_count} Instructure jobs have been added!")
 	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
   old_jobs_count = jobs_array.count
-  
+
   # TaxJar
   sites_count +=1
   spinner.update(title: 'Adding jobs from TaxJar...')
@@ -369,7 +369,7 @@ task :get_jobs => :environment do
 
   # HashCorp Jobs
   sites_count +=1
-  spinner.update(title: 'Adding jobs from HashCorp')
+  spinner.update(title: 'Adding jobs from HashCorp...')
   spinner.auto_spin
   url = "https://www.hashicorp.com/jobs#positions"
   doc = Nokogiri::HTML(open(url))
@@ -384,12 +384,34 @@ task :get_jobs => :environment do
       description1 = job_page.xpath('/html/body/main/div[2]/div[2]/ul[1]').text
       description2 = job_page.xpath('/html/body/main/div[2]/div[2]/ul[2]').text
       description3 = job_page.xpath('/html/body/main/div[2]/div[2]/ul[3]').text
-      description = description1 + "\n" + description2 + "\n" + description3 
+      description = description1 + "\n" + description2 + "\n" + description3
       company = 'HashCorp'
       jobs_array << [title, link, description, company]
     end
   end
   spinner.stop("#{jobs_array.count - old_jobs_count} HashCorp jobs have been added!")
+  file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
+  old_jobs_count = jobs_array.count
+
+  #Skylight Jobs
+  sites_count +=1
+  spinner.update(title: 'Adding jobs from Skylight...')
+  spinner.auto_spin
+  url = "https://skylight.digital/join/"
+  doc = Nokogiri::HTML(open(url))
+  jobs = doc.css('.open-positions-list')
+
+  jobs.css('li').each do |char_element|
+    title = char_element.text
+    if title.include? 'Remote'
+      link = char_element.css('a').first['href']
+      job_page = Nokogiri::HTML(open(link.to_s))
+      description = job_page.xpath('/html/body/main/section[3]/ul[1]').text
+      company = 'Skylight'
+      jobs_array << [title, link, description, company]
+    end
+  end
+  spinner.stop("#{jobs_array.count - old_jobs_count} Skylight jobs have been added!")
   file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
   old_jobs_count = jobs_array.count
 
