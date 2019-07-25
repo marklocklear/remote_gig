@@ -20,6 +20,10 @@ Most jobs are pulled from rss or json feeds, but some (like Mozilla) are using N
 * Hiringthing | http://careers.hiringthing.com/api/rss.xml
 * Github Jobs | https://jobs.github.com/positions.json?description=&location=remote
 * Clever Tech | https://www.clevertech.biz/careers
+* Railroad19 | https://www.railroad19.com/#careers
+* HashCorp | https://www.hashicorp.com/jobs#positions
+* TaxJar | https://taxjar.workable.com
+* Instructure | https://jobs.lever.co/instructure/
 
 The app sends two tweets a day that is posted at https://twitter.com/myremotegig. See lib/tasks/send_tweet.rake for those jobs.
 
