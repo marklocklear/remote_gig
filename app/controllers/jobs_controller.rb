@@ -7,11 +7,7 @@ class JobsController < ApplicationController
     @jobs = Job.all
     if params[:search_term]
       @search_term = params[:search_term].downcase
-      @jobs = Job.where("
-                        LOWER(title) LIKE ? OR
-                        LOWER(description) LIKE ? OR
-                        LOWER(company) LIKE ?",
-                       "%#{@search_term}%", "%#{@search_term}%", "%#{@search_term}%")
+      @jobs = Job.search_results(@search_term)
     end
 
     if params[:tag]
@@ -89,27 +85,8 @@ class JobsController < ApplicationController
 
   def email_signup
     email_address = params[:email_address]
-
-    url = URI("https://api.sendgrid.com/v3/contactdb/recipients")
-
-    http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-    request = Net::HTTP::Post.new(url)
-    api_key = ENV['SENDGRID_API_KEY']
-    request["authorization"] = "Bearer #{api_key}"
-    request["content-type"] = 'application/json'
-    request.body = [{"email": email_address}].to_json
-
-    response = http.request(request)
-    result = JSON.parse(response.body)
-    # Rails.logger.info "api_key is: #{api_key}"
-    # Rails.logger.info "Email response is: #{response.read_body}" #uncomment to view response/debug
-    # redirect_to jobs_url, notice: result["errors"]
-
+    Job.email_signup(email_address)
     redirect_to jobs_url, notice: "Thanks for Signing Up"
-    #TODO add checkbox after signup https://codepen.io/istiaktridip/pen/BZqaOd
   end
 
   def vetswhocode_json_feed
