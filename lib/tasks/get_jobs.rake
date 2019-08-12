@@ -404,12 +404,11 @@ task :get_jobs => :environment do
   jobs.css('li').each do |char_element|
     title = char_element.text
     if title.include? 'Remote'
-      link = char_element.css('a').first['href']
-      clickLink = "https://skylight.workable.com" + link
-      job_page = Nokogiri::HTML(open(clickLink.to_s))
+      link = url + char_element.css('a').first['href']
+      job_page = Nokogiri::HTML(open(link.to_s))
       description = job_page.xpath('/html/body/main/section[3]/ul[1]').text 
       company = 'Skylight'
-      jobs_array << [title, clickLink, description, company]
+      jobs_array << [title, link, description, company]
     end
   end
   spinner.stop("#{jobs_array.count - old_jobs_count} Skylight jobs have been added!")
