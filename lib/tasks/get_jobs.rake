@@ -409,7 +409,7 @@ task :get_jobs => :environment do
       job_page = Nokogiri::HTML(open(clickLink.to_s))
       description = job_page.xpath('/html/body/main/section[3]/ul[1]').text 
       company = 'Skylight'
-      jobs_array << [title, link, description, company]
+      jobs_array << [title, clickLink, description, company]
     end
   end
   spinner.stop("#{jobs_array.count - old_jobs_count} Skylight jobs have been added!")
