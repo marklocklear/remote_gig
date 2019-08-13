@@ -4,7 +4,7 @@ class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.json
   def index
-    @jobs = Job.all
+    @jobs = Job.all.includes(:tags)
     if params[:search_term]
       @search_term = params[:search_term].downcase
       @jobs = Job.search_results(@search_term)
