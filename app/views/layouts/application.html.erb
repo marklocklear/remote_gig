@@ -26,6 +26,9 @@
         ga('create', 'UA-116039592-1', 'auto');
       </script>
   <% end %>
+    <% flash.each do |type, message| %>
+        <%= content_tag(:div, message, class: "flash-#{type}") %>
+    <% end %>
   </head>
     <nav class="nav">
         <div class="burger">
