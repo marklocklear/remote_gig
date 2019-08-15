@@ -88,7 +88,6 @@ class JobsController < ApplicationController
     
     response = Mailjet::Contact.create(email: email_address)
     rescue Mailjet::ApiError => e
-      binding.pry
       redirect_to jobs_url, error: e.reason
     else
       redirect_to jobs_url, success: "Thanks for signing up!"
