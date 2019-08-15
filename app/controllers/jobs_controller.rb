@@ -85,17 +85,13 @@ class JobsController < ApplicationController
 
   def email_signup
     email_address = params[:email_address]
-    Mailjet.configure do |config|
-      config.api_key = ENV['MAILJET_API_KEY']
-      config.secret_key = ENV['MAILJET_SECRET_KEY']  
-    end
-    begin
-      response = Mailjet::Contact.create(email: email_address)
+    
+    response = Mailjet::Contact.create(email: email_address)
     rescue Mailjet::ApiError => e
-      redirect_to jobs_url, error: "Opps! Somethings is not right."
+      binding.pry
+      redirect_to jobs_url, error: e.reason
     else
-      redirect_to jobs_url, success: "Thanks for Signing up!"
-    end
+      redirect_to jobs_url, success: "Thanks for signing up!"
   end
 
   def vetswhocode_json_feed
