@@ -92,9 +92,9 @@ class JobsController < ApplicationController
     begin
       response = Mailjet::Contact.create(email: email_address)
     rescue Mailjet::ApiError => e
-      redirect_to jobs_url, notice: "Opps! Something is not right."
+      redirect_to jobs_url, error: "Opps! Somethings is not right."
     else
-      redirect_to jobs_url, notice: "Thanks for Signing up!"
+      redirect_to jobs_url, success: "Thanks for Signing up!"
     end
   end
 

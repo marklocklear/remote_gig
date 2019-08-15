@@ -108,3 +108,23 @@ td {
 	color: #fff;
 	background: #c94e50;
 }
+
+.flash-error{
+	text-align: center;
+	margin-top: -1rem;
+	margin-bottom: 2rem;
+	font-size: 14px;
+	padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.flash-success{
+	text-align: center;
+	margin-top: -1rem;
+	margin-bottom: 2rem;
+	font-size: 14px;
+	padding: 20px;
+  background-color: #4CAF50;
+  color: white;
+}
