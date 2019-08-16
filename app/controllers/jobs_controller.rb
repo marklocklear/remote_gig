@@ -86,12 +86,15 @@ class JobsController < ApplicationController
   def email_signup
     email_address = params[:email_address]
     
-    response = Mailjet::Contact.create(email: email_address)
-    rescue Mailjet::ApiError => e
-      redirect_to jobs_url, error: e.reason
-    else
-      redirect_to jobs_url, success: "Thanks for signing up!"
-  end
+    response = RestClient.post("https://api:#{ENV['MAILGUN_API_KEY']}" \
+                  "@api.mailgun.net/v3/lists/#{ENV['MAILGUN_ALIAS']}/members",
+                  :subscribed => true,
+                  :address => email_address)
+    redirect_to jobs_url, success: "Thanks for Signing Up!"
+
+    rescue RestClient::BadRequest => e
+      redirect_to jobs_url, error: e
+ end
 
   def vetswhocode_json_feed
     @jobs = Job.where("title ilike ?", "%junior%")
