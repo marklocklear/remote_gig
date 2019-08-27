@@ -130,7 +130,7 @@ td {
 }
 
 /*Begin Nav Menu after login*/
-ul {
+.user-nav ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -139,11 +139,11 @@ ul {
   width: 30%;
 }
 
-li {
+.user-nav li {
   float: left;
 }
 
-li a {
+.user-nav li a {
   display: block;
   color: white;
   text-align: center;
@@ -151,11 +151,7 @@ li a {
   text-decoration: none;
 }
 
-li a:hover:not(.active) {
+.user-nav li a:hover:not(.active) {
   background-color: #111;
-}
-
-.active {
-  background-color: #4CAF50;
 }
 /*End Nav Menu after login*/
