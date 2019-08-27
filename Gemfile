@@ -56,6 +56,9 @@ gem 'firebase'
 #mailjet
 gem 'mailjet'
 
+#devise for auth
+gem 'devise'
+
 gem 'dotenv-rails'
 
 

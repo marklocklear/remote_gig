@@ -11,7 +11,7 @@
         <!-- <div><button class="action" data-dialog-close="a">&times;</button></div> -->
         <h2>Enter Search Term Below</h2>
         <h3>company, laguage or framework</h3>
-          <%= form_tag({controller: "jobs", action: "index"}, method: "get") do %>
+          <%= form_tag(jobs_path, method: "get") do %>
             <%= text_field_tag(:search_term, nil, placeholder: 'search term') %>
             <p><div class="button-wrap"><button search-dialog="searchdialog" class="searchtrigger">Search</button></div></p>
           <% end %>

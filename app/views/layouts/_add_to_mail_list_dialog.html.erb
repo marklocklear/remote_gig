@@ -11,7 +11,7 @@
         <!-- <div><button class="action" data-dialog-close="a">&times;</button></div> -->
         <h2><strong>Want More</strong> Remote Jobs?</h2>
         <h3>Get Remote Jobs Directly To Your Inbox</h3>
-          <%= form_tag({controller: "jobs", action: "email_signup"}, method: "post") do %>
+          <%= form_tag(email_signup_jobs_path, method: "post") do %>
             <%= text_field_tag(:email_address, nil, placeholder: 'Email Address') %>
             <p><div class="button-wrap"><button data-dialog="maildialog" class="mailtrigger">Sign Me Up</button></div></p>
           <% end %>
