@@ -54,6 +54,15 @@
             <li class="nav__item">
                 <a class="nav__link c-green" style="font-size:24px" href="/stats" target="_blank"><i class="fa fa-bar-chart" ></i></a>
             </li>
+            <% if current_user %>
+                <li class="nav__item">
+                    <a class="nav__link c-green" style="font-size:24px" href="/users/sign_out"><i class="fa fa-user-times" ></i></a>
+                </li>
+            <% else %>
+                <li class="nav__item">
+                    <a class="nav__link c-green" style="font-size:24px" href="/users/sign_in"><i class="fa fa-user" ></i></a>
+                </li>
+            <% end %>
         </ul>
     </nav>
   <%= render "layouts/add_to_mail_list_dialog" %>

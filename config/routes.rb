@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   get '/stats', :to => redirect('/nightly_stats.txt')
   resources :jobs do
   	collection do
