@@ -30,6 +30,12 @@
         <%= content_tag(:div, message, class: "flash-#{type}") %>
     <% end %>
   </head>
+          <% if current_user %>
+            <ul>
+              <li><a href="/myjobs">My Jobs</a></li>
+              <li><a href="/preferences">My Preferences</a></li>
+            </ul>
+        <% end %>
     <nav class="nav">
         <div class="burger">
             <div class="burger__patty"></div>
