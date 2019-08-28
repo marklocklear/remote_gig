@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tite: MyString
+  company: MyString
+  url: MyString
+  description: MyText
+  user: one
+  notes: MyText
+  applied: false
+  applied_on: 2019-08-27
+
+two:
+  tite: MyString
+  company: MyString
+  url: MyString
+  description: MyText
+  user: two
+  notes: MyText
+  applied: false
+  applied_on: 2019-08-27

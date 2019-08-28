@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
+  resources :user_jobs do
+    collection do
+      post :save_to_my_jobs
+    end
+  end
   get '/stats', :to => redirect('/nightly_stats.txt')
   resources :jobs do
   	collection do
@@ -7,7 +12,6 @@ Rails.application.routes.draw do
   	end
   end
   get 'vetswhocode' => 'jobs#vetswhocode_json_feed'
-  post 'add_to_favorites', to: 'jobs#add_to_favorites'
   get '*tag', to: 'jobs#index'
   root to: 'jobs#index'
 end

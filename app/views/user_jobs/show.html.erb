@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Tite:</strong>
+  <%= @user_job.tite %>
+</p>
+
+<p>
+  <strong>Company:</strong>
+  <%= @user_job.company %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @user_job.url %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @user_job.description %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @user_job.user %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @user_job.notes %>
+</p>
+
+<p>
+  <strong>Applied:</strong>
+  <%= @user_job.applied %>
+</p>
+
+<p>
+  <strong>Applied on:</strong>
+  <%= @user_job.applied_on %>
+</p>
+
+<%= link_to 'Edit', edit_user_job_path(@user_job) %> |
+<%= link_to 'Back', user_jobs_path %>
