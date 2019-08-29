@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :user_jobs do
-    collection do
-      post :save_to_my_jobs
-    end
-  end
+  resources :user_jobs
   get '/stats', :to => redirect('/nightly_stats.txt')
   resources :jobs do
   	collection do

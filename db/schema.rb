@@ -50,14 +50,13 @@ ActiveRecord::Schema.define(version: 20190827182957) do
   end
 
   create_table "user_jobs", force: :cascade do |t|
-    t.string "tite"
+    t.string "title"
     t.string "company"
     t.string "url"
     t.text "description"
     t.bigint "user_id"
     t.text "notes"
     t.boolean "applied"
-    t.date "applied_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_user_jobs_on_user_id"

@@ -1,5 +1,6 @@
 class UserJobsController < ApplicationController
   before_action :set_user_job, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /user_jobs
   # GET /user_jobs.json
@@ -61,10 +62,6 @@ class UserJobsController < ApplicationController
     end
   end
 
-  def save_to_my_jobs
-    UserJob.create(title: params[:title], company: params[:company], url: params[:url], description: params[:description], user_id: current_user)
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user_job
@@ -73,6 +70,6 @@ class UserJobsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_job_params
-      params.require(:user_job).permit(:tite, :company, :url, :description, :user_id, :notes, :applied, :applied_on)
+      params.require(:user_job).permit(:title, :company, :url, :description, :user, :notes, :applied, :applied_on)
     end
 end

@@ -17,7 +17,7 @@
       <tr>
         <td>
           <div class="job"><%= link_to(job.title, job.url, :target => "_blank") %>
-            <%= form_tag(save_to_my_jobs_user_jobs_path(title: job.title, company: job.company, url: job.url, description: job.description), method: "post") do %>
+            <%= form_tag(user_jobs_path(user_job: {title: job.title, company: job.company, url: job.url, description: job.description, user: current_user}), method: "post") do %>
              <button>Add to My Jobs</button>
           <% end %>
           </div>
