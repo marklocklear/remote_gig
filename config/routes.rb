@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   		post :email_signup
   	end
   end
+  get 'myjobs' => 'user_jobs#index'
   get 'vetswhocode' => 'jobs#vetswhocode_json_feed'
   get '*tag', to: 'jobs#index'
   root to: 'jobs#index'

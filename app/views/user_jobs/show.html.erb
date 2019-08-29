@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Tite:</strong>
-  <%= @user_job.tite %>
+  <strong>Title:</strong>
+  <%= @user_job.title %>
 </p>
 
 <p>
@@ -21,11 +21,6 @@
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @user_job.user %>
-</p>
-
-<p>
   <strong>Notes:</strong>
   <%= @user_job.notes %>
 </p>
@@ -33,11 +28,6 @@
 <p>
   <strong>Applied:</strong>
   <%= @user_job.applied %>
-</p>
-
-<p>
-  <strong>Applied on:</strong>
-  <%= @user_job.applied_on %>
 </p>
 
 <%= link_to 'Edit', edit_user_job_path(@user_job) %> |

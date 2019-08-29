@@ -5,14 +5,11 @@
 <table>
   <thead>
     <tr>
-      <th>Tite</th>
+      <th>Title</th>
       <th>Company</th>
       <th>Url</th>
-      <th>Description</th>
-      <th>User</th>
       <th>Notes</th>
       <th>Applied</th>
-      <th>Applied on</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,14 +17,11 @@
   <tbody>
     <% @user_jobs.each do |user_job| %>
       <tr>
-        <td><%= user_job.tite %></td>
+        <td><%= user_job.title %></td>
         <td><%= user_job.company %></td>
-        <td><%= user_job.url %></td>
-        <td><%= user_job.description %></td>
-        <td><%= user_job.user %></td>
+        <td><%= link_to user_job.url, user_job.url, target: "_blank" %></td>
         <td><%= user_job.notes %></td>
         <td><%= user_job.applied %></td>
-        <td><%= user_job.applied_on %></td>
         <td><%= link_to 'Show', user_job %></td>
         <td><%= link_to 'Edit', edit_user_job_path(user_job) %></td>
         <td><%= link_to 'Destroy', user_job, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -5,7 +5,7 @@ class CreateUserJobs < ActiveRecord::Migration[5.1]
       t.string :company
       t.string :url
       t.text :description
-      t.references :user, foreign_key: true
+      t.integer :user_id, null: false, foreign_key: true
       t.text :notes
       t.boolean :applied
 
