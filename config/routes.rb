@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
+  # devise_for :users
+  # devise_for :users, :controllers => { :registrations => "my_registrations" }
+devise_for :users, controllers: { registrations: 'users/registrations' }
+
+
   resources :user_jobs
   get '/stats', :to => redirect('/nightly_stats.txt')
   resources :jobs do
