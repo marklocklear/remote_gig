@@ -43,13 +43,6 @@ td {
 	padding-top: 10px;
 }
 
-.navbar {
-	overflow: hidden;
-	position: fixed;
-	top: 0;
-	width: 100%;
-}
-
 .icons {
 	float: right;
 	padding-right: 75px;
@@ -129,6 +122,16 @@ td {
   color: white;
 }
 
+.flash-notice{
+	text-align: center;
+	margin-top: -1rem;
+	margin-bottom: 2rem;
+	font-size: 14px;
+	padding: 20px;
+  background-color: #4CAF50;
+  color: white;
+}
+
 /*Begin Nav Menu after login*/
 .user-nav ul {
   list-style-type: none;
@@ -136,7 +139,7 @@ td {
   padding: 0;
   overflow: hidden;
   background-color: #333;
-  width: 30%;
+  width: 25%;
 }
 
 .user-nav li {
@@ -153,5 +156,10 @@ td {
 
 .user-nav li a:hover:not(.active) {
   background-color: #111;
+}
+
+.logged-in-as {
+	color: white;
+	text-align: center;
 }
 /*End Nav Menu after login*/

@@ -1,7 +1,7 @@
 require 'open-uri'
 require 'nokogiri'
 
-doc = Nokogiri::XML(open("https://stackoverflow.com/jobs/feed?l=Remote"))
+doc = Nokogiri::XML(open("https://stackoverflow.com/jobs/feed?q=junior"))
 jobs_array = Array.new
 
 	doc.xpath('//item').each do |item|
@@ -12,6 +12,10 @@ jobs_array = Array.new
 		jobs_array << [title, link, description, company]
 	end
 
+	puts jobs_array.count
+
 	jobs_array.each do |job|
-		puts job[0]
+		if job[0].downcase.include? "junior"
+			puts job[1]
+		end
 	end

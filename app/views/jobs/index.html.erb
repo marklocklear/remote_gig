@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <table>
   <thead>
     <tr>
@@ -17,11 +15,11 @@
       <tr>
         <td>
           <div class="job"><%= link_to(job.title, job.url, :target => "_blank") %>
-            <%= link_to '#', id: "add-to-favorites-#{job.id}", class: 'add-to-favorites',
-            data: {id: job.id, title: job.title, url: job.url, description: job.description} do %>
-              <!-- <i class="fa fa-heart" title="Save to my jobs"></i> -->
+            <%= link_to(user_jobs_path(user_job: {title: job.title, company: job.company, url: job.url, description: job.description, user_id: current_user}), method: "post") do %>
+              <i class="fa fa-heart" title="Save to my jobs"></i>
             <% end %>
           </div>
+        
           <% job.tags.each do |tag| %>
             <div class="tag"><%= link_to(tag, jobs_path(tag: tag.name), method: :get) %></div>
           <% end %>
