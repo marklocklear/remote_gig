@@ -6,22 +6,29 @@
         <tr>
           <div class="job">
             <%= link_to user_job.title, user_job.url, :target => "_blank" %>
+            <%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_user_job_path(user_job), style: 'font-size:20px' %>
+            <%= link_to user_job_path(user_job), method: :delete, data: { confirm: 'Are you sure?' }, style: 'font-size:20px' do %>
+              <i class="fa fa-trash-o"></i> 
+            <% end %>
           </div>
           <div class="company">
             <%= user_job.company %>
           </div>
+          <div class="notes">
             <h4>Notes</h4>
-            <%= user_job.notes %>
-          <% if user_job.description %>
-            <h4 class="flip">Description ↓<h4>
-            <div class="description-panel"><%= user_job.description.gsub(/\<[^()]*\>/, '') %>... <%= link_to("Click to read more.", user_job.url, :target => "_blank") %></div>
-          <% else %>
-            <%= link_to("Tell Me More →", user_job.url, :target => "_blank") %>
-          <% end %>
-          <%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_user_job_path(user_job) %>
-          <%= link_to user_job_path(user_job), method: :delete, data: { confirm: 'Are you sure?' } do %>
-            <i class="fa fa-trash-o"></i> 
-          <% end %>
+            <% if user_job.notes %>
+              <%= user_job.notes %>
+            <% else %>
+              No Notes Added
+            <% end %>
+          </div>
+            <% if user_job.description %>
+              <h4 class="flip">Description ↓<h4>
+              <div class="description-panel"><%= user_job.description.gsub(/\<[^()]*\>/, '') %>... <%= link_to("Click to read more.", user_job.url, :target => "_blank") %></div>
+            <% else %>
+              <%= link_to("Tell Me More →", user_job.url, :target => "_blank") %>
+            <% end %>
+         
            <hr align="left" width="75%">
         </tr>
       <% end %>

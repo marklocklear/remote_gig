@@ -39,6 +39,10 @@ td {
 	margin-right: 17px;
 }
 
+.notes {
+	padding: 1px 2px 4px;
+}
+
 .company {
 	color: #535a60;
 	font-size: 15px;
@@ -60,7 +64,6 @@ td {
 
 .fa {
 	color: grey;
-	margin-right: 20px;
 	margin-top: 20px;
 }
 
