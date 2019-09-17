@@ -1,33 +1,32 @@
 <h1>My Jobs</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Company</th>
-      <th>Url</th>
-      <th>Notes</th>
-      <th>Applied</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @user_jobs.each do |user_job| %>
-      <tr>
-        <td><%= user_job.title %></td>
-        <td><%= user_job.company %></td>
-        <td><%= link_to user_job.url, user_job.url, target: "_blank" %></td>
-        <td><%= user_job.notes %></td>
-        <td><%= user_job.applied %></td>
-        <td><%= link_to 'Show', user_job %></td>
-        <td><%= link_to 'Edit', edit_user_job_path(user_job) %></td>
-        <td><%= link_to 'Destroy', user_job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New User Job', new_user_job_path %>
+<div class="container">
+  <table>
+    <tbody>
+      <% @user_jobs.each do |user_job| %>
+        <tr>
+          <div class="job">
+            <%= link_to user_job.title, user_job.url, :target => "_blank" %>
+          </div>
+          <div class="company">
+            <%= user_job.company %>
+          </div>
+            <h4>Notes</h4>
+            <%= user_job.notes %>
+          <% if user_job.description %>
+            <h4 class="flip">Description ↓<h4>
+            <div class="description-panel"><%= user_job.description.gsub(/\<[^()]*\>/, '') %>... <%= link_to("Click to read more.", user_job.url, :target => "_blank") %></div>
+          <% else %>
+            <%= link_to("Tell Me More →", user_job.url, :target => "_blank") %>
+          <% end %>
+          <%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_user_job_path(user_job) %>
+          <%= link_to user_job_path(user_job), method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <i class="fa fa-trash-o"></i> 
+          <% end %>
+           <hr align="left" width="75%">
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <br>
+<%= link_to 'Add Your Own Job', new_user_job_path %>
+</div>

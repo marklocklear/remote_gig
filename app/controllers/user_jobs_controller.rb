@@ -29,7 +29,7 @@ class UserJobsController < ApplicationController
 
     respond_to do |format|
       if @user_job.save
-        format.html { redirect_to @user_job, notice: 'User job was successfully created.' }
+        format.html { redirect_to @user_job, notice: 'Job Successfully Saved' }
         format.json { render :show, status: :created, location: @user_job }
       else
         format.html { render :new }
