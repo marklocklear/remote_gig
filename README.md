@@ -6,7 +6,7 @@ Rails app that pulls jobs from various job and company website. See the list in 
 Vanilla Rails app. Follow these steps to run locally:
 * git clone https://github.com/marklocklear/remote_gig/
 * rails db:migrate
-* *rails db:seed* to add 50 jobs from stackoverflow or *rails get_jobs* to get all jobs (have a snickers, it might take a while)
+* **rails db:seed** to add 50 jobs from stackoverflow or **rails get_jobs** to get all jobs (have a snickers 🍫 it might take a while)
 * rails server then go to localhost:3000 in your browser
 
 Most jobs are pulled from rss or json feeds, but some (like Mozilla) are using Nokogiri to pull/parse html. Here is a compresensive list of job pages:
