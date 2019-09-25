@@ -8,7 +8,7 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 6.0.0'
 # Use sqlite3 as the database for Active Record
 gem 'pg'
 # Use Puma as the app server
@@ -43,7 +43,7 @@ gem "gibbon"
 gem "twitter"
 gem "font-awesome-rails"
 gem 'httparty'
-gem 'acts-as-taggable-on', '~> 6.0'
+gem 'acts-as-taggable-on', git: 'https://github.com/mbleigh/acts-as-taggable-on'
 
 #handles cron jobs
 gem 'whenever'
