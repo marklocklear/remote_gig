@@ -25,11 +25,15 @@ class UserJobsController < ApplicationController
   # POST /user_jobs
   # POST /user_jobs.json
   def create
-    job = Job.find(params[:job_id])
-    user = User.find(params[:user_id])
-    puts "job is #{job.title} and user is #{user.email}"
-    @user_job = UserJob.new(title: job.title, company: job.company, url: job.url,
+    if params[:job_id] && params[:user_id] #if user "favorites a job from the index page"
+      job = Job.find(params[:job_id])
+      user = User.find(params[:user_id])
+      @user_job = UserJob.new(title: job.title, company: job.company, url: job.url,
                             description: job.description , user_id: user.id)
+    else #if user manually creates a jobs from /user_jobs/new
+      @user_job = UserJob.new(user_job_params)
+    end
+    
 
     respond_to do |format|
       if @user_job.save

@@ -41,6 +41,8 @@
     <%= form.check_box :applied, id: :user_job_applied %>
   </div>
 
+  <%= form.hidden_field :user_id, :value => current_user.id %>
+
   <div class="actions">
     <%= form.submit %>
   </div>
