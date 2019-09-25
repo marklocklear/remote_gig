@@ -15,7 +15,7 @@
       <tr>
         <td>
           <div class="job"><%= link_to(job.title, job.url, :target => "_blank") %>
-            <%= link_to(user_jobs_path(user_job: {title: job.title, company: job.company, url: job.url, description: job.description, user_id: current_user}), method: "post") do %>
+            <%= link_to(user_jobs_path(job_id: job.id, user_id: current_user), method: "post") do %>
               <i class="fa fa-heart" title="Save to my jobs"></i>
             <% end %>
           </div>

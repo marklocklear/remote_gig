@@ -25,7 +25,11 @@ class UserJobsController < ApplicationController
   # POST /user_jobs
   # POST /user_jobs.json
   def create
-    @user_job = UserJob.new(user_job_params)
+    job = Job.find(params[:job_id])
+    user = User.find(params[:user_id])
+    puts "job is #{job.title} and user is #{user.email}"
+    @user_job = UserJob.new(title: job.title, company: job.company, url: job.url,
+                            description: job.description , user_id: user.id)
 
     respond_to do |format|
       if @user_job.save
