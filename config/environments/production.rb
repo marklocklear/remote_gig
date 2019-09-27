@@ -88,6 +88,15 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  #config for exception_notification gem
+  config.middleware.use ExceptionNotification::Rack,
+  email: {
+    # deliver_with: :deliver, # Rails >= 4.2.1 do not need this option since it defaults to :deliver_now
+    email_prefix: '[PREFIX] ',
+    sender_address: %{"notifier" <donotreply@remotegig.io>},
+    exception_recipients: %w{admin@remotegig.io}
+  }
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
