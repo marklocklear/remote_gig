@@ -72,7 +72,9 @@ class JobsController < ApplicationController
 
   def email_signup
     email_address = params[:email_address]
-    
+   Rails.logger.debug "mail_gun api key is: #{ENV['MAILGUN_API_KEY']}" 
+   Rails.logger.debug "mail_gun mailing list key is: #{ENV['MAILGUN_MAILING_LIST']}" 
+   Rails.logger.debug "twitter api key is: #{ENV['TWITTER_API_KEY']}" 
     response = RestClient.post("https://api:#{ENV['MAILGUN_API_KEY']}" \
                   "@api.mailgun.net/v3/lists/#{ENV['MAILGUN_MAILING_LIST']}/members",
                   :subscribed => true,
