@@ -74,9 +74,12 @@ class JobsController < ApplicationController
     email_address = params[:email_address]
     
     response = RestClient.post("https://api:#{ENV['MAILGUN_API_KEY']}" \
-                  "@api.mailgun.net/v3/lists/#{ENV['MAILGUN_ALIAS']}/members",
+                  "@api.mailgun.net/v3/lists/#{ENV['MAILGUN_MAILING_LIST']}/members",
                   :subscribed => true,
                   :address => email_address)
+    #send admin@remotegig.io an email when someone signs up
+    UserMailer.mail_list_signup_notification(email_address).deliver
+
     redirect_to jobs_url, success: "Thanks for Signing Up!"
 
     rescue RestClient::BadRequest => e
