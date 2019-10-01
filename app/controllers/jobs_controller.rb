@@ -4,17 +4,21 @@ class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.json
   def index
-    @jobs = Job.all.includes(:tags)
-    if params[:search_term]
-      @search_term = params[:search_term].downcase
-      @jobs = Job.search_results(@search_term)
-    end
+    #paginate jobs like /?page=2
+    if params[:page]
+      @jobs = Job.paginate(page: params[:page])
+    else
+      @jobs = Job.all.includes(:tags)
+      if params[:search_term]
+        @search_term = params[:search_term].downcase
+        @jobs = Job.search_results(@search_term)
+      end
 
-    if params[:tag]
-      @search_term = params[:tag]
-      @jobs = Job.tagged_with(@search_term)
-    end
-
+      if params[:tag]
+        @search_term = params[:tag]
+        @jobs = Job.tagged_with(@search_term)
+      end
+    end 
     respond_to do |format|
       format.html
       format.json { render :json => @jobs, :except => :id }

@@ -33,3 +33,5 @@ Order of jobs is handled in app/models/job.rb. I did this to better order/random
 
 Tagging uses acts_as_taggable. To add a tag term (language or framework) just add the term to the tags
 array in the job.rb.
+
+Jobs feed is at https://remotegig.io/jobs.json (returns 100 jobs); Jobs may be paginated by passing the page number along as a parameter: https://remotegig.io/jobs.json?page=2; you an get all jobs with https://remotegig.io/jobs.json?page=all.
