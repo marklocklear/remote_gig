@@ -16,7 +16,7 @@
 
   <p>
     <strong>Description:</strong>
-    <%= @user_job.description %>
+    <%= @user_job.description.gsub(/\<[^()]*\>/, '') %>
   </p>
 
   <p>

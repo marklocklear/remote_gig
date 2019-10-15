@@ -6,7 +6,8 @@
         <tr>
           <div class="job">
             <%= link_to user_job.title, user_job.url, :target => "_blank" %>
-            <%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_user_job_path(user_job), style: 'font-size:20px' %>
+            <%= link_to '<i class="fa fa-eye"></i>'.html_safe, user_job_path(user_job), style: 'font-size:20px' %>
+             <%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_user_job_path(user_job), style: 'font-size:20px' %>
             <%= link_to user_job_path(user_job), method: :delete, data: { confirm: 'Are you sure?' }, style: 'font-size:20px' do %>
               <i class="fa fa-trash-o"></i> 
             <% end %>
