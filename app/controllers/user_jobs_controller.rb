@@ -1,11 +1,11 @@
 class UserJobsController < ApplicationController
-  before_action :set_user_job, only: [:show, :edit, :update, :destroy]
+  before_action :set_user_job, only: [:show, :edit, :update, :destroy, :archive_job, :un_archive_job]
   before_action :authenticate_user!
 
   # GET /user_jobs
   # GET /user_jobs.json
   def index
-    @user_jobs = current_user.user_jobs
+    @user_jobs = current_user.user_jobs.where(archived: false)
   end
 
   # GET /user_jobs/1
@@ -65,9 +65,23 @@ class UserJobsController < ApplicationController
   def destroy
     @user_job.destroy
     respond_to do |format|
-      format.html { redirect_to user_jobs_url, notice: 'User job was successfully destroyed.' }
+      format.html { redirect_to user_jobs_url, notice: 'The job ' + @user_job.title + ' was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def archive_job
+    @user_job.update_attribute(:archived, true)
+    redirect_to user_jobs_url, notice: 'Job was successfully archived.'
+  end
+
+  def un_archive_job
+    @user_job.update_attribute(:archived, false)
+    redirect_to user_jobs_url, notice: 'Job was successfully un-archived.'
+  end
+
+  def get_archived_jobs
+    @user_jobs = current_user.user_jobs.where(archived: true)
   end
 
   private
@@ -78,6 +92,6 @@ class UserJobsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_job_params
-      params.require(:user_job).permit(:title, :company, :url, :description, :user_id, :notes, :applied, :applied_on)
+      params.require(:user_job).permit(:title, :company, :url, :description, :user_id, :notes, :applied, :applied_on, :archived)
     end
 end

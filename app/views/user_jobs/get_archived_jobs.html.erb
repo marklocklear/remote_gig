@@ -1,4 +1,4 @@
-<h1>My Jobs</h1>
+<h1>My Archived Jobs</h1>
 <div class="container">
   <table>
     <tbody>
@@ -6,12 +6,16 @@
         <tr>
           <div class="job">
             <%= link_to user_job.title, user_job.url, :target => "_blank" %>
-            <%= link_to '<i class="fa fa-eye"></i>'.html_safe,
+            <%= link_to '<i class="fa fa-eye", title="View Job"></i>'.html_safe,
                       user_job_path(user_job), style: 'font-size:20px' %>
-            <%= link_to '<i class="fa fa-edit"></i>'.html_safe,
+            <%= link_to '<i class="fa fa-edit", title="Edit Job"></i>'.html_safe,
                       edit_user_job_path(user_job), style: 'font-size:20px' %>
-            <%= link_to '<i class="fa fa-archive", title="Archive Job"></i>'.html_safe,
-                      archive_job_user_jobs_path(id: user_job.id), style: 'font-size:20px' %>
+            <%= link_to user_job_path(user_job),
+            	method: :delete, data: { confirm: 'Are you sure?' },style: 'font-size:20px' do %>
+              	<i class="fa fa-trash-o", title="Delete Job"></i>
+          	<% end %>
+          	<%= link_to '<i class="fa fa-recycle", title="Un-archive Job"></i>'.html_safe,
+                    un_archive_job_user_jobs_path(id: user_job.id), style: 'font-size:20px' %>
           </div>
           <div class="company">
             <%= user_job.company %>

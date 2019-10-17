@@ -35,7 +35,7 @@
         <ul>
           <li><%= link_to "Home", jobs_path, method: :get  %></li>
           <li><%= link_to "My Jobs", myjobs_path, method: :get  %></li>
-          <li><%= link_to "My Preferences", jobs_path, method: :get  %></li>
+          <li><%= link_to "Archived Jobs", get_archived_jobs_user_jobs_path, method: :get  %></li>
            <nav class="logged-in-as">Logged in as: <%= current_user.email %></nav>
         </ul>
       <% end %>

@@ -51,6 +51,10 @@ td {
 	padding-top: 10px;
 }
 
+a {
+    text-decoration: none;
+}
+
 .icons {
 	float: right;
 	padding-right: 75px;
