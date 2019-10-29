@@ -1,5 +1,7 @@
 {
   "name": "remote_gig",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "micromodal": "^0.4.2"
+  }
 }

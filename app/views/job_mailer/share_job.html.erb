@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>
+      <%= @job.title %>.<br>
+    </p>
+    <p>
+      The job is located at <%= @job.url %>
+    </p>
+    <p>
+      <% if !@message.nil? %>
+        <%= @message %>
+      <% end %>
+    </p>
+    <p>Find more remote jobs at http://remotegig.io</p>
+  </body>
+</html>

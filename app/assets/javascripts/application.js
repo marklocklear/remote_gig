@@ -13,9 +13,13 @@
 //= require rails-ujs
 //= require turbolinks
 //= require jquery
+//= require micromodal/dist/micromodal
 //= require_tree .
 
 $(document).ready(function(){
+	//initialize   MicroModal
+	MicroModal.init();
+	
     $(".flip").click(function(){
         $(this).next().find(".description-panel").slideToggle("slow");
     });
