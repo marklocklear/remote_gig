@@ -88,7 +88,13 @@ class JobsController < ApplicationController
 
     rescue RestClient::BadRequest => e
       redirect_to jobs_url, error: e
- end
+  end
+
+  def email_job
+    email_address = params[:email_address]
+    job = Job.find(params[:job_id])
+    puts "made it to email job template, email addy is #{email_address} and job is #{job.title}"
+  end
 
   def vetswhocode_json_feed
     @jobs = Job.where("title ilike ?", "%junior%")
