@@ -12,15 +12,18 @@ set :keep_releases, 5
 set :rvm_type, :user
 set :rvm_ruby_version, '2.6.4' 
 
+before "deploy:assets:precompile", "deploy:yarn_install"
+
 namespace :deploy do
 
-  # Not needed if using capistrano-passenger gem/recipe
-  # desc 'Restart application'
-  # task :restart do
-  #   on roles(:app), in: :sequence, wait: 5 do
-  #     execute :touch, release_path.join('tmp/restart.txt')
-  #   end
-  # end
+	desc 'Run rake yarn:install'
+  task :yarn_install do
+    on roles(:web) do
+      within release_path do
+        execute("cd #{release_path} && yarn install")
+      end
+    end
+  end
 
   after :publishing, 'deploy:restart'
   after :finishing, 'deploy:cleanup'
