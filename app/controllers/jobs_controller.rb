@@ -93,7 +93,9 @@ class JobsController < ApplicationController
   def email_job
     email_address = params[:email_address]
     job = Job.find(params[:job_id])
-    puts "made it to email job template, email addy is #{email_address} and job is #{job.title}"
+    message = params[:message][:text]
+    JobMailer.share_job(email_address, job, message).deliver
+    redirect_to jobs_url, success: "Thanks for Sharing!"
   end
 
   def vetswhocode_json_feed

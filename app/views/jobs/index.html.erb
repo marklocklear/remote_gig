@@ -47,19 +47,17 @@
                   </header>
                   <main class="modal__content" id="modal-1-content">
                     <p>
-                    Enter an email below to send this job to yourself or a friend.
+                    Enter an email below to send this job to a friend.
                     <%= form_tag({controller: "jobs",
                                   action: "email_job",
                                   job_id: job.id},
                                   method: "post") do %>
-                    <%= text_field_tag(:email_address, nil, placeholder: 'Email Address', :job_id => job.id) %>
+                    <p><%= text_field_tag(:email_address, nil, placeholder: 'Email Address', :job_id => job.id)%></p>
+                    <p><%= text_area(:message, :text, placeholder: 'Optional Message',  size: "30x10") %></p>
                     <p><button>Send</button></p>
                   <% end %>
                     </p>
                   </main>
-                  <footer class="modal__footer">
-                    <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Close</button>
-                  </footer>
                 </div>
               </div>
             </div>

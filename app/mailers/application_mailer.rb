@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'admin@remotegig.io'
+  default from: 'RemoteGig.io <admin@remotegig.io>'
   layout 'mailer'
 end
