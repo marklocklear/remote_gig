@@ -92,27 +92,6 @@ task :get_jobs => :environment do
 	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
 	old_jobs_count = jobs_array.count
 
-	#redhat
-	sites_count += 1
-	spinner.update(title: 'Adding jobs from Redhat...')
-	spinner.auto_spin
-	url = 'https://redhat.jobs/jobs/feed/json'
-	response = HTTParty.get(url)
-	jobs = response.parsed_response
-
-	jobs.each do |j|
-		if j["city"] == "Remote" && j["country_short"] == "USA"
-			title = j["title"]
-			link = j["url"]
-			description = j["description"]
-			company = "Redhat"
-			jobs_array << [title, link, description, company]
-		end
-	end
-	spinner.stop("#{jobs_array.count - old_jobs_count} Redhat jobs have been added!")
-	file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
-	old_jobs_count = jobs_array.count
-
 	#zapier
 	sites_count += 1
 	spinner.update(title: 'Adding jobs from Zapier...')
