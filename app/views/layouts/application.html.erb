@@ -49,33 +49,36 @@
 
         <ul class="nav__list">
             <li class="nav__item">
-                <a class="nav__link c-blue" data-dialog="maildialog" class="mailtrigger" style="font-size:24px"><i class="fa fa-envelope"></i></a>
+                <a class="nav__link c-blue" data-dialog="maildialog" class="mailtrigger" style="font-size:24px"><i class="fa fa-envelope" title="Mail List"></i></a>
             </li>
             <li class="nav__item">
-                <a class="nav__link c-yellow scrolly" style="font-size:24px" href="https://twitter.com/myremotegig" target="_blank"><i class="fa fa-twitter"></i></a>
+                <a class="nav__link c-yellow scrolly" style="font-size:24px" href="https://twitter.com/myremotegig" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a>
             </li>
             <li class="nav__item">
-                <a class="nav__link c-red" style="font-size:24px" href="https://github.com/marklocklear/remote_gig" target="_blank"><i class="fa fa-github"></i></a>
+                <a class="nav__link c-red" style="font-size:24px" href="https://github.com/marklocklear/remote_gig" target="_blank"><i class="fa fa-github" title="Github"></i></a>
             </li>
             <li class="nav__item">
-                <a class="nav__link c-green" style="font-size:24px" href="/jobs.json" target="_blank"><i class="fa fa-rss" ></i></a>
+                <a class="nav__link c-green" style="font-size:24px" href="/jobs.json" target="_blank"><i class="fa fa-rss" title="Feed"></i></a>
             </li>
                 <li class="nav__item">
-                <a class="nav__link c-green"><i class="fa fa-search" search-dialog="searchdialog" class="searchtrigger" style="font-size:24px"></i></a>
+                <a class="nav__link c-green"><i class="fa fa-search" search-dialog="searchdialog" class="searchtrigger" style="font-size:24px" title="Search"></i></a>
             </li>
             <li class="nav__item">
-                <a class="nav__link c-green" style="font-size:24px" href="/stats" target="_blank"><i class="fa fa-bar-chart" ></i></a>
+                <a class="nav__link c-green" style="font-size:24px" href="/stats" target="_blank"><i class="fa fa-bar-chart" title="Stats"></i></a>
             </li>
             <% if current_user %>
                 <li class="nav__item">
-                    <a class="nav__link c-green" style="font-size:24px"
+                    <a title="Log Out" class="nav__link c-green" style="font-size:24px"
                     <%= link_to '<i class="fa fa-user-times" ></i>'.html_safe, destroy_user_session_path, method: :get %></a>
                 </li>
             <% else %>
                 <li class="nav__item">
-                    <a class="nav__link c-green" style="font-size:24px" href="/users/sign_in"><i class="fa fa-user" ></i></a>
+                    <a class="nav__link c-green" style="font-size:24px" href="/users/sign_in"><i class="fa fa-user" title="Login"></i></a>
                 </li>
             <% end %>
+            <li class="nav__item">
+                <a class="nav__link c-red" style="font-size:24px" href="https://www.buymeacoffee.com/874yamw" target="_blank"><i class="fa fa-coffee" title="Buy Me Coffee"></i></a>
+            </li>
         </ul>
     </nav>
   <%= render "layouts/add_to_mail_list_dialog" %>
