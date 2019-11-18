@@ -18,7 +18,7 @@
             <%= link_to(user_jobs_path(job_id: job.id, user_id: current_user), method: "post") do %>
               <i class="fa fa-heart" title="Save to my jobs"></i>
             <% end %>
-            <i class="fa fa-share" data-micromodal-trigger="modal-<%=job.id%>" title="Share this job"></i>
+            <!-- <i class="fa fa-share" data-micromodal-trigger="modal-<%=job.id%>" title="Share this job"></i> -->
           </div>
           <% job.tags.each do |tag| %>
             <div class="tag"><%= link_to(tag, jobs_path(tag: tag.name), method: :get) %></div>
