@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get '/stats', :to => redirect('/nightly_stats.txt')
   resources :jobs do
   	collection do
-  		post :email_signup
+  		# post :email_signup
       # post :email_job
   	end
   end
