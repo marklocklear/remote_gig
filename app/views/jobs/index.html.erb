@@ -48,14 +48,7 @@
                   <main class="modal__content" id="modal-<%=job.id%>-content">
                     <p>
                     Enter an email address below to share this job to a friend.
-                    <%= form_tag({controller: "jobs",
-                                  action: "email_job",
-                                  job_id: job.id},
-                                  method: "post") do %>
-                    <p><%= text_field_tag(:email_address, nil, placeholder: 'Email Address', :job_id => job.id)%></p>
-                    <p><%= text_area(:message, :text, placeholder: 'Optional Message',  size: "30x10") %></p>
-                    <p><button class="btn">Send</button></p>
-                  <% end %>
+                    
                     </p>
                   </main>
                 </div>

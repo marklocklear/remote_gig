@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :jobs do
   	collection do
   		post :email_signup
-      post :email_job
+      # post :email_job
   	end
   end
   get 'myjobs' => 'user_jobs#index'
