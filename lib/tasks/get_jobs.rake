@@ -353,23 +353,6 @@ task :get_jobs => :environment do
   file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
   old_jobs_count = jobs_array.count
 
-  #7cups
-	spinner.update(title: 'Adding jobs from 7cups...')
-	spinner.auto_spin
-	url = "https://boards.greenhouse.io/embed/job_board?for=7cups"
-	doc = Nokogiri::XML(open(url))
-
-	doc.css('.opening').each do |char_element|
-		title = char_element.children.text.gsub("Remote", "").delete("\n")
-		link = char_element.children[1][:href]
-		description = link
-		company = '7Cups'
-		jobs_array << [title, link, description, company]
-	end
-	spinner.stop("#{jobs_array.count - old_jobs_count} HashCorp jobs have been added!")
-  file.puts "#{Time.now}: #{jobs_array.count - old_jobs_count} jobs added from #{url}"
-  old_jobs_count = jobs_array.count
-
 	#shuffle array (for ramdomness) and create jobs
 	spinner.update(title: 'Shuffling and creating jobs...')
 	spinner.auto_spin
