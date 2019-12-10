@@ -90,14 +90,6 @@ class JobsController < ApplicationController
       redirect_to jobs_url, error: e
   end
 
-  def email_job
-    email_address = params[:email_address]
-    job = Job.find(params[:job_id])
-    message = params[:message][:text]
-    JobMailer.share_job(email_address, job, message).deliver
-    redirect_to jobs_url, success: "Thanks for Sharing!"
-  end
-
   def vetswhocode_json_feed
     @jobs = Job.where("title ilike ?", "%junior%")
     respond_to do |format|
