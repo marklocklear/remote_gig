@@ -18,7 +18,19 @@
             <%= link_to(user_jobs_path(job_id: job.id, user_id: current_user), method: "post") do %>
               <i class="fa fa-heart" title="Save to my jobs"></i>
             <% end %>
-            <!-- <i class="fa fa-share" data-micromodal-trigger="modal-<%=job.id%>" title="Share this job"></i> -->
+            <ul>
+              <li class="dropdown">
+                <i onclick="myFunction(<%=job.id%>)" class="dropbtn">...</i>
+                <div id="myDropdown-<%=job.id%>" class="dropdown-content">
+                  <%= mail_to("", "Share via Email" ,
+                              subject: job.title,
+                              body: "I found this job on RemoteGig.io: " + strip_tags(job.title) +
+                              "Find out more at " + strip_tags(job.url)) %>
+                  <a href="#">Share via Twitter</a>
+                  <a href="#">Share via Facebook</a>
+                </div>
+              </li>
+            </ul>
           </div>
           <% job.tags.each do |tag| %>
             <div class="tag"><%= link_to(tag, jobs_path(tag: tag.name), method: :get) %></div>

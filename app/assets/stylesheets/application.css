@@ -32,11 +32,12 @@ td {
 
 .job {
 	max-width: 630px;
-	color: #07C;
+	/*color: #07C;*/
 	font-size: 15px;
 	font-weight: bold;
 	line-height: 17px;
 	margin-right: 17px;
+	display: flex;
 }
 
 .notes {
