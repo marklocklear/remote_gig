@@ -1,5 +1,4 @@
-function myFunction(job_id) {
-  console.log("job id is: ", job_id)
+function shareJob(job_id) {
     document.getElementById("myDropdown-" + job_id).classList.toggle("show");
 }
 

@@ -2,9 +2,9 @@
     padding: 16px;
 }
 
-/*.dropbtn:hover, .dropbtn:focus {
-    background-color: lightgrey;
-}*/
+.dropbtn:hover, .dropbtn:focus {
+    /*background-color: lightgrey;*/
+}
 
 .dropdown {
     position: relative;
