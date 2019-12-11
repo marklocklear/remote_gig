@@ -32,6 +32,7 @@
                                                                strip_tags(job.title) +
                                                               " Find out more at: ",
                                                      :url => strip_tags(job.url),
+                                                     :hashtags => job.tags.map { |tag| tag.to_s }.join(","),
                                                      :tubolinks => true }) %>
                   <a href="#">Share via Facebook</a>
                 </div>
