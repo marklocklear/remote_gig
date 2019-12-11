@@ -40,6 +40,8 @@ gem 'jquery-rails'
 #interface to the MailChimp API
 gem "gibbon"
 
+# inserts social media share links
+gem 'shareable'
 gem "twitter"
 gem "font-awesome-rails"
 gem 'httparty'

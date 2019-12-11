@@ -292,6 +292,9 @@ GEM
     selenium-webdriver (3.142.6)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    shareable (1.1.4)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     signet (0.12.0)
       addressable (~> 2.3)
       faraday (~> 0.9)
@@ -390,6 +393,7 @@ DEPENDENCIES
   rails (~> 6.0.0)
   sass-rails (~> 5.0)
   selenium-webdriver
+  shareable
   spring
   spring-watcher-listen (~> 2.0.0)
   tty-spinner
@@ -405,4 +409,4 @@ RUBY VERSION
    ruby 2.6.4p104
 
 BUNDLED WITH
-   1.17.2
+   1.17.3
