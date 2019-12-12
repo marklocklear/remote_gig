@@ -33,7 +33,14 @@
                                                               "Find out more at:\n",
                                                      :url => strip_tags(job.url),
                                                      :tubolinks => true }) %>
-                  <a href="#">Share via Facebook</a>
+                  <%= render_shareable(:static_link => true,
+                                       :buttons => ['facebook'],
+                                       :twitter => { :button_caption => 'Share via Facebook',
+                                                     :text => "I found this job on RemoteGig.io:\n" +
+                                                               strip_tags(job.title) + "\n" +
+                                                              "Find out more at:\n",
+                                                     :url => strip_tags(job.url),
+                                                     :tubolinks => true }) %>
                 </div>
               </li>
           </div>
