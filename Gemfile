@@ -41,7 +41,6 @@ gem 'jquery-rails'
 gem "gibbon"
 
 # inserts social media share links
-gem 'shareable'
 gem "twitter"
 gem "font-awesome-rails"
 gem 'httparty'
