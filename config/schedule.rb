@@ -19,12 +19,17 @@
 
 # Learn more: http://github.com/javan/whenever
 
-#get fresh jobs
+# get fresh jobs
 every 1.day, at: '2:30 am' do
-	rake "get_jobs"
+  rake 'get_jobs'
 end
 
-#send a tweet
+# send a tweet
 every 1.day, at: '2:30 pm' do
-	rake "send_tweet"
+  rake 'send_tweet'
+end
+
+# update changelog
+every 1.day, at: '3:00 am' do
+  rake 'chagelog'
 end

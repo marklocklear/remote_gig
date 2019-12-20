@@ -10,12 +10,13 @@ Rails.application.routes.draw do
       get :get_archived_jobs
     end
   end
-  get '/stats', :to => redirect('/nightly_stats.txt')
+  get '/stats', to: redirect('/nightly_stats.txt')
+  get '/changelog', to: redirect('/changelog.txt')
   resources :jobs do
-  	collection do
-  		# post :email_signup
+    collection do
+      # post :email_signup
       # post :email_job
-  	end
+    end
   end
   get 'myjobs' => 'user_jobs#index'
   get 'vetswhocode' => 'jobs#vetswhocode_json_feed'
