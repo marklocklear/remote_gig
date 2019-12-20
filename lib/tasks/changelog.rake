@@ -16,12 +16,12 @@ task changelog: :environment do
   commits_json = Nokogiri::HTML(open(url)).css('p').text
   commits_hashes = JSON.parse(commits_json)
 
-  file.puts "#{commits_hashes.count} commits since #{1.month.ago}:\n"
+  file.puts "#{commits_hashes.count} commits since #{1.month.ago}:\n\n"
 
   commits_hashes.each do |commit|
     commit = ActiveSupport::HashWithIndifferentAccess.new(commit) # allows #dig()
     date = commit.dig(:commit, :author, :date)
-    message = commit.dig(:commit, :message).gsub(/\n\n/, ': ')
+    message = commit.dig(:commit, :message).sub(/\n\n/, ': ')
     file.puts date + ' ' + message
   end
 
