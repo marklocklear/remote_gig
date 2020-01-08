@@ -360,6 +360,9 @@ task :get_jobs => :environment do
 		Job.create_job(job[0], job[1], job[2], job[3])
 	end
 
+	#send email with job creation status
+  ApplicationMailer.status_email(file).deliver
+
   #send tweet
   client = Twitter::REST::Client.new do |config|
 	config.consumer_key        = ENV['TWITTER_API_KEY']

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <% if Job.count == 0 %>
+      <h1>FAILURE in RemoteGig Nightly Stats</h1>
+      <p>
+        There were <%= Job.count %> jobs added to the DB.
+      </p>
+    <% else %>
+      <h1>RemoteGig Nightly Stats</h1>
+      <p>
+        There were <%= Job.count %> jobs added to the DB.
+      </p>
+    <% end %>
+  </body>
+</html>
