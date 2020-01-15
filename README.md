@@ -12,7 +12,6 @@ Vanilla Rails app. Follow these steps to run locally:
 Most jobs are pulled from rss or json feeds, but some (like Mozilla) are using Nokogiri to pull/parse html. Here is a compresensive list of job pages:
 * Weworkremotely | https://weworkremotely.com/categories/remote-programming-jobs.rss
 * Stackoverflow | https://stackoverflow.com/jobs/feed?l=Remote
-* Redhat | https://stackoverflow.com/jobs/feed?l=Remote
 * Zapier | https://zapier.com/jobs/feeds/latest/
 * Mozilla | https://careers.mozilla.org/listings/?location=Remote
 * Canonical (Ubuntu) | https://www.canonical.com/careers/all-vacancies
