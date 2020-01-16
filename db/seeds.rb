@@ -30,19 +30,24 @@ doc.xpath('//item').each do |item|
 	jobs_array << [title, link, description, company]
 end
 
-#7cups
-spinner.update(title: 'Adding jobs from 7cups...')
-spinner.auto_spin
-url = "https://boards.greenhouse.io/embed/job_board?for=7cups"
-doc = Nokogiri::XML(open(url))
+#canonical
+	spinner.update(title: 'Adding jobs from Canonical...')
+	spinner.auto_spin
+	url = "https://www.canonical.com/careers/all-vacancies"
+	doc = Nokogiri::HTML(open(url))
 
-doc.css('.opening').each do |char_element|
-	title = char_element.children.text.gsub("Remote", "").delete("\n")
-	link = char_element.children[1][:href]
-	description = link
-	company = '7Cups'
-	jobs_array << [title, link, description, company]
-end
+	doc.css('.p-list__item').each do |char_element|
+		link = "https://canonical.com/" + char_element.css('a')[0]['href']
+		location = char_element.css('p')[0].text
+		title = char_element.css('a')[0].text
+		job_page = Nokogiri::HTML(open(link))
+		description = job_page.css('ul')
+		company = "Ubuntu"
+
+		if location.include? "Home Based"
+			jobs_array << [title, link, description, company]
+		end
+	end
 
 #shuffle array (for ramdomness) and create jobs
 spinner.update(title: 'Shuffling and creating jobs...')
