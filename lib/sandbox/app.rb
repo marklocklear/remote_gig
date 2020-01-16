@@ -1,13 +1,22 @@
 require 'open-uri'
 require 'nokogiri'
 
-url = "https://boards.greenhouse.io/embed/job_board?for=7cups"
-doc = Nokogiri::XML(open(url))
+url = "https://www.canonical.com/careers/all-vacancies"
+doc = Nokogiri::HTML(open(url))
 
-doc.css('.opening').each do |char_element|
-	puts "*********"
-	title = char_element.children.text.gsub("Remote", "").delete("\n")
-	link = char_element.children[1][:href]
-	puts title 
-	puts link
+doc.css('.p-list__item').each do |char_element|
+	# puts char_element.css('a')[0].inspect
+	link = "https://canonical.com/" + char_element.css('a')[0]['href']
+	location = char_element.css('p')[0].text
+	title = char_element.css('a')[0].text
+	job_page = Nokogiri::HTML(open(link))
+	description = job_page.css('ul')
+	company = "Ubuntu"
+
+	# puts description
+
+	if location.include? "Home Based"
+		# jobs_array << [title, link, description, company]
+		# puts description
+	end
 end
