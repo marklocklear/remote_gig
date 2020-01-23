@@ -25,7 +25,7 @@ task :get_jobs => :environment do
 		begin
 			jobs += site_instance.get_jobs
 		rescue
-			puts "Send email about failure"
+			ApplicationMailer.site_failure_email(site).deliver
 		end
 	end
 

@@ -4,7 +4,7 @@ require 'nokogiri'
 class CleverTech
 	def get_jobs
 		jobs = []
-		url = "https://www.clevertech.biz/careers"
+		url = "https://www.cleertech.biz/careers"
 		doc = Nokogiri::HTML(open(url))
 		listings = doc.css('.listings')
 
