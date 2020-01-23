@@ -1,7 +1,7 @@
 require 'open-uri'
 require 'nokogiri'
 
-class WeWorkRemotely
+class WeWorkRemotelyProgramming
 	def get_jobs
 		jobs = []
 		url = "https://weworkremotely.com/categories/remote-programming-jobs.rss"

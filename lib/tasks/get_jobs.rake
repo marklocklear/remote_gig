@@ -22,7 +22,11 @@ task :get_jobs => :environment do
 	sites.each do |site|
 		site = site.camelize #camel case file name so it matches class name
 		site_instance = site.constantize.new
-		jobs << site_instance.get_jobs
+		begin
+			jobs += site_instance.get_jobs
+		rescue
+			puts "Send email about failure"
+		end
 	end
 
 	jobs.shuffle.each do |job|
