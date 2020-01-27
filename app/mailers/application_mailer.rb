@@ -6,4 +6,9 @@ class ApplicationMailer < ActionMailer::Base
   	@file = file
 		mail(to: "admin@remotegig.io", subject: 'Nightly Stats')
   end
+
+   def site_failure_email(site)
+  	@site = site
+		mail(to: "admin@remotegig.io", subject: 'get_jobs task Failure')
+  end
 end
