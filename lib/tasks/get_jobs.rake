@@ -53,6 +53,9 @@ task :get_jobs => :environment do
 		rescue
 			ApplicationMailer.site_failure_email(site).deliver
 		end
+		spinner.stop("#{jobs.count - old_jobs_count} #{site} jobs have been added!")
+		file.puts "#{Time.now}: #{jobs.count} jobs added from #{site}"
+		old_jobs_count = jobs.count
 	end
 
 	#shuffle array (for ramdomness) and create jobs
