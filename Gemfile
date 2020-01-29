@@ -70,6 +70,9 @@ gem 'exception_notification'
 #pagination
 gem 'will_paginate'
 
+#allows better web scraping for JS based sites
+gem 'kimurai'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
