@@ -8,8 +8,7 @@ class TaxJar < Kimurai::Base
   @start_urls = ["https://apply.workable.com/taxjar/"]
 
   def parse(response, url:, data: {})
-  jobs = Array.new
-
+    jobs = Array.new
     doc = browser.current_response
     returned_jobs = doc.css('.careers-jobs-list-styles__jobsList--3_v12')
     returned_jobs.css('li').each do |char_element|
@@ -20,9 +19,7 @@ class TaxJar < Kimurai::Base
       browser.visit(link)
       job_page = browser.current_response
       description = job_page.xpath('/html/body/div[1]/div/div[1]/div[2]/div[2]/div[2]').text
-      # description = link
       company = 'TaxJar'
-      puts "title is: #{title}, link is: #{link}, \n description is: #{description}"
       jobs << [title, link, description, company]
     end
     return jobs

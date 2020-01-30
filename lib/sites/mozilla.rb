@@ -5,7 +5,7 @@ class Mozilla
 	def get_jobs
 		jobs = []
 
-		url = "https://careers.mozilla.org/listings/?location=Remote"
+		url = "https://careers.mozilla.org/listings/"
 		doc = Nokogiri::HTML(open(url))
 
 		doc.css('.position').each do |char_element|
