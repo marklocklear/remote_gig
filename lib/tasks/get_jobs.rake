@@ -54,7 +54,7 @@ task :get_jobs => :environment do
 			ApplicationMailer.site_failure_email(site).deliver
 		end
 		spinner.stop("#{jobs.count - old_jobs_count} #{site} jobs have been added!")
-		file.puts "#{Time.now}: #{jobs.count} jobs added from #{site}"
+		file.puts "#{Time.now}: #{jobs.count - old_jobs_count} jobs added from #{site}"
 		old_jobs_count = jobs.count
 	end
 
