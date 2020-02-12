@@ -1,29 +1,38 @@
 require 'open-uri'
 require 'nokogiri'
-require 'json'
+require 'kimurai'
 
-jobs = []
-		url = "https://boards.greenhouse.getrake.io/digitalocean98/"
-		doc = Nokogiri::HTML(open(url))
-		response = doc.to_s.match(/(?<=JSON.parse)(.*)null/)
+class TaxJar < Kimurai::Base
+  @name = "tax_jar"
+  @engine = :selenium_chrome
+  @start_urls = ["https://apply.workable.com/taxjar/"]
 
-#this is so ugly I can hardly stand it; the regex above is as close as I could get to parse
-#the json out of the URL, then below I needed to remove the first two characters from the
-#beginning, and appeand brackets and curlies onto the end to make it valid/parsable json
+  def parse(response, url:, data: {})
+    jobs = Array.new
+    doc = browser.current_response
+    returned_jobs = doc.css('.careers-jobs-list-styles__jobsList--3_v12')
+    if returned_jobs
+	    returned_jobs.css('li').each do |char_element|
+	      title = char_element.css('a')[0]['aria-label']
+	      link = "https://apply.workable.com" + char_element.css('a')[0]['href']
 
-		jobs = JSON.parse(response.to_s.sub(/^../, '') + '}]}]')
-		blarg = []
-		jobs.each do |j|
-			if j["location"]["name"].include? "Remote"
-				title = j["title"]
-				link = j["absolute_url"]
-				description = j['absolute_url']
-				company = "Digital Ocean"
-				blarg << [title, link, description, company]
-			end
+	      #click on job link and get description
+	      browser.visit(link)
+	      job_page = browser.current_response
+	      description = job_page.xpath('/html/body/div[1]/div/div[1]/div[2]/div[2]/div[2]').text
+	      company = 'TaxJar'
+	      jobs << [title, link, description, company]
+	    end
+	    return jobs
+	   end
+  end
 
-			blarg.each do |j|
-				puts "job"
-				puts j.inspect
-			end
-		end	
+  def get_jobs
+    jobs = TaxJar.parse!(:parse, url: "https://apply.workable.com/taxjar/")
+    return jobs
+  end
+end
+
+blarg = TaxJar.new
+jobs = blarg.get_jobs
+puts jobs
