@@ -1,0 +1,28 @@
+#removed these jobs cuz they are mostly junk
+require 'open-uri'
+require 'nokogiri'
+
+class HashCorp
+	def get_jobs
+		jobs = []
+		url = "https://www.hashicorp.com/jobs#positions"
+	  doc = Nokogiri::HTML(open(url))
+	  returned_jobs = doc.css('.g-basic-list')
+
+	  returned_jobs.css('li').each do |char_element|
+	    title = char_element.text
+	    if title.include? 'Remote'
+	      url[25..40] = "" #remove characters from URL string to for job link creation
+	      link = url + char_element.css('a').first['href']
+	      job_page = Nokogiri::HTML(open(link.to_s))
+	      description1 = job_page.xpath('/html/body/main/div[2]/div[2]/ul[1]').text
+	      description2 = job_page.xpath('/html/body/main/div[2]/div[2]/ul[2]').text
+	      description3 = job_page.xpath('/html/body/main/div[2]/div[2]/ul[3]').text
+	      description = description1 + "\n" + description2 + "\n" + description3
+	      company = 'HashCorp'
+	      jobs << [title, link, description, company]
+	    end
+	  end	
+		return jobs
+	end
+end
