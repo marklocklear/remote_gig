@@ -12,6 +12,7 @@ class TaxJar < Kimurai::Base
     doc = browser.current_response
     returned_jobs = doc.css('.careers-jobs-list-styles__jobsList--3_v12')
     if returned_jobs
+      puts "made it"
 	    returned_jobs.css('li').each do |char_element|
 	      title = char_element.css('a')[0]['aria-label']
 	      link = "https://apply.workable.com" + char_element.css('a')[0]['href']
