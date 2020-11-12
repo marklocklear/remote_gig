@@ -9,15 +9,25 @@ class JobsController < ApplicationController
       @jobs = Job.paginate(page: params[:page])
     else
       @jobs = Job.all.includes(:tags)
+
+      #search by keyword
       if params[:search_term]
         @search_term = params[:search_term].downcase
         @jobs = Job.search_results(@search_term)
       end
 
+      #search by tag
       if params[:tag]
         @search_term = params[:tag]
         @jobs = Job.tagged_with(@search_term)
       end
+
+      #search by company name
+      if params[:company_name_search]
+        @search_term = params[:company_name_search].downcase
+        @jobs = Job.company_search(@search_term)
+      end
+
     end 
     respond_to do |format|
       format.html

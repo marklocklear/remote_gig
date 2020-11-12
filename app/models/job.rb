@@ -93,6 +93,10 @@ TAGS = ['ruby', 'elixir', 'phoenix', 'php', 'react', 'ruby on rails', ' ember', 
            "%#{search_term}%", "%#{search_term}%", "%#{search_term}%")
 	end
 
+	def self.company_search(search_term)
+		where("LOWER(company) LIKE ?", "%#{search_term}%")
+	end
+
 	def self.email_signup(email_address)
 		
 		# variable.attributes['Data']
