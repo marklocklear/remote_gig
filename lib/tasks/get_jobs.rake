@@ -3,6 +3,8 @@ require 'nokogiri'
 
 sites =[]
 jobs = []
+company_names = [] #used to set the multiple_jobs flag to true/false
+#https://stackoverflow.com/questions/8921999/how-to-find-and-return-a-duplicate-value-in-array
 
 Dir["lib/sites/*.rb"].each do |file|
 	load file
