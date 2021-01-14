@@ -5,8 +5,7 @@
     </tr>
   </thead>
   <% if @search_term %>
-    <div class="company">There are <b><%= @jobs.count %></b> that inlcude <b><%= @search_term %></b> in the title or description
-    </div>
+   There are <b><%= @jobs.count %></b> that inlcude <b><%= @search_term %></b> in this search.
     <br>
     <%= button_to "Back to Home", jobs_path, method: :get, class: "reset_search_button" %>
   <% end %>
@@ -33,8 +32,12 @@
           <% job.tags.each do |tag| %>
             <div class="tag"><%= link_to(tag, jobs_path(tag: tag.name), method: :get) %></div>
           <% end %>
-          <div class="company"><%= job.company %>
-            <% badges = Job.get_badges(job.company) %>
+          <% if job.multiple_jobs %>
+             <div class="company"><%= link_to(job.company, 'jobs?company_name_search=' + job.company) %>
+          <% else %>
+            <div class="company"><%= job.company %>
+          <% end %>
+          <% badges = Job.get_badges(job.company) %>
             <% badges.each do |b| %>
               <%= b %>
             <% end %>

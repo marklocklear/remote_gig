@@ -23,6 +23,7 @@ class JobsController < ApplicationController
       end
 
       #search by company name
+      #route is http://localhost:3000/jobs?company_name_search=coder
       if params[:company_name_search]
         @search_term = params[:company_name_search].downcase
         @jobs = Job.company_search(@search_term)

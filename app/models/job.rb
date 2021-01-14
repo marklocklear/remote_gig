@@ -39,9 +39,9 @@ TAGS = ['ruby', 'elixir', 'phoenix', 'php', 'react', 'ruby on rails', ' ember', 
 	  		'django', 'azure', 'kotlin', ' rust', 'postgres', 'c++', 'wordpress', 'moodle', 'drupal',
 	  		'adobe', 'laravel', 'nativescript', 'typescript', 'angular']
 
-  def self.create_job(title, link, description, company)
-		description = description.to_s.gsub(',', ' ').gsub('/', ' ')
-  	job = Job.create title: title, url: link, description: description, company: company
+  def self.create_job(title, link, description, company, multiple_jobs_flag)
+	description = description.to_s.gsub(',', ' ').gsub('/', ' ')
+  	job = Job.create title: title, url: link, description: description, company: company, multiple_jobs: multiple_jobs_flag
   	self.add_tags(job)
   end
 
