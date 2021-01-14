@@ -60,11 +60,22 @@ task :get_jobs => :environment do
 		old_jobs_count = jobs.count
 	end
 
+	#add all companies to company_names array
+	jobs.each do |job|
+		company_names << job[3]
+	end
+
 	#shuffle array (for ramdomness) and create jobs
 	spinner.update(title: 'Shuffling and creating jobs...')
 	spinner.auto_spin
 	jobs.shuffle.each do |job|
-		Job.create_job(job[0], job[1], job[2], job[3])
+	#search company array and if name appears more then once the set multiple_jobs flag to true
+	if company_names.count(job[3]) > 1
+		job[4] = true
+	else
+		job[4] = false
+	end
+		Job.create_job(job[0], job[1], job[2], job[3], job[4])
 	end
 
 	#send email with job creation status
