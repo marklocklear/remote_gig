@@ -18,7 +18,7 @@ end
 desc "send random tag tweet"
 task send_tag_tweet: :environment do
 		random_tag = ActsAsTaggableOn::Tag.select(:name).map(&:name).uniq.sample
-		url = 'remotegig.io/' + random_tag
+		url = 'http://remotegig.locklear.me/' + random_tag
 		hashtag = random_tag
 
 		#if random_tag has spaces then turn it into a query string type url and also make it into a pretty hashtag
