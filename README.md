@@ -1,5 +1,5 @@
 # README
-http://remotegig.io/
+https://remotegig.locklear.me/
 
 Rails app that pulls jobs from various job and company website. See the list in lib/tasks/get_jobs.rake. get_jobs.rake is a rake task that runs nightly.
 
