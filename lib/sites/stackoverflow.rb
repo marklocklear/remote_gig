@@ -5,7 +5,7 @@ class Stackoverflow
 	def get_jobs
 		jobs = []
 		url = "https://stackoverflow.com/jobs/feed?l=Remote"
-		doc = Nokogiri::XML(open(url))
+		doc = Nokogiri::XML(URI.open(url))
 
 		doc.xpath('//item').each do |item|
 			title = item.xpath('title').text.split(' at ').first
