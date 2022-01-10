@@ -29,6 +29,10 @@ task send_tag_tweet: :environment do
 			url = 'https://remotegig.locklear.me/jobs?tag=' + random_tag.to_s
 		end
 
-		tweet_of_the_day = "Got ##{hashtag} skills? Check out these remote jobs #{url} #remoteWork #gotRemote"
+		if hashtag == "UnlimitedVacation"
+			tweet_of_the_day = "Want ##{hashtag}? Check out these remote jobs #{url} #remoteWork #gotRemote"
+		else
+			tweet_of_the_day = "Got ##{hashtag} skills? Check out these remote jobs #{url} #remoteWork #gotRemote"
+		end
 	  @client.update(tweet_of_the_day)
 end
