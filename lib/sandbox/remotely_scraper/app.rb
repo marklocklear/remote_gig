@@ -4,7 +4,7 @@ require 'nokogiri'
 jobs_array = Array.new
 
 	#weworkremotely programming jobs
-	doc = Nokogiri::XML(open("https://weworkremotely.com/categories/remote-programming-jobs.rss"))
+	doc = Nokogiri::XML(URI.open("https://weworkremotely.com/categories/remote-programming-jobs.rss"))
 
 	doc.xpath('//item').each do |char_element|
 		title = char_element.xpath('title').text.split(':').last

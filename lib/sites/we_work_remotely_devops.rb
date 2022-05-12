@@ -5,7 +5,7 @@ class WeWorkRemotelyDevops
 	def get_jobs
 		jobs = []
 		url = "https://weworkremotely.com/categories/remote-devops-sysadmin-jobs.rss"
-		doc = Nokogiri::XML(open(url))
+		doc = Nokogiri::XML(URI.open(url))
 
 		doc.xpath('//item').each do |char_element|
 			title = char_element.xpath('title').text.split(':').last
