@@ -53,7 +53,7 @@ task :get_jobs => :environment do
 		begin
 			jobs += site_instance.get_jobs
 		rescue
-			ApplicationMailer.site_failure_email(site).deliver
+			# ApplicationMailer.site_failure_email(site).deliver
 		end
 		spinner.stop("#{jobs.count - old_jobs_count} #{site} jobs have been added!")
 		file.puts "#{Time.now}: #{jobs.count - old_jobs_count} jobs added from #{site}"
@@ -79,7 +79,7 @@ task :get_jobs => :environment do
 	end
 
 	#send email with job creation status
-  ApplicationMailer.status_email(file).deliver
+  # ApplicationMailer.status_email(file).deliver
 
   spinner.stop('All done!')
   file.puts "#{Time.now} All done!"
