@@ -1,42 +1,22 @@
-require 'open-uri'
-require 'nokogiri'
-require 'kimurai'
+require 'httparty'
 
-class TaxJar < Kimurai::Base
-  @name = "tax_jar"
-  @engine = :selenium_chrome
-  @start_urls = ["https://apply.workable.com/taxjar/"]
-
-  def parse(response, url:, data: {})
-    jobs = Array.new
-    doc = browser.current_response
-    puts doc.inspect
-    returned_jobs = doc.css('#level-0')
-    puts returned_jobs.inspect
-    if returned_jobs.any?
-      returned_jobs.css('#opening').each do |char_element|
-        title = char_element.css('a')[0]['aria-label']
-        link = "https://apply.workable.com" + char_element.css('a')[0]['href']
-
-        #click on job link and get description
-        browser.visit(link)
-        job_page = browser.current_response
-        description = job_page.xpath('/html/body/div[1]/div/div[1]/div[2]/div[2]/div[2]').text
-        company = 'TaxJar'
-        jobs << [title, link, description, company]
-      end
-      return jobs
-    else
-      return 0
-    end
-  end
-
-  def get_jobs
-    jobs = TaxJar.parse!(:parse, url: "https://apply.workable.com/taxjar/")
-    return jobs
+url = "https://www.themuse.com/api/public/jobs?category=Computer%20and%20IT&category=Data%20Science&category=Design%20and%20UX&category=IT&category=Software%20Engineer&location=Flexible%20%2F%20Remote&page=1&api_key=" + ENV['THE_MUSE']
+response = HTTParty.get(url)
+content = response.parsed_response
+page_count = content["page_count"]
+blarg = Array.new
+  # puts "page count: " + jobs["page_count"].inspect
+page_count.times do |page|
+  url = 'https://www.themuse.com/api/public/jobs?category=Computer%20and%20IT&category=Data%20Science&category=Design%20and%20UX&category=IT&category=Software%20Engineer&location=Flexible%20%2F%20Remote&page=' + page.to_s + '&' + ENV['THE_MUSE']
+  response = HTTParty.get(url)
+  jobs = response.parsed_response
+  jobs["results"].each do |j|
+      title = j["name"]
+      link = j["refs"]["landing_page"]
+      description = j["contents"]
+      company = j["company"]["name"]
+      blarg << [title, company, description, link]
   end
 end
 
-blarg = TaxJar.new
-jobs = blarg.get_jobs
-puts jobs
+  puts blarg
