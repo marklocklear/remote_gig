@@ -2,7 +2,6 @@ require 'httparty'
 
 class TheMuse
   def get_jobs
-    puts "env is: " + ENV['THE_MUSE']
     url = "https://www.themuse.com/api/public/jobs?category=Computer%20and%20IT&category=Data%20Science&category=IT&category=Software%20Engineer&location=Flexible%20%2F%20Remote&page=1&api_key=" + ENV['THE_MUSE']
     response = HTTParty.get(url)
     content = response.parsed_response
