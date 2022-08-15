@@ -82,7 +82,6 @@ task :get_jobs => :environment do
   # ApplicationMailer.status_email(file).deliver
 
   spinner.stop('All done!')
-  file.puts "the muse env is: " + ENV['THE_MUSE']
   file.puts "#{Time.now} All done!"
   file.close
 
