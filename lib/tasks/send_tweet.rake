@@ -9,7 +9,7 @@ desc "send random job tweet"
 task send_job_tweet: :environment do	
 		#get random job from first 50 jobs
 		#this ensures a higher probabilty of a premium job being tweeted
-		random_job = Job.order_jobs.first(150).sample
+		random_job = Job.first
 		tweet_of_the_day = "Todays #remoteJob is from #{random_job.company}.
 												They are looking for a #{random_job.title}. Find out more at #{random_job.url} #remoteWork #gotRemote"
 	  @client.update(tweet_of_the_day)

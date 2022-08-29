@@ -105,6 +105,8 @@ TAGS = ['ruby', 'elixir', 'phoenix', 'php', 'react', 'ruby on rails', ' ember', 
     #TODO add checkbox after signup https://codepen.io/istiaktridip/pen/BZqaOd
 	end
 
+	#depricating this as of 29Aug22; no longer as I am no longer pulling jobs from most of these companies
+
 	#this method was an attempt to randomize  jobs, but was overengineering. Now we just
 	#shuffle jobs before creating them in get_jobs.rake
 	def self.order_jobs
