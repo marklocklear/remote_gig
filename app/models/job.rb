@@ -50,6 +50,8 @@ TAGS = ['ruby', 'elixir', 'phoenix', 'php', 'react', 'ruby on rails', ' ember', 
   		if (job.description.downcase || job.title.downcase).include? tag
   			job.tag_list.add(tag)
   			job.save
+  		elsif job.url.include?("4dayweek")
+  			job.tag_list.add("4dayWeek")
   		end
   	end
   end
