@@ -1,6 +1,3 @@
-
-# This project is no longer maintained and is going offline Spring of 2022; Thank you to all who contributed!
-
 # README
 https://remotegig.locklear.me/
 
